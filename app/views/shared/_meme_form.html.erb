@@ -1,0 +1,7 @@
+<%= form_for @meme, url: { controller: "memes", action: "create" } do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+  <span class="image">
+    <%= f.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
+  </span>
+  <p><%= f.submit %></p>
+<% end %>
