@@ -1,8 +1,7 @@
 class MemesController < ApplicationController
   require 'mini_magick'
   before_action :logged_in_user, only: [:create, :destroy]
-  
-  
+ 
   def show
     @user = User.find(params[:user_id])
     @meme = @user.memes.find(params[:id])
@@ -15,14 +14,11 @@ class MemesController < ApplicationController
   end
   
   def create
-    respond_to :js
+    # respond_to :js
 
     @meme = current_user.memes.build(meme_params)
     
     if @meme.save
-      if remotipart_submitted?
-        puts "IT WORKED!"
-      end
       flash[:success] = "Meme created!"
     else
       flash[:danger] = "Meme failed to be created."
@@ -35,6 +31,7 @@ class MemesController < ApplicationController
     @meme = @user.memes.find(params[:id])
     
     if @meme.destroy
+      @meme.remove_image!
       flash[:success] = "Meme deleted successfully"
     else
       flash[:danger] = "There was an error deleting the meme"

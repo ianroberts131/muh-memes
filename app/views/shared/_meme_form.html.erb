@@ -1,24 +1,32 @@
-<%= form_for(@meme, url: { controller: "memes", action: "create" }, remote: true, id: "meme-form") do |f| %>
+<%= form_for(@meme, url: { controller: "memes", action: "create" }, id: "meme-form") do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   <div class="form-group">
     <canvas id="canvas" class="hidden"></canvas>
     <p class="show" id="placeholder">
       <%= image_tag("/assets/image - placeholder.jpg", size: "300x300") %>
     </p>
-    
-    <label>Top Text:</label>
-    <input type="text" id="top-text" class="form-control" maxlength="50"><br/>
-    <label>Bottom Text:</label>
-    <input type="text" id="bottom-text" class="form-control" maxlength="50">
-    
     <span>
-      <%= f.file_field :image, accept: 'image/jpeg,image/gif,image/png', id: "meme-upload", class: "filestyle", 'data-classButton' => "btn btn-primary",
-                                                                                            'data-input' => 'false' %>
+      <%= f.text_field :image, id: "meme", class: "hidden" %>
     </span>
-    <span>
-      <%= f.label :remote_image_url, "or image URL" %><br />
-      <%= f.text_field :remote_image_url, id: "remote-meme-url" %>
-    </span>
+    
+    <div class='image-input'>
+      <span>
+        <%= f.file_field :dummy, accept: 'image/jpeg,image/gif,image/png', id: "image-upload", class: "filestyle", 'data-classButton' => "btn btn-primary",
+                                                                                              'data-input' => 'false' %>
+      </span>
+      <span>
+        <%= f.label :remote_image_url, "or image URL" %><br />
+        <%= f.text_field :remote_image_url, id: "remote-meme-url" %>
+      </span>
+    </div>
+    
+    <div class="text-input">
+      <label>Top Text:</label>
+      <input type="text" id="top-text" class="form-control" maxlength="50"><br/>
+      <label>Bottom Text:</label>
+      <input type="text" id="bottom-text" class="form-control" maxlength="50">
+    </div>
+    
     <p><%= f.submit "Meme it!", class: "btn btn-primary" %></p>
   </div>
 <% end %>

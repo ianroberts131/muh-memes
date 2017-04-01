@@ -4,9 +4,9 @@
 /* universal */
 
 body {
-  background-color: black;
+  // background-color: black;
   padding-top: 60px;
-  color: white;
+  // color: white;
 }
 
 .black-background {
@@ -36,7 +36,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-  color: white;
+  // color: white;
 }
 
 h2 {
@@ -45,13 +45,13 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: white;
+  // color: white;
 }
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
-  color: white;
+  // color: white;
 }
 
 /* header */
@@ -134,7 +134,7 @@ aside {
 /* forms */
 
 input, textarea, select, .uneditable-input {
-  border: 1px solid white;
+  border: 1px solid black;
   width: 100%;
   margin-bottom: 15px;
   @include box-sizing
@@ -217,5 +217,5 @@ input {
 }
 
 #meme-upload {
-  color: white;
+  color: black;
 }

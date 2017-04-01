@@ -1,68 +1,41 @@
 $(function() {
+  var imageUpload = $("#image-upload");
+  var remoteURL = $('#remote-meme-url');
   var canvas = document.getElementById("canvas");
   var ctx = canvas.getContext("2d");
   var MAX_WIDTH = 350;
   
-  function dataURLtoBlob(dataURL) {
-    var binary = atob(dataURL.split(',')[1]);
-    var array = [];
-    for (var i = 0; i < binary.length; i++) {
-      array.push(binary.charCodeAt(i));
-    }
-    return new Blob([new Uint8Array(array)], {type: 'image/png'});
-  }
-  
+  // On submit, change the meme/remote-URL value to that dataURL of the canvas
   $('form').submit(function(e) {
-    e.preventDefault()
-    var canvas = document.getElementById("canvas");
-    var dataURL = canvas.toDataURL("image/png");
-    var file = dataURLtoBlob(dataURL);
-    var form = document.getElementById('meme-form')
-    var formData = new FormData(form);
-    $.ajax({
-      type: 'POST',
-      url: $(this).attr('action'),
-      data: formData,
-      contentType: false,
-      dataType: "JSON"
-    }).success(function(json){
-      console.log("success", json);
-    });
+    var dataURL = canvas.toDataURL("image/png;base64;");
+    console.log("The remote URL is: ", remoteURL);
+    if (remoteURL.val() === "" ) {
+      $('#meme').val(dataURL);
+    } else {
+      $('#remote-meme-url').val(dataURL);
+    }
   });
   
-  // $('form').submit(function( event ) {
-  //   // event.preventDefault();
-  //   // Convert canvas image to Base64
-  //   console.log("TRIGGERED!")
-  //   var canvas = document.getElementById("canvas");
-  //   var dataURL = canvas.toDataURL("image/png");
-  //   console.log("The dataURL propoerty of the canvas is: ",dataURL)
-  //   $('#meme-upload')[0].files[0]= dataURL;
-  //   // console.log("The current value is: ", curValue)
-  //   // $('#remote-meme-url')[0].value = dataURL;
-    
-  // });
-  
+  // Local file upload image preview function
   function imgPrev(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       
       reader.onload = function(e) {
-        createCanvas(e.target.result);
+        drawImage(e.target.result);
       }
       reader.readAsDataURL(input.files[0]);
     }
   }
   
+  // Remote URL image preview function
   function urlPrev(input) {
-    createCanvas(input);
+    drawImage(input);
   }
   
-  function createCanvas(input) {
-    var image = new Image();
-    // image.crossOrigin = "Anonymous";
-    image.onload = function() {
-      if (image.width > MAX_WIDTH) {
+  // Function that resizes the image to fit the canvs
+  function resizeImage(image) {
+    if (image.width > MAX_WIDTH) {
         image.height *= MAX_WIDTH / image.width;
         image.width = MAX_WIDTH;
       }
@@ -70,11 +43,18 @@ $(function() {
       canvas.width = image.width;
       canvas.height = image.height;
       ctx.drawImage(image, 0, 0, image.width, image.height);
-      
-    }
-    image.src = input;
-  
   }
+  
+  // Function that draw the image to the canv
+  function drawImage(input) {
+    var image = new Image();
+    image.src = input;
+    // image.crossOrigin = "Anonymous";
+    image.onload = function() {
+      resizeImage(image);
+    }
+  }
+  
   // function to clear the canvas
   function clearCanvas(canvas) {
     var ctx = canvas.getContext('2d'); // gets reference to the canvas context
@@ -94,6 +74,7 @@ $(function() {
   // y = vertixal position for where to start adding text
   // maxTextWidth = maximum width of the text line
   // lineHeight = height of the line
+  
   function addTextToCanvas(ctx, text, x, y, maxTextWidth, lineHeight) {
     // splits the text into separate words so you can wrap on a new line if maxTextWidth exceeded
     var words = text.split(' ');
@@ -121,30 +102,21 @@ $(function() {
   var maxTextWidth = canvas.width - 10;
   var lineHeight = 25;
   
-  
   document.getElementById("top-text").onkeyup = function() {
     
     document.getElementById("placeholder").className = "hidden";
     document.getElementById("canvas").className = "show";
     clearCanvas(canvas);
-    var memeUpload = $('#meme-upload')[0].files[0];
-    console.log("The meme upload is: ", memeUpload);
-    if (localFileReader.result != "") {
+
+    if (localFileReader.result != null) {
       url = localFileReader.result;
     } else {
-      url = $("#remote-meme-url").val();
+      url = $('#remote-meme-url').val();
     }
     
     var image = new Image();
     image.src = url;
-    if (image.width > MAX_WIDTH) {
-      image.height *= MAX_WIDTH / image.width;
-      image.width = MAX_WIDTH;
-    }
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    canvas.width = image.width;
-    canvas.height = image.height;
-    ctx.drawImage(image, 0, 0, image.width, image.height);
+    resizeImage(image);
     
     var x_pos = canvas.width / 2;
     var y_pos = 15;
@@ -160,22 +132,15 @@ $(function() {
     document.getElementById("canvas").className = "show";
     clearCanvas(canvas);
     
-    if (localFileReader.result != "") {
+    if (localFileReader.result != null) {
       url = localFileReader.result;
     } else {
-      url = $("#remote-meme-url").val();
+      url = $('#remote-meme-url').val();
     }
     
     var image = new Image();
     image.src = url;
-    if (image.width > MAX_WIDTH) {
-      image.height *= MAX_WIDTH / image.width;
-      image.width = MAX_WIDTH;
-    }
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    canvas.width = image.width;
-    canvas.height = image.height;
-    ctx.drawImage(image, 0, 0, image.width, image.height);
+    resizeImage(image);
     
     var x_pos = canvas.width / 2;
     var y_pos = canvas.height - 15;
@@ -189,20 +154,54 @@ $(function() {
   
   var localFileReader = new FileReader();
   
-  $("#meme-upload").change(function() {
+  imageUpload.change(function() {
     document.getElementById("placeholder").className = "hidden";
     document.getElementById("canvas").className = "show";
     imgPrev(this);
     localFileReader.readAsDataURL(this.files[0]);
-    
   });
 
-  $("#remote-meme-url").on('input', function() {
+  $('#remote-meme-url').on('input', function() {
     document.getElementById("placeholder").className = "hidden";
     document.getElementById("canvas").className = "show";
     input = $(this).val();
     urlPrev(input);
-    
   });
   
 });
+
+//Saving these functions for later:
+// function dataURLtoBlob(dataURL) {
+//     // Decode the dataURL
+//     var binary = atob(dataURL.split(',')[1]);
+    
+//     // Create 8-bit unsigned array
+//     var array = [];
+//     for(var i = 0; i < binary.length; i++) {
+//       array.push(binary.charCodeAt(i));
+//     }
+    
+//     // Return the Blob object
+//     return new Blob([new Uint8Array(array)], {type: 'image/png'});
+//   }
+  // $('form').submit(function(e) {
+  //   var dataURL = canvas.toDataURL("image/png;base64;");
+  //   if (remoteURL === null) {
+  //     $('#meme').val(dataURL);
+  //   } else {
+  //     $('#remote-meme-url').val(dataURL);
+  //   }
+    
+  //   // var form = document.getElementById('meme-form')
+  //   // var formData = new FormData();
+  //   // formData.append("image", blob);
+  //   // console.log(formData);
+  //   // $.ajax({
+  //   //   type: 'POST',
+  //   //   url: $(this).attr('action'),
+  //   //   data: formData,
+  //   //   processData: false,
+  //   //   contentType: false,
+  // });
+
+//   });

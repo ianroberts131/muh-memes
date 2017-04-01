@@ -1,7 +1,7 @@
 class Meme < ApplicationRecord
   # attr_accessor :user_id, :image, :remote_image_url
   belongs_to :user
-  mount_uploader :image, ImageUploader
+  mount_base64_uploader :image, ImageUploader
   validates :user_id, presence: true
   validates :image, presence: true
   validate :image_size
@@ -14,4 +14,5 @@ class Meme < ApplicationRecord
         errors.add(:image, "should be less than 5MB")
       end
     end
+    
 end
