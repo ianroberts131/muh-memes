@@ -4,14 +4,11 @@
 /* universal */
 
 body {
-  // background-color: black;
   padding-top: 60px;
-  // color: white;
 }
 
-.black-background {
-  background-color: black;
-  color: white;
+html, body, .container-fluid {
+  height: 100%;
 }
 
 section {
@@ -36,7 +33,6 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-  // color: white;
 }
 
 h2 {
@@ -45,35 +41,39 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  // color: white;
 }
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
-  // color: white;
 }
 
 /* header */
 
 #logo {
-  float: left;
   margin-right: 10px;
-  font-size: 1.7em;
   color: white;
+  font-size: 1.7em;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
   &:hover {
-  color: white;
+  color: rgb(51, 122, 183);
   text-decoration: none;
   }
 }
 
 /* navbar */
+
+.navbar {
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+  border-bottom: 2px solid rgb(191, 191, 191);
+}
+
 .navbar-custom {
-  background-color: black;
+  background-color: white;
 }
 
 /* mixins, variables, etc. */
@@ -88,7 +88,6 @@ p {
 
 .debug_dump {
   clear:      both;
-  float:      left;
   width:      100%;
   margin-top: 45px;
   @include box_sizing
@@ -122,11 +121,6 @@ aside {
   }
 }
 
-.gravatar {
-  float: left;
-  margin-right: 10px;
-}
-
 .gravatar_edit {
   margin-top: 15px;
 }
@@ -138,11 +132,6 @@ input, textarea, select, .uneditable-input {
   width: 100%;
   margin-bottom: 15px;
   @include box-sizing
-}
-
-input {
-  height: auto !important;
-  color: black;
 }
 
 #error_explanation {
@@ -205,6 +194,7 @@ input {
 .image {
   display: inline-block;
   text-align: center;
+  margin-top: 5%;
 }
 
 .delete-button {
@@ -212,10 +202,144 @@ input {
   text-align: center;
 }
 
-#canvas, #preview {
+#canvas {
   margin-bottom: 10px;
 }
 
-#meme-upload {
-  color: black;
+.meme-preview {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
+}
+
+.meme-alteration {
+  position: relative;
+  height: 100%;
+  text-align: center;
+}
+
+.meme-alteration-section {
+  height: 80%;
+  margin-top: 10%;
+  padding-left: 5%;
+  border-left: 1px solid rgb(191, 191, 191);
+}
+
+.meme-creation {
+  min-height: 450px;
+  height: 55%;
+  border-bottom: 2px solid rgb(191, 191, 191);
+  // background-color: rgb(230, 230, 230);
+  // background-image: url('/assets/379775-grey-texture.jpg');
+}
+
+#new_meme {
+  height: 100%;
+}
+
+.form-group.meme-group {
+  height: 100%;
+  margin: 0px;
+}
+
+#canvas-area {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.canvas-container {
+  display: inline-block;
+}
+
+#top-text-options {
+  text-align: left;
+}
+
+#bottom-text-options {
+  text-align: left;
+}
+
+#top-color, #bottom-color {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+}
+
+#top-font-size-div, #bottom-font-size-div {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+}
+
+#top-font-style-div, #bottom-font-style-div {
+  position: relative;
+  display: inline-block;
+  width: 175px;
+}
+
+.submit-buttons {
+  text-align: center;
+}
+
+#upload-area {
+  background-color: #3f3f3f;
+  height: 80%;
+  width: 90%;
+  display: inline-block;
+  margin-left: 5%;
+  border-radius: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#upload-area-header {
+  height: 10%;
+  color: #e0e3e8;
+  font-size: 20px;
+  text-align: center;
+  padding: 2.5%;
+}
+
+#upload-area-description {
+  padding-top: 15%;
+  height: 50%;
+  color: #e0e3e8;
+  text-align: center;
+}
+
+#upload-area-select-file {
+  text-align: center;
+  height: 40%;
+  border-top: 2px solid white;
+  width: 100%;
+}
+
+#upload-file-button {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#image-upload {
+  position: relative;
+  text-align: center;
+}
+
+#upload-file-button .bootstrap-filestyle {
+  margin: 0 auto;
+}
+
+#remote-meme-url {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.disable-div {
+  pointer-events: none;
+  opacity: 0.4;
 }

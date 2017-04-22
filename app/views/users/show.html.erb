@@ -1,19 +1,11 @@
 <%= provide(:title, @user.name) %>
+<div class="row meme-creation">
+  <%= render 'shared/meme_form' %>
+</div>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for(@user, size: 80) %>
-        <%= @user.name %>
-      </h1>
-    </section>
-    <section class="meme-form">
-      <%= render 'shared/meme_form' %>
-    </section>
-  </aside>
-  <div class="col-md-8">
+  <div class="col-md-8 col-md-offset-2 meme-thumbnails">
     <% if @user.memes.any? %>
-      <h3>Memes (<%= @user.memes.count %>)</h3>
+      <h3>Muh Saved Memes (<%= @user.memes.count %>)</h3>
       <ul class="memes">
         <%= render @memes %>
       </ul>

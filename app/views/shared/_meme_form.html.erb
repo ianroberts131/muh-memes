@@ -1,32 +1,215 @@
-<%= form_for(@meme, url: { controller: "memes", action: "create" }, id: "meme-form") do |f| %>
+
+  <%= form_for(@meme, url: { controller: "memes", action: "create" }, :html => {:class => "form-group meme-group"}) do |f| %>
   <%= render "shared/error_messages", object: f.object %>
-  <div class="form-group">
-    <canvas id="canvas" class="hidden"></canvas>
-    <p class="show" id="placeholder">
-      <%= image_tag("/assets/image - placeholder.jpg", size: "300x300") %>
-    </p>
-    <span>
-      <%= f.text_field :image, id: "meme", class: "hidden" %>
-    </span>
-    
-    <div class='image-input'>
-      <span>
-        <%= f.file_field :dummy, accept: 'image/jpeg,image/gif,image/png', id: "image-upload", class: "filestyle", 'data-classButton' => "btn btn-primary",
-                                                                                              'data-input' => 'false' %>
-      </span>
-      <span>
-        <%= f.label :remote_image_url, "or image URL" %><br />
-        <%= f.text_field :remote_image_url, id: "remote-meme-url" %>
-      </span>
+  
+  <div class="col-md-4 col-md-offset-2 meme-preview">
+    <div id="upload-area" class="show">
+      <div id="upload-area-header">Upload Image</div>
+      <div id="upload-area-description">Drag and drop image here<br>
+                                        or upload below</div>
+      <div id="upload-area-select-file">
+        <div id="upload-file-button">
+          <%= f.file_field :dummy, accept: 'image/jpeg,image/gif,image/png', id: "image-upload", class: "filestyle", 'data-buttonName' => "btn btn-default",
+                                                                                                'data-buttonBefore' => true, 'data-input' => false %>
+          <br />
+          <%= f.text_field :remote_image_url, id: "remote-meme-url", :class => "form-control", :placeholder => "Or enter URL here..." %>
+        </div>
+      </div>
     </div>
-    
-    <div class="text-input">
-      <label>Top Text:</label>
-      <input type="text" id="top-text" class="form-control" maxlength="50"><br/>
-      <label>Bottom Text:</label>
-      <input type="text" id="bottom-text" class="form-control" maxlength="50">
+    <div id='canvas-area' class="hidden">
+      <canvas id="canvas" ></canvas>
     </div>
-    
-    <p><%= f.submit "Meme it!", class: "btn btn-primary" %></p>
   </div>
+  <div class="col-md-4 meme-alteration disable-div">
+    <div class="meme-alteration-section">
+      <h1>Make it a meme!</h1>
+      <div class="text-input">
+        <label>Top Text:</label><br/>
+        <div id="top-text-options">
+          <div id="top-font-style-div">
+            <select class='form-control' id="top-font-style-select">
+              <option value="Arial" style="font-family: arial;">Arial</option>
+              <option value="Arial Black" style="font-family: arial black;" >Arial Black</option>
+              <option value="Avant Garde" style="font-family: avant garde;">Avant Garde</option>
+              <option value="Baskerville" style="font-family: bakersville;">Baskerville</option>
+              <option value="Big Carlson" style="font-family: big carlson;">Big Carlson</option>
+              <option value="Bodoni MT" style="font-family: bodoni mt;">Bodoni MT</option>
+              <option value="Book Antiqua" style="font-family: book antiqua;">Book Antiqua</option>
+              <option value="Calibri" style="font-family: calibri;">Calibri</option>
+              <option value="Calisto MT" style="font-family: calisto mt;">Calisto MT</option>
+              <option value="Cambria" style="font-family: cambria;">Cambria</option>
+              <option value="Candara" style="font-family: candara;">Candara</option>
+              <option value="Century Gothic" style="font-family: century gothic;">Century Gothic</option>
+              <option value="Consolas" style="font-family: consolas;">Consolas</option>
+              <option value="Copperplate" style="font-family: copperplate;">Copperplate</option>
+              <option value="Courier New" style="font-family: courier new;">Courier New</option>
+              <option value="Didot" style="font-family: didot;">Didot</option>
+              <option value="Franklin Gothic Medium" style="font-family: franklin gothic medium;">Franklin Gothic Medium</option>
+              <option value="Futura" style="font-family: futura;">Futura</option>
+              <option value="Garamond" style="font-family: garamond;">Garamond</option>
+              <option value="Geneva" style="font-family: geneva;">Geneva</option>
+              <option value="Georgia" style="font-family: georgia;">Georgia</option>
+              <option value="Gill Sans" style="font-family: gill sans;">Gill Sans</option>
+              <option value="Goudy Old Style" style="font-family: goudy old style;">Goudy Old Style</option>
+              <option value="Helvetica" style="font-family: helvetica;">Helvetica</option>
+              <option value="Hoefler Text" style="font-family: hoefler text;">Hoefler Text</option>
+              <option value="Impact" style="font-family: impact;">Impact</option>
+              <option value="Lucida Bright" style="font-family: lucida bright;">Lucida Bright</option>
+              <option value="Lucida Console" style="font-family: lucida sonsole;">Lucida Console</option>
+              <option value="Lucida Grande" style="font-family: lucida grande;">Lucida Grande</option>
+              <option value="Lucida Sans Typewriter" style="font-family: lucida sans typewriter;">Lucida Sans Typewriter</option>
+              <option value="Monaco" style="font-family: monaco;">Monaco</option>
+              <option value="Optima" style="font-family: optima;">Optima</option>
+              <option value="Palatino" style="font-family: palatino;">Palatino</option>
+              <option value="Papyrus" style="font-family: papyrus;">Papyrus</option>
+              <option value="Perpetua" style="font-family: perpetua;">Perpetua</option>
+              <option value="Rockwell" style="font-family: rockwell;">Rockwell</option>
+              <option value="Rockwell Extra Bold" style="font-family: rockwell extra bold;">Rockwell Extra Bold</option>
+              <option value="Tahoma" style="font-family: tahoma;">Tahoma</option>
+              <option value="Times New Roman" style="font-family: times new roman;">Times New Roman</option>
+              <option value="Verdana" style="font-family: verdana;">Verdana</option>
+            </select>
+          </div>
+          <div id='top-font-size-div'>
+            <select class='form-control' id="top-font-size-select">
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>14</option>
+              <option>16</option>
+              <option>18</option>
+              <option>20</option>
+              <option>22</option>
+              <option>24</option>
+              <option>26</option>
+              <option>28</option>
+              <option>36</option>
+              <option>48</option>
+              <option>72</option>
+            </select>
+          </div>
+          <div class="btn-group" data-toggle="buttons" id="top-text-buttons">
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Bold" id="top-bold">
+              <span class="glyphicon glyphicon-bold"></span>
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="top-italic">
+              <span class="glyphicon glyphicon-italic"></span>
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Left-Align" id="top-left-align">
+              <span class="glyphicon glyphicon-align-left"></span>
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Center-Align" id="top-center-align">
+              <span class="glyphicon glyphicon-align-center"></span>
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Right-Align" id="top-right-align">
+              <span class="glyphicon glyphicon-align-right"></span>
+            </button>
+          </div>
+          <input type="color" id="top-color"/>
+        </div>
+        <input type="text" id="top-text" class="form-control"><br/>
+        
+        <label>Bottom Text:</label>
+        <div id="bottom-text-options">
+          <div id="bottom-font-style-div">
+            <select class='form-control' id="bottom-font-style-select">
+              <option value="Arial" style="font-family: arial;">Arial</option>
+              <option value="Arial Black" style="font-family: arial black;" >Arial Black</option>
+              <option value="Avant Garde" style="font-family: avant garde;">Avant Garde</option>
+              <option value="Baskerville" style="font-family: bakersville;">Baskerville</option>
+              <option value="Big Carlson" style="font-family: big carlson;">Big Carlson</option>
+              <option value="Bodoni MT" style="font-family: bodoni mt;">Bodoni MT</option>
+              <option value="Book Antiqua" style="font-family: book antiqua;">Book Antiqua</option>
+              <option value="Calibri" style="font-family: calibri;">Calibri</option>
+              <option value="Calisto MT" style="font-family: calisto mt;">Calisto MT</option>
+              <option value="Cambria" style="font-family: cambria;">Cambria</option>
+              <option value="Candara" style="font-family: candara;">Candara</option>
+              <option value="Century Gothic" style="font-family: century gothic;">Century Gothic</option>
+              <option value="Consolas" style="font-family: consolas;">Consolas</option>
+              <option value="Copperplate" style="font-family: copperplate;">Copperplate</option>
+              <option value="Courier New" style="font-family: courier new;">Courier New</option>
+              <option value="Didot" style="font-family: didot;">Didot</option>
+              <option value="Franklin Gothic Medium" style="font-family: franklin gothic medium;">Franklin Gothic Medium</option>
+              <option value="Futura" style="font-family: futura;">Futura</option>
+              <option value="Garamond" style="font-family: garamond;">Garamond</option>
+              <option value="Geneva" style="font-family: geneva;">Geneva</option>
+              <option value="Georgia" style="font-family: georgia;">Georgia</option>
+              <option value="Gill Sans" style="font-family: gill sans;">Gill Sans</option>
+              <option value="Goudy Old Style" style="font-family: goudy old style;">Goudy Old Style</option>
+              <option value="Helvetica" style="font-family: helvetica;">Helvetica</option>
+              <option value="Hoefler Text" style="font-family: hoefler text;">Hoefler Text</option>
+              <option value="Impact" style="font-family: impact;">Impact</option>
+              <option value="Lucida Bright" style="font-family: lucida bright;">Lucida Bright</option>
+              <option value="Lucida Console" style="font-family: lucida sonsole;">Lucida Console</option>
+              <option value="Lucida Grande" style="font-family: lucida grande;">Lucida Grande</option>
+              <option value="Lucida Sans Typewriter" style="font-family: lucida sans typewriter;">Lucida Sans Typewriter</option>
+              <option value="Monaco" style="font-family: monaco;">Monaco</option>
+              <option value="Optima" style="font-family: optima;">Optima</option>
+              <option value="Palatino" style="font-family: palatino;">Palatino</option>
+              <option value="Papyrus" style="font-family: papyrus;">Papyrus</option>
+              <option value="Perpetua" style="font-family: perpetua;">Perpetua</option>
+              <option value="Rockwell" style="font-family: rockwell;">Rockwell</option>
+              <option value="Rockwell Extra Bold" style="font-family: rockwell extra bold;">Rockwell Extra Bold</option>
+              <option value="Tahoma" style="font-family: tahoma;">Tahoma</option>
+              <option value="Times New Roman" style="font-family: times new roman;">Times New Roman</option>
+              <option value="Verdana" style="font-family: verdana;">Verdana</option>
+            </select>
+          </div>
+          <div id='bottom-font-size-div'>
+            <select class='form-control' id="bottom-font-size-select">
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>14</option>
+              <option>16</option>
+              <option>18</option>
+              <option>20</option>
+              <option>22</option>
+              <option>24</option>
+              <option>26</option>
+              <option>28</option>
+              <option>36</option>
+              <option>48</option>
+              <option>72</option>
+            </select>
+          </div>
+          <div class="btn-group" data-toggle="buttons" id="bottom-text-buttons">
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Bold" id="bottom-bold">
+              <span class="glyphicon glyphicon-bold"></span>
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="bottom-italic">
+              <span class="glyphicon glyphicon-italic"></span>
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Left-Align" id="bottom-left-align">
+              <span class="glyphicon glyphicon-align-left"></span>
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Center-Align" id="bottom-center-align">
+              <span class="glyphicon glyphicon-align-center"></span>
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Right-Align" id="bottom-right-align">
+              <span class="glyphicon glyphicon-align-right"></span>
+            </button>
+          </div>
+          <input type="color" id="bottom-color"/>
+          <input type="text" id="bottom-text" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-12 submit-buttons">
+        <div class="col-md-4 col-md-offset-2">
+          <%= submit_tag "Start over", type: "button", class: "btn btn-danger", id: "start-over-button" %>
+        </div>
+        <div class="col-md-4">
+          <p><%= f.submit "Meme it!", class: "btn btn-primary"%></p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 <% end %>
+<script src="//rawgithub.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.js"></script>
+<link href="//rawgithub.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.css" rel="stylesheet">
