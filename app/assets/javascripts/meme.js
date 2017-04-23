@@ -60,7 +60,7 @@ $(function() {
   $('form').submit(function(e) {
     var dataURL = canvas.toDataURL("image/png;base64;");
     if (remoteURL.val() === "" ) {
-      $('#meme').val(dataURL);
+      $('#meme-image').val(dataURL);
     } else {
       $('#remote-meme-url').val(dataURL);
     }
@@ -169,12 +169,12 @@ $(function() {
   });
   
   // Change the top font style when selected
-  $("#top-font-style-select").on('input', function() {
+  $("#top-font-style-select").on('change', function() {
     drawMeme();
   });
   
   // Change the bottom font style when selected
-  $("#bottom-font-style-select").on('input', function() {
+  $("#bottom-font-style-select").on('change', function() {
     drawMeme();
   });
   
