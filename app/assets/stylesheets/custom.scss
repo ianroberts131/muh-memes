@@ -266,6 +266,13 @@ input, textarea, select, .uneditable-input {
   position: relative;
   display: inline-block;
   width: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  
+}
+
+#top-color-wrapper, #bottom-color-wrapper {
+  height: 34px;
 }
 
 #top-font-size-div, #bottom-font-size-div {
