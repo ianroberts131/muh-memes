@@ -22,6 +22,7 @@ gem 'jquery-turbolinks'
 gem 'remotipart',               '~> 1.2'
 gem 'turbolinks',               '5.0.1'
 gem 'jbuilder',                 '2.4.1'
+gem 'rails_12factor'
 
 group :development, :test do
   gem 'sqlite3', '1.3.12'
