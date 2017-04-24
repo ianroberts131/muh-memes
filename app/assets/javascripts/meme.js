@@ -8,8 +8,6 @@ $(function() {
   var MAX_HEIGHT = 400;
   canvas.setHeight(MAX_HEIGHT);
   canvas.setWidth(MAX_WIDTH);
-  var initialImage = '/assets/panda_placeholder.png';
-  window.onload = drawImage(initialImage);
   
   document.getElementById("image-upload").onchange = function handleImage(e) {
     reader.onload = function(event) {
