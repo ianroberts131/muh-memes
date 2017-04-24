@@ -1,4 +1,5 @@
 $(function() {
+
   var imageUpload = $("#image-upload");
   var remoteURL = $('#remote-meme-url');
   var canvas = new fabric.Canvas('canvas');

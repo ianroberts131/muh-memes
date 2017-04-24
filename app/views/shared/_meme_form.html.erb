@@ -1,4 +1,7 @@
-
+<% content_for(:head) do %>
+  <%= javascript_include_tag 'meme' %>
+<% end %>
+  
   <%= form_for(@meme, url: { controller: "memes", action: "create" }, :html => {:class => "form-group meme-group"}) do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   
@@ -11,7 +14,7 @@
         <div id="upload-file-button">
           <%= f.text_field :image, id: "meme-image", class: "hidden" %>
           <%= f.file_field :dummy, accept: 'image/jpeg,image/gif,image/png', id: "image-upload", class: "filestyle", 'data-buttonName' => "btn btn-default",
-                                                                                                'data-buttonBefore' => true, 'data-input' => false %>
+                                                                  'data-buttonBefore' => true, 'data-input' => false, 'data-buttonText' => "Upload image" %>
           <br />
           <%= f.text_field :remote_image_url, id: "remote-meme-url", :class => "form-control", :placeholder => "Or enter URL here..." %>
         </div>

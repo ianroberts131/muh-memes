@@ -51,12 +51,13 @@ p {
 /* header */
 
 #logo {
+  line-height: 30px;
   margin-right: 10px;
   color: white;
   font-size: 1.7em;
   text-transform: uppercase;
   letter-spacing: -1px;
-  padding-top: 9px;
+  // padding-top: 9px;
   font-weight: bold;
   &:hover {
   color: rgb(51, 122, 183);
@@ -67,9 +68,11 @@ p {
 /* navbar */
 
 .navbar {
-  padding-top: 0.5%;
-  padding-bottom: 0.5%;
   border-bottom: 2px solid rgb(191, 191, 191);
+}
+
+.navbar-nav li a {
+  line-height: 30px;
 }
 
 .navbar-custom {
@@ -349,4 +352,11 @@ input, textarea, select, .uneditable-input {
 .disable-div {
   pointer-events: none;
   opacity: 0.4;
+}
+
+/* Edit Page */
+
+#current-avatar {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

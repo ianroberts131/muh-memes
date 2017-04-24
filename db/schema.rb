@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305001454) do
+ActiveRecord::Schema.define(version: 20170423224410) do
 
   create_table "memes", force: :cascade do |t|
     t.string   "image"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20170305001454) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.string   "avatar"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
