@@ -1,5 +1,5 @@
 if Rails.env.production?
-  Carrierwave.configure do |config|
+  CarrierWave.configure do |config|
     config.fog_provider = 'fog/aws'
     config.fog_credentials = {
       # Configuration for Amazon S3
