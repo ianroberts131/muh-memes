@@ -1,6 +1,7 @@
 <% provide(:title, "Edit user") %>
 <% provide(:button_text, 'Save Changes') %>
 <% content_for(:head) do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
   <%= javascript_include_tag 'userEdit' %>
 <% end %>
 
@@ -17,7 +18,7 @@
         </div>
         <img src="<%=@user.avatar_url(:thumb)%>" id="current-avatar">
         <%= f.file_field :avatar, accept: 'image/jpeg,image/gif,image/png', id: "avatar-upload", class: "filestyle", 'data-buttonName' => "btn btn-default",
-                                                                  'data-buttonBefore' => true, 'data-input' => false, 'data-buttonText' => "Upload image" %>
+                                                                                                'data-input' => false, 'data-buttonText' => "Upload image" %>
       
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control' %>
