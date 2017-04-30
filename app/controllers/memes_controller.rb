@@ -10,7 +10,6 @@ class MemesController < ApplicationController
   def new
     @user = current_user
     @meme = @user.memes.new
-    
   end
   
   def create

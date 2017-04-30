@@ -1,3 +1,11 @@
+<%= content_for(:head) do %>
+  <meta property="og:url" content="<%= request.original_url %>">
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Muh Memes" />
+  <meta property="og:description" content="Hilarious meme" />
+  <meta property="og:image" content="<%= @meme.image.url %>" />
+<% end %>
+
 <div class="col-md-6 col-md-offset-3 center">  
   <div class="image">
     <%= image_tag @meme.image.url if @meme.image? %>
@@ -5,7 +13,15 @@
     <span class='delete-button'>
       <% if @user = current_user %>
         <%= link_to "Delete", user_meme_path(@user, @meme), method: :delete %>
+        <li class="btn-social"><a class="js-social-share facebook" href="https://www.facebook.com/sharer/sharer.php?u=
+        <%= yield :url %>" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
       <% end %>
     </span>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).on('ready page:change', function() {
+    $('meta[property=og\\:image]').attr('content', "<%= @meme.image.url %>");
+  })
+</script>
