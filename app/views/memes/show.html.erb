@@ -1,22 +1,42 @@
 <%= content_for(:head) do %>
+  <%-# Facebook meta tags -%>
   <meta property="og:url" content="<%= request.original_url %>">
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Muh Memes" />
   <meta property="og:description" content="Hilarious meme" />
   <meta property="og:image" content="<%= @meme.image.url %>" />
+  <meta property="og:image:width" content="500" />
+  <meta property="og:image:height" content="400" />
+  <%-# Twitter cards -%>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@ianroberts131" />
+  <meta name="twitter:title" content="Muh Memes" />
+  <meta name="twitter:description" content="Hilarious meme" />
+  <meta name="twitter:image" content="<%= @meme.image.url %>" />
 <% end %>
 
 <div class="col-md-6 col-md-offset-3 center">  
   <div class="image">
     <%= image_tag @meme.image.url if @meme.image? %>
   
-    <span class='delete-button'>
-      <% if @user = current_user %>
-        <%= link_to "Delete", user_meme_path(@user, @meme), method: :delete %>
-        <li class="btn-social"><a class="js-social-share facebook" href="https://www.facebook.com/sharer/sharer.php?u=
-        <%= request.original_url %>" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
-      <% end %>
-    </span>
+    <% if @user = current_user %>
+      <span class='delete-button'>
+        <%= link_to user_meme_path(@user, @meme), method: :delete do %>
+        <div class='pull-left'>
+          <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+        </div>
+        <% end %>
+      </span>
+      <div class="pull-right" id="share-button-container">
+        <ul id="share-buttons">
+          <li><a href="https://www.facebook.com/sharer/sharer.php?u=
+          <%= request.original_url %>" target="_blank"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a></li>
+          <li><a href="http://twitter.com/home?status=
+          <%= request.original_url %>" title="Share on Twitter" target="_blank" class="btn btn-twitter"><i class="fa fa-twitter fa-lg"></i></a></li>
+        </ul>
+      </div>
+    <% end %>
+    
   </div>
 </div>
 

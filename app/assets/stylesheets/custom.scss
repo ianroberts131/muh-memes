@@ -202,7 +202,6 @@ input, textarea, select, .uneditable-input {
 
 .delete-button {
   display: block;
-  text-align: center;
 }
 
 #canvas {
@@ -359,4 +358,16 @@ input, textarea, select, .uneditable-input {
 #current-avatar {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+/* Meme Show Page */
+
+#share-button-container ul li{
+  display: inline;
+}
+
+#share-buttons {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
