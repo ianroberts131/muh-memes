@@ -5,7 +5,17 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-2 meme-thumbnails">
     <% if @user.memes.any? %>
-      <h3>Muh Saved Memes (<%= @user.memes.count %>)</h3>
+      <% if @tag %>
+        <h3>Memes with tag <%= @tag %>: <%= @user.memes.tagged_with(@tag).count %></h3>
+        <%= link_to "Show All", user_path(@user), class: "btn btn-primary" %>
+      <% else %>
+        <h3>Muh Saved Memes (<%= @user.memes.count %>)</h3>
+        <div id="tag-cloud">
+          <% tag_cloud @user.memes.tag_counts, %w[s m l] do |tag, css_class| %>
+            <%= link_to tag.name, user_tag_path(@user, tag.name), class: css_class %>
+          <% end %>
+        </div>
+      <% end %>
       <ul class="memes">
         <%= render @memes %>
       </ul>

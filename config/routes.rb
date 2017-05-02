@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   root    'static_pages#home'
   get     'static_pages/home'
+  get     'tags/:tag', to: 'static_pages#home', as: :tag
   get     '/contact', to: 'static_pages#contact'
   get     '/about',   to: 'static_pages#about'
   get     '/signup',  to: 'users#new'
@@ -13,7 +14,8 @@ Rails.application.routes.draw do
   post    '/login',   to: 'sessions#create'
   delete  '/logout',  to: 'sessions#destroy'
   resources :users do
-    resources :memes,             only: [:show, :destroy]
+    resources :memes,             only: [:show, :destroy, :update]
+    get       'tags/:tag',        to: "users#show", as: :tag
   end
   resources :memes,               only: [:create]
   resources :account_activations, only: [:edit]

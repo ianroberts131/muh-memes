@@ -178,6 +178,16 @@ input, textarea, select, .uneditable-input {
   }
 }
 
+/* User show taggings */
+
+#tag-cloud {
+  width: 40%;
+  line-height: 1.6em;
+  .s { font-size: 0.8em; }
+  .m { font-size: 1.2em; }
+  .l { font-size: 1.8em; }
+}
+
 /* memes */
 
 .memes {
@@ -370,4 +380,8 @@ input, textarea, select, .uneditable-input {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+#meme-show-tag-section {
+  margin-top: 20px;
 }

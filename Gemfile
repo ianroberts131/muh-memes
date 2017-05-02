@@ -24,6 +24,7 @@ gem 'remotipart',               '~> 1.2'
 gem 'turbolinks',               '5.0.1'
 gem 'jbuilder',                 '2.4.1'
 gem "font-awesome-rails"
+gem 'acts-as-taggable-on',      '~> 4.0'
 gem 'rails_12factor'
 
 group :development, :test do

@@ -27,7 +27,6 @@
   </div>
   <div class="col-md-4 meme-alteration disable-div">
     <div class="meme-alteration-section">
-      <h1>Make it a meme!</h1>
       <div class="text-input">
         <label>Top Text:</label><br/>
         <div id="top-text-options">
@@ -205,6 +204,10 @@
             <input type="color" id="bottom-color">
           </div>
           <input type="text" id="bottom-text" class="form-control">
+        </div>
+        <div id="tag-input">
+          <%= f.label :tag_list, "Tags (separated by commas)" %>
+          <%= f.text_field :tag_list, class: "form-control" %>
         </div>
       </div>
       <div class="col-md-12 submit-buttons">

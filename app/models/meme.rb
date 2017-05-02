@@ -1,6 +1,6 @@
 class Meme < ApplicationRecord
-  # attr_accessor :user_id, :image, :remote_image_url
   belongs_to :user
+  acts_as_taggable
   mount_base64_uploader :image, ImageUploader
   validates :user_id, presence: true
   validates :image, presence: true

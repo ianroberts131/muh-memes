@@ -3,7 +3,7 @@
   <meta property="og:url" content="<%= request.original_url %>">
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Muh Memes" />
-  <meta property="og:description" content="Hilarious meme" />
+  <meta property="og:description" content="Create, save, and share awesome memes!" />
   <meta property="og:image" content="<%= @meme.image.url %>" />
   <meta property="og:image:width" content="500" />
   <meta property="og:image:height" content="400" />
@@ -11,14 +11,16 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@ianroberts131" />
   <meta name="twitter:title" content="Muh Memes" />
-  <meta name="twitter:description" content="Hilarious meme" />
+  <meta name="twitter:description" content="Create, save, and share awesome memes!" />
   <meta name="twitter:image" content="<%= @meme.image.url %>" />
 <% end %>
 
 <div class="col-md-6 col-md-offset-3 center">  
   <div class="image">
+    <p>
+      Tags: <%= raw @meme.tag_list.map { |tag| link_to tag, tag_path(tag) }.join(", ") %>
+    </p>
     <%= image_tag @meme.image.url if @meme.image? %>
-  
     <% if @user = current_user %>
       <span class='delete-button'>
         <%= link_to user_meme_path(@user, @meme), method: :delete do %>
@@ -36,8 +38,21 @@
         </ul>
       </div>
     <% end %>
-    
   </div>
+  <% if @user = current_user %>
+    <%= form_for(@meme, url: { controller: "memes", action: "update"}, :html => {:class => "form-group"}) do |f| %>
+    <%= render "shared/error_messages", object: f.object %>
+    <div class="col-md-6 col-md-offset-3 center" id="meme-show-tag-section">
+      <div class="col-md-12">
+        <%= f.label :tag_list, "Update tags (separated by commas)" %>
+        <%= f.text_field :tag_list, value: @meme.tag_list.to_s, class: "form-control" %>
+      </div>
+      <div class="col-md-12">
+        <p><%= f.submit "Update tags", class: "btn btn-primary" %></p>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
 </div>
 
 <div id="fb-root"></div>

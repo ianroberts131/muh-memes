@@ -334,7 +334,6 @@ $(function() {
     $('#upload-area').removeClass('hidden');
     $('#canvas-area').addClass('hidden');
     $('.meme-alteration').addClass('disable-div');
-    drawImage(initialImage);
   })
   
     

@@ -25,6 +25,21 @@ class MemesController < ApplicationController
     redirect_to user_url(current_user)
   end
   
+  def update
+    @user = User.find(params[:user_id])
+    @meme = @user.memes.find(params[:id])
+    
+    @meme.assign_attributes(meme_params)
+    
+    if @meme.save
+      flash[:success] = "Meme updated!"
+      redirect_to user_url(current_user)
+    else
+      flash[:danger] = "There was an error updating the meme. Please try again."
+      render :show
+    end
+  end
+  
   def destroy
     @user = User.find(params[:user_id])
     @meme = @user.memes.find(params[:id])
@@ -41,7 +56,7 @@ class MemesController < ApplicationController
   private
   
     def meme_params
-      params.require(:meme).permit(:image, :remote_image_url)
+      params.require(:meme).permit(:image, :remote_image_url, :tag_list)
     end
     
     def correct_user
