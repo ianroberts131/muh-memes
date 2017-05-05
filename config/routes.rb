@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   post    '/login',   to: 'sessions#create'
   delete  '/logout',  to: 'sessions#destroy'
   resources :users do
-    resources :memes,             only: [:show, :destroy, :update]
+    resources :memes,             only: [:show, :destroy, :update] do
+      resources :favorite_memes,      only: [:create, :destroy]
+    end
     get       'tags/:tag',        to: "users#show", as: :tag
   end
   resources :memes,               only: [:create]

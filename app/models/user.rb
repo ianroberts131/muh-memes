@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :memes, dependent: :destroy
+  has_many :favorites
+  has_many :favorite_memes, through: :favorites, source: :favorited, source_type: 'Meme'
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest

@@ -29,12 +29,33 @@
         </div>
         <% end %>
       </span>
+      <span>
+        <% if current_user.favorite_memes.exists?(id: @meme.id) %>
+          <% favorited = true %>
+        <% else %>
+          <% favorited = false %>
+        <% end %>
+          <span class="toggle-favorite" <% if favorited %> style="display: none" <% end %> >
+            <%= link_to user_meme_favorite_memes_path(current_user, @meme), method: :post, remote: true  do %>
+              <i class="glyphicon glyphicon-heart add-to-favorites-heart"></i>
+            <% end %>
+          </span>
+          <span class="toggle-favorite" <% unless favorited %> style="display: none" <% end %> >
+            <%= link_to user_meme_favorite_meme_path(current_user, @meme), method: :delete, remote: true  do %>
+              <i class="glyphicon glyphicon-heart remove-from-favorites-heart"></i>
+            <% end %>
+          </span>
+
+      </span>
+      <span class="favorites-count">
+        <%= @meme.favorites.count %>
+      </span>
       <div class="pull-right" id="share-button-container">
         <ul id="share-buttons">
           <li><a href="https://www.facebook.com/sharer/sharer.php?u=
-          <%= request.original_url %>" target="_blank"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a></li>
+          <%= request.original_url %>" target="_blank" class="meme-show-button"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a></li>
           <li><a href="http://twitter.com/home?status=
-          <%= request.original_url %>" title="Share on Twitter" target="_blank" class="btn btn-twitter"><i class="fa fa-twitter fa-lg"></i></a></li>
+          <%= request.original_url %>" title="Share on Twitter" target="_blank" class="meme-show-button"><i class="fa fa-twitter fa-lg"></i></a></li>
         </ul>
       </div>
     <% end %>

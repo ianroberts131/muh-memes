@@ -178,7 +178,7 @@ input, textarea, select, .uneditable-input {
   }
 }
 
-/* User show taggings */
+/* User show */
 
 #tag-cloud {
   width: 40%;
@@ -186,6 +186,11 @@ input, textarea, select, .uneditable-input {
   .s { font-size: 0.8em; }
   .m { font-size: 1.2em; }
   .l { font-size: 1.8em; }
+}
+
+.meme-show-button {
+  padding: 0 0 0 4px;
+  
 }
 
 /* memes */
@@ -384,4 +389,9 @@ input, textarea, select, .uneditable-input {
 
 #meme-show-tag-section {
   margin-top: 20px;
+}
+
+.remove-from-favorites-heart {
+  color: red;
+  opacity: 1;
 }
