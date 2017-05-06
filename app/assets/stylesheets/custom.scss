@@ -282,26 +282,40 @@ input, textarea, select, .uneditable-input {
 #top-color, #bottom-color {
   position: relative;
   display: inline-block;
-  width: 50px;
   top: 50%;
+  width: 90%;
   transform: translateY(-50%);
   
 }
 
 #top-color-wrapper, #bottom-color-wrapper {
   height: 34px;
+  width: 12.5%;
 }
 
 #top-font-size-div, #bottom-font-size-div {
   position: relative;
   display: inline-block;
-  width: 60px;
+  width: 12.5%;
 }
 
 #top-font-style-div, #bottom-font-style-div {
   position: relative;
   display: inline-block;
-  width: 175px;
+  width: 30%;
+}
+
+#top-text-buttons, #bottom-text-buttons {
+  width: 45%;
+  padding: 0;
+}
+
+#top-text-buttons button {
+  width: 20%
+}
+
+#bottom-text-buttons button {
+  width: 20%;
 }
 
 .submit-buttons {
