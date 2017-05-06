@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :history]
   has_many :memes, dependent: :destroy
   has_many :favorites
   has_many :favorite_memes, through: :favorites, source: :favorited, source_type: 'Meme'

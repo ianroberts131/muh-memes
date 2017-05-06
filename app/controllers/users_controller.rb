@@ -10,11 +10,11 @@ class UsersController < ApplicationController
   def show
     if params[:tag]
       @tag = params[:tag]
-      @user = User.find(params[:user_id])
+      @user = User.friendly.find(params[:user_id])
       @memes = @user.memes.order(created_at: :desc).tagged_with(@tag).paginate(page: params[:page])
       @meme = @user.memes.new
     else
-      @user = User.find(params[:id])
+      @user = User.friendly.find(params[:id])
       redirect_to root_url and return unless @user.activated
       @memes = @user.memes.order(created_at: :desc).paginate(page: params[:page])
       @meme = @user.memes.new
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    User.find(params[:id]).destroy
+    User.friendly.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
   end
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     
     # Confirms the correct user.
     def correct_user
-      @user = User.find(params[:id])
+      @user = User.friendly.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
     end
     

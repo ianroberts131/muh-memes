@@ -26,6 +26,7 @@ gem 'jbuilder',                 '2.4.1'
 gem "font-awesome-rails"
 gem 'acts-as-taggable-on',      '~> 4.0'
 gem 'rails_12factor'
+gem 'friendly_id'
 
 group :development, :test do
   gem 'sqlite3', '1.3.12'

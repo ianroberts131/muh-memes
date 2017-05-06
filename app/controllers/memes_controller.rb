@@ -3,7 +3,7 @@ class MemesController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
  
   def show
-    @user = User.find(params[:user_id])
+    @user = User.friendly.find(params[:user_id])
     @meme = @user.memes.find(params[:id])
   end
   
@@ -26,7 +26,7 @@ class MemesController < ApplicationController
   end
   
   def update
-    @user = User.find(params[:user_id])
+    @user = User.friendly.find(params[:user_id])
     @meme = @user.memes.find(params[:id])
     
     @meme.assign_attributes(meme_params)
@@ -41,7 +41,7 @@ class MemesController < ApplicationController
   end
   
   def destroy
-    @user = User.find(params[:user_id])
+    @user = User.friendly.find(params[:user_id])
     @meme = @user.memes.find(params[:id])
     
     if @meme.destroy
