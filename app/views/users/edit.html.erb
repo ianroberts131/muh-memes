@@ -16,23 +16,27 @@
         <div id='avatar-canvas-area' class="hidden">
           <canvas id="avatar-canvas" ></canvas>
         </div>
-        <img src="<%=@user.avatar_url(:thumb)%>" id="current-avatar">
+        <% if @user.avatar_url %>
+          <img src="<%= @user.avatar_url(:thumb)%>" id="current-avatar">
+        <% else %>
+          <i class="glyphicon glyphicon-user" id="default-avatar-image"></i>
+        <% end %>
         <%= f.file_field :avatar, accept: 'image/jpeg,image/gif,image/png', id: "avatar-upload", class: "filestyle", 'data-buttonName' => "btn btn-default",
                                                                                                 'data-input' => false, 'data-buttonText' => "Upload image" %>
       
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control' %>
-      
-      <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
-      
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
-      
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
-      
-      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
-    <% end %>
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+        
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+        
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+        
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+        
+        <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+      <% end %>
   </div>
 </div>

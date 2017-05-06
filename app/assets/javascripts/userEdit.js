@@ -4,6 +4,7 @@ $(function() {
   var canvas = new fabric.Canvas('avatar-canvas');
   var reader = new FileReader();
   document.getElementById('avatar-upload').onchange = function handleImage(e) {
+    $('#default-avatar-image').hide();
     reader.onload = function(event) {
       $('#avatar-canvas-area').removeClass('hidden');
       $('#current-avatar').addClass('hidden');
