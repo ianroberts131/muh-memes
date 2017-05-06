@@ -20,8 +20,8 @@
     <p>
       Tags: <%= raw @meme.tag_list.map { |tag| link_to tag, tag_path(tag) }.join(", ") %>
     </p>
-    <%= image_tag @meme.image.url if @meme.image? %>
-    <% if @user = current_user %>
+    <div><%= image_tag @meme.image.url if @meme.image? %></div>
+    <% if current_user?(@user) %>
       <span class='delete-button'>
         <%= link_to user_meme_path(@user, @meme), method: :delete do %>
         <div class='pull-left'>
@@ -29,27 +29,28 @@
         </div>
         <% end %>
       </span>
-      <span>
-        <% if current_user.favorite_memes.exists?(id: @meme.id) %>
-          <% favorited = true %>
-        <% else %>
-          <% favorited = false %>
-        <% end %>
-          <span class="toggle-favorite" <% if favorited %> style="display: none" <% end %> >
-            <%= link_to user_meme_favorite_memes_path(current_user, @meme), method: :post, remote: true  do %>
-              <i class="glyphicon glyphicon-heart add-to-favorites-heart"></i>
-            <% end %>
-          </span>
-          <span class="toggle-favorite" <% unless favorited %> style="display: none" <% end %> >
-            <%= link_to user_meme_favorite_meme_path(current_user, @meme), method: :delete, remote: true  do %>
-              <i class="glyphicon glyphicon-heart remove-from-favorites-heart"></i>
-            <% end %>
-          </span>
+    <% end %>
+    <span>
+      <% if current_user.favorite_memes.exists?(id: @meme.id) %>
+        <% favorited = true %>
+      <% else %>
+        <% favorited = false %>
+      <% end %>
+        <span class="toggle-favorite" <% if favorited %> style="display: none" <% end %> >
+          <%= link_to user_meme_favorite_memes_path(current_user, @meme), method: :post, remote: true  do %>
+            <i class="glyphicon glyphicon-heart add-to-favorites-heart"></i>
+          <% end %>
+        </span>
+        <span class="toggle-favorite" <% unless favorited %> style="display: none" <% end %> >
+          <%= link_to user_meme_favorite_meme_path(current_user, @meme), method: :delete, remote: true  do %>
+            <i class="glyphicon glyphicon-heart remove-from-favorites-heart"></i>
+          <% end %>
+        </span>
 
-      </span>
-      <span class="favorites-count">
-        <%= @meme.favorites.count %>
-      </span>
+    </span>
+    <span class="favorites-count">
+      <%= @meme.favorites.count %>
+    </span>
       <div class="pull-right" id="share-button-container">
         <ul id="share-buttons">
           <li><a href="https://www.facebook.com/sharer/sharer.php?u=
@@ -58,9 +59,9 @@
           <%= request.original_url %>" title="Share on Twitter" target="_blank" class="meme-show-button"><i class="fa fa-twitter fa-lg"></i></a></li>
         </ul>
       </div>
-    <% end %>
-  </div>
-  <% if @user = current_user %>
+    </div>
+    
+  <% if current_user?(@user) %>
     <%= form_for(@meme, url: { controller: "memes", action: "update"}, :html => {:class => "form-group"}) do |f| %>
     <%= render "shared/error_messages", object: f.object %>
     <div class="col-md-6 col-md-offset-3 center" id="meme-show-tag-section">
