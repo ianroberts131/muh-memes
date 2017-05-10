@@ -24,13 +24,16 @@ $(function() {
       
       document.getElementById("top-text").value = "Enter Top Text..."
       document.getElementById('top-color').value = '#ffffff';
+      document.getElementById('top-color').value = '#ffffff';
       document.getElementById("bottom-text").value = "Enter Bottom Text..."
       document.getElementById('bottom-color').value = '#ffffff';
       document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
       document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
       $('#top-center-align').addClass('active');
       $('#bottom-center-align').addClass('active');
+      canvas.setActiveObject(textBoxTop);
     }, 200);
+    
   }
   
   $('#remote-meme-url').on('input', function() {
@@ -52,6 +55,7 @@ $(function() {
       document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
       $('#top-center-align').addClass('active');
       $('#bottom-center-align').addClass('active');
+      canvas.setActiveObject(textBoxTop);
     }, 200);
   });
   
@@ -61,7 +65,9 @@ $(function() {
     if (remoteURL.val() === "" ) {
       $('#meme-image').val(dataURL);
     } else {
-      $('#remote-meme-url').val(dataURL);
+      remoteURL.val("");
+      remoteURL.prop('disabled', true);
+      $('#meme-image').val(dataURL);
     }
   });
   
@@ -410,7 +416,6 @@ $(function() {
     canvas.clear();
     var imgObject = new Image();
     imgObject.src = input;
-    // imgObject.crossOrigin = "Anonymous";
     imgObject.onload = function() {
       resizeImage(imgObject);
       var image = new fabric.Image(imgObject);
@@ -418,9 +423,12 @@ $(function() {
         angle: 0,
         padding: 0,
         height: imgObject.height,
-        width: imgObject.width
+        width: imgObject.width,
+        crossOrigin: "anonymous"
       });
       image.selectable = false;
+      // image.setCrossOrigin("anonymous")
+      
       canvas.add(image);
       canvas.sendToBack(image);
     }

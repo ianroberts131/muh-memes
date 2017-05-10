@@ -5,8 +5,8 @@
   <meta property="og:title" content="Muh Memes" />
   <meta property="og:description" content="Create, save, and share awesome memes!" />
   <meta property="og:image" content="<%= @meme.image.url %>" />
-  <meta property="og:image:width" content="500" />
-  <meta property="og:image:height" content="400" />
+  <meta property="og:image:width" content="<%=@meme.image.image_width%>" />
+  <meta property="og:image:height" content="<%=@meme.image.image_height%>" />
   <%-# Twitter cards -%>
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@ianroberts131" />
