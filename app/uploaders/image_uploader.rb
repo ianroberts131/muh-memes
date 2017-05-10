@@ -53,7 +53,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
   
   def image
-    @image ||= MiniMagick::Image.open( model.send(mounted_as).path)
+    if Rails.env.production?
+      @image ||= MiniMagick::Image.open(self.url)
+    else
+      @image ||= MiniMagick::Image.open(model.send(mounted_as).path)
+    end
   end
   
   def image_width
