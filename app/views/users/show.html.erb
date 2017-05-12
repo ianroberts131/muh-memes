@@ -30,7 +30,7 @@
         <h3><%= @user.name %>'s Saved Memes (<%= @user.memes.count %>)</h3>
       <% end %>
         <div id="tag-cloud">
-          <% tag_cloud @user.memes.tag_counts, %w[s m l] do |tag, css_class| %>
+          <% tag_cloud @user.user_tag_counts_collection, %w[s m l] do |tag, css_class| %>
             <%= link_to tag.name, user_tag_path(@user, tag.name), class: css_class %>
           <% end %>
         </div>

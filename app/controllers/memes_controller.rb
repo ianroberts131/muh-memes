@@ -1,7 +1,8 @@
 class MemesController < ApplicationController
   require 'mini_magick'
   before_action :logged_in_user, only: [:show, :create, :update, :destroy]
- 
+  # before_action :define_user_tags, only: [:create, :update]
+  
   def show
     @user = User.friendly.find(params[:user_id])
     @meme = @user.memes.find(params[:id])
@@ -12,9 +13,13 @@ class MemesController < ApplicationController
   end
   
   def create
-    @meme = current_user.memes.build(meme_params)
+    @user = current_user
+    @meme = @user.memes.build(meme_params)
     
     if @meme.save
+      # @user.tag(@meme, :with => params[:meme][:tag_list], :on => :tags)
+      # puts "The params keys in create are #{params.keys}"
+      # puts "The tag_list is: #{params[:meme][:tag_list]}"
       flash[:success] = "Meme created!"
     else
       flash[:danger] = "Meme failed to be created."
@@ -55,6 +60,11 @@ class MemesController < ApplicationController
       flash[:danger] = "There was an error deleting the meme"
     end
     redirect_to user_url(current_user)
+  end
+  
+  # Helper method to get tag counts (global)
+  def tag_cloud
+    @tags = Meme.tag_counts_on(:tags)
   end
   
   private

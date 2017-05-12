@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     if params[:tag]
       @tag = params[:tag]
       @user = User.friendly.find(params[:user_id])
+      redirect_to root_url and return unless @user.activated
       @memes = @user.memes.order(created_at: :desc).tagged_with(@tag).paginate(page: params[:page])
       @meme = @user.memes.new
     else
@@ -53,6 +54,15 @@ class UsersController < ApplicationController
     User.friendly.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
+  end
+  
+  # Helper method to get tag counts for specified user
+  def user_tag_counts_collection
+    collection = self.memes.tag_counts
+    collection.each_with_index do |item, index|
+      collection[index].taggings_count = self.memes.tagged_with(item.name).count
+    end
+    collection
   end
   
   private

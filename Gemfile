@@ -38,6 +38,7 @@ group :development do
   gem 'listen',                '3.0.8'
   gem 'spring',                '1.7.2'
   gem 'spring-watcher-listen', '2.0.0'
+  gem 'rails_db'
 end
 
 group :test do

@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :favorites
   has_many :favorite_memes, through: :favorites, source: :favorited, source_type: 'Meme'
   attr_accessor :remember_token, :activation_token, :reset_token
+  # acts_as_tagger
   before_save   :downcase_email
   before_create :create_activation_digest
   mount_uploader :avatar, AvatarUploader
@@ -66,6 +67,15 @@ class User < ApplicationRecord
   # Returns true if a password reset has expired
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+  
+  # Helper method to get tag counts for specified user
+  def user_tag_counts_collection
+    collection = self.memes.tag_counts
+    collection.each_with_index do |item, index|
+      collection[index].taggings_count = self.memes.tagged_with(item.name).count
+    end
+    collection
   end
   
   private
