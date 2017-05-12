@@ -1,20 +1,17 @@
 class MemesController < ApplicationController
   require 'mini_magick'
-  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :logged_in_user, only: [:show, :create, :update, :destroy]
  
   def show
     @user = User.friendly.find(params[:user_id])
     @meme = @user.memes.find(params[:id])
-  end
-  
-  def new
-    @user = current_user
-    @meme = @user.memes.new
+    if !current_user?(@user) && @meme.private
+      flash[:danger] = "You are not allowed to view private memes!"
+      redirect_to root_url
+    end
   end
   
   def create
-    # respond_to :js
-
     @meme = current_user.memes.build(meme_params)
     
     if @meme.save
@@ -32,11 +29,18 @@ class MemesController < ApplicationController
     @meme.assign_attributes(meme_params)
     
     if @meme.save
-      flash[:success] = "Meme updated!"
-      redirect_to user_url(current_user)
+      respond_to do |format|
+        format.html { flash[:success] = "Meme updated!"
+                      redirect_to user_url(current_user) }
+        format.json
+      end
     else
-      flash[:danger] = "There was an error updating the meme. Please try again."
-      render :show
+      respond_to do |format|
+        format.html { flash[:danger] = "There was an error updating the meme. Please try again."
+                      render :show }
+        format.json
+      end
+      
     end
   end
   
@@ -56,7 +60,7 @@ class MemesController < ApplicationController
   private
   
     def meme_params
-      params.require(:meme).permit(:image, :remote_image_url, :tag_list)
+      params.require(:meme).permit(:image, :remote_image_url, :tag_list, :private)
     end
     
     def correct_user

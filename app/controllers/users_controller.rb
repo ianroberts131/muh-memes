@@ -19,6 +19,7 @@ class UsersController < ApplicationController
       @memes = @user.memes.order(created_at: :desc).paginate(page: params[:page])
       @meme = @user.memes.new
     end
+    @public_memes = @memes.where(private: false)
   end
   
   def new

@@ -241,7 +241,7 @@ input, textarea, select, .uneditable-input {
 
 .meme-alteration-section {
   height: 80%;
-  margin-top: 10%;
+  margin-top: 7.5%;
   padding-left: 5%;
   border-left: 1px solid rgb(191, 191, 191);
 }
@@ -385,6 +385,10 @@ input, textarea, select, .uneditable-input {
   opacity: 0.4;
 }
 
+#meme_private {
+  width: auto;
+}
+
 /* Edit Page */
 
 #current-avatar {
@@ -415,4 +419,8 @@ input, textarea, select, .uneditable-input {
 .remove-from-favorites-heart {
   color: red;
   opacity: 1;
+}
+
+#meme-delete-button i {
+  margin-right: 5px;
 }

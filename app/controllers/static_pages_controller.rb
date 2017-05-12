@@ -7,6 +7,8 @@ class StaticPagesController < ApplicationController
     else
       @memes = Meme.all.order(created_at: :desc)
     end
+    
+    @memes = @memes.where(private: false)
   end
 
   def contact

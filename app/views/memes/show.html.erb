@@ -15,6 +15,21 @@
   <meta name="twitter:image" content="<%= @meme.image.url %>" />
 <% end %>
 
+<script>
+$(function() {
+  $(".check-box").change(function() {
+    console.log("Is it checked? ", this.checked)
+    $.ajax({
+      type: "PUT",
+      url: "/users/<%=@user.id%>/memes/<%=@meme.id%>.json",
+      contentType: 'application/json',
+      data: JSON.stringify({private: this.checked, _method:"PUT"}),
+      dataType: 'json'
+      });
+  });
+});
+</script>
+
 <div class="col-md-6 col-md-offset-3 center">  
   <div class="image">
     <p>
@@ -22,11 +37,17 @@
     </p>
     <div><%= image_tag @meme.image.url if @meme.image? %></div>
     <% if current_user?(@user) %>
-      <span class='delete-button'>
+      <span id='meme-delete-button'>
         <%= link_to user_meme_path(@user, @meme), method: :delete do %>
         <div class='pull-left'>
           <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
         </div>
+        <% end %>
+      </span>
+      <span class="private-checkbox pull-left">
+        <%= form_for(@meme, url: { controller: "memes", action: "update" }) do |f| %>
+          <%= f.check_box :private, class: "check-box" %>
+          <%= f.label "private" %>
         <% end %>
       </span>
     <% end %>

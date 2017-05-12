@@ -7,6 +7,10 @@ class Meme < ApplicationRecord
   validates :image, presence: true
   validate :image_size
   
+  def is_public?
+    private == false
+  end
+  
   private
   
     # Validates the size of an uploaded image

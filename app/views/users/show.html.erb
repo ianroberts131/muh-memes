@@ -36,7 +36,11 @@
         </div>
       <% end %>
       <ul class="memes">
-        <%= render @memes %>
+        <% if current_user?(@user) %>
+          <%= render @memes %>
+        <% else %>
+          <%= render @public_memes %>
+        <% end %>
       </ul>
       <%= will_paginate @memes %>
     <% end %>
