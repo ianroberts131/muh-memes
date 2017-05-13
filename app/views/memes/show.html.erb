@@ -1,6 +1,6 @@
 <%= content_for(:head) do %>
   <%-# Facebook meta tags -%>
-  <meta property="og:url" content="<%= request.original_url %>">
+  <meta property="og:url" content="/users/<%=@user.id%>/memes/<%=@meme.id%>">
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Muh Memes" />
   <meta property="og:description" content="Create, save, and share awesome memes!" />
