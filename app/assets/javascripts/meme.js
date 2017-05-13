@@ -9,6 +9,59 @@ $(function() {
   canvas.setHeight(MAX_HEIGHT);
   canvas.setWidth(MAX_WIDTH);
   
+  // Drag and Drop File Upload
+  document.getElementById('upload-area').addEventListener('dragover', function(e) {
+    // prevent browser from trying to open file directly
+    e.preventDefault();
+    // prevent event from bubbling up the DOM
+    e.stopPropagation();
+    // add effect on dragover event
+    $("#upload-area").addClass('dragover');
+  });
+  
+  document.getElementById('upload-area').addEventListener('dragleave', function(e) {
+    // prevent browser from trying to open file directly
+    e.preventDefault();
+    // prevent event from bubbling up the DOM
+    e.stopPropagation();
+    // remove effect from dragover event
+    $("#upload-area").removeClass('dragover');
+  });
+  
+  document.getElementById('upload-area').addEventListener('drop', function(e) {
+     // prevent browser from trying to open file directly
+    e.preventDefault();
+    // prevent event from bubbling up the DOM
+    e.stopPropagation();
+    // remove effect from dragover event
+    $("#upload-area").removeClass('dragover');
+      reader.onload = function(event) {
+        $('#upload-area').addClass('hidden');
+        $('#canvas-area').removeClass('hidden');
+        $('.meme-alteration').removeClass('disable-div');
+        drawImage(reader.result);
+        canvas.renderAll();
+      }
+      files = e.dataTransfer.files[0];
+      reader.readAsDataURL(files);
+      setTimeout(function() { 
+        createTopTextBox("Enter Top Text...");
+        createBottomTextBox("Enter Bottom Text...");
+        
+        document.getElementById("top-text").value = "Enter Top Text..."
+        document.getElementById('top-color').value = '#ffffff';
+        document.getElementById('top-color').value = '#ffffff';
+        document.getElementById("bottom-text").value = "Enter Bottom Text..."
+        document.getElementById('bottom-color').value = '#ffffff';
+        document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
+        document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
+        $('#top-center-align').addClass('active');
+        $('#bottom-center-align').addClass('active');
+        canvas.setActiveObject(textBoxTop);
+      }, 200);
+  })
+  
+  // Click File Upload
   document.getElementById("image-upload").onchange = function handleImage(e) {
     reader.onload = function(event) {
       $('#upload-area').addClass('hidden');

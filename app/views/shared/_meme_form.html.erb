@@ -1,6 +1,6 @@
 <% content_for(:head) do %>
   <meta name="turbolinks-cache-control" content="no-cache">
-  <%= javascript_include_tag 'meme' %>
+  <%= javascript_include_tag('meme') %>
 <% end %>
   
   <%= form_for(@meme, url: { controller: "memes", action: "create" }, :html => {:class => "form-group meme-group"}) do |f| %>

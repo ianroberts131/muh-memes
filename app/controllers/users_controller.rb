@@ -56,15 +56,6 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-  # Helper method to get tag counts for specified user
-  def user_tag_counts_collection
-    collection = self.memes.tag_counts
-    collection.each_with_index do |item, index|
-      collection[index].taggings_count = self.memes.tagged_with(item.name).count
-    end
-    collection
-  end
-  
   private
   
     def user_params

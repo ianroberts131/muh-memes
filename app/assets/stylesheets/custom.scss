@@ -337,6 +337,10 @@ input, textarea, select, .uneditable-input {
   transform: translateY(-50%);
 }
 
+.dragover {
+  background-color: #C7D4EB !important;
+}
+
 #upload-area-header {
   height: 10%;
   color: #e0e3e8;
