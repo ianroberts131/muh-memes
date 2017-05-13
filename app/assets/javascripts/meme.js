@@ -9,6 +9,8 @@ $(function() {
   canvas.setHeight(MAX_HEIGHT);
   canvas.setWidth(MAX_WIDTH);
   
+  
+  
   // Drag and Drop File Upload
   document.getElementById('upload-area').addEventListener('dragover', function(e) {
     // prevent browser from trying to open file directly
@@ -48,13 +50,15 @@ $(function() {
         createTopTextBox("Enter Top Text...");
         createBottomTextBox("Enter Bottom Text...");
         
-        document.getElementById("top-text").value = "Enter Top Text..."
+        document.getElementById("top-text").placeholder = "Enter Top Text..."
         document.getElementById('top-color').value = '#ffffff';
         document.getElementById('top-color').value = '#ffffff';
-        document.getElementById("bottom-text").value = "Enter Bottom Text..."
+        document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
         document.getElementById('bottom-color').value = '#ffffff';
         document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
+        document.getElementById('top-font-style-select').value = textBoxTop.fontFamily;
         document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
+        document.getElementById('bottom-font-style-select').value = textBoxBottom.fontFamily;
         $('#top-center-align').addClass('active');
         $('#bottom-center-align').addClass('active');
         canvas.setActiveObject(textBoxTop);
@@ -75,13 +79,15 @@ $(function() {
       createTopTextBox("Enter Top Text...");
       createBottomTextBox("Enter Bottom Text...");
       
-      document.getElementById("top-text").value = "Enter Top Text..."
+      document.getElementById("top-text").placeholder = "Enter Top Text..."
       document.getElementById('top-color').value = '#ffffff';
       document.getElementById('top-color').value = '#ffffff';
-      document.getElementById("bottom-text").value = "Enter Bottom Text..."
+      document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
       document.getElementById('bottom-color').value = '#ffffff';
       document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
+      document.getElementById('top-font-style-select').value = textBoxTop.fontFamily;
       document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
+      document.getElementById('bottom-font-style-select').value = textBoxBottom.fontFamily;
       $('#top-center-align').addClass('active');
       $('#bottom-center-align').addClass('active');
       canvas.setActiveObject(textBoxTop);
@@ -121,6 +127,23 @@ $(function() {
       remoteURL.val("");
       remoteURL.prop('disabled', true);
       $('#meme-image').val(dataURL);
+    }
+  });
+  
+  // Text from text box mirrored in the text input fields
+  // Clears other text box if initial prompt still present to mimick placeholders
+  canvas.on("text:changed", function(e) {
+    var element = e.target;
+    if (element === textBoxTop) {
+      document.getElementById("top-text").value = textBoxTop.getText();
+      if (textBoxBottom.getText() === "Enter Bottom Text...") {
+        textBoxBottom.setText("");
+      }
+    } else if (element === textBoxBottom) {
+      document.getElementById("bottom-text").value = textBoxBottom.getText();
+      if (textBoxTop.getText() === "Enter Top Text...") {
+        textBoxTop.setText("");
+      }
     }
   });
   
@@ -247,8 +270,8 @@ $(function() {
   // Function that creates the top text box
   function createTopTextBox(text) {
     var textBoxConfig = {
-      fontSize: 20,
-      fontFamily: 'Arial',
+      fontSize: 24,
+      fontFamily: 'Impact',
       height: 60,
       top: 20,
       left: 0,
@@ -264,8 +287,8 @@ $(function() {
   // Function that creates the bottom text box
   function createBottomTextBox(text) {
     var textBoxConfig = {
-      fontSize: 20,
-      fontFamily: 'Arial',
+      fontSize: 24,
+      fontFamily: 'Impact',
       height: 60,
       top: canvas.height - 40,
       left: 0,
@@ -389,6 +412,17 @@ $(function() {
     canvas.clear();
     var urlInput = document.getElementById('remote-meme-url');
     urlInput.value = null;
+    document.getElementById("top-text").value = ""
+    document.getElementById("top-text").placeholder = "Enter Top Text..."
+    document.getElementById('top-color').value = '#ffffff';
+    document.getElementById('top-color').value = '#ffffff';
+    document.getElementById("bottom-text").value = ""
+    document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
+    document.getElementById('bottom-color').value = '#ffffff';
+    document.getElementById('top-font-size-select').value = 26;
+    document.getElementById('top-font-style-select').value = "Impact";
+    document.getElementById('bottom-font-size-select').value = 26;
+    document.getElementById('bottom-font-style-select').value = "Impact";
     $('#image-upload').filestyle('clear');
     $('#upload-area').removeClass('hidden');
     $('#canvas-area').addClass('hidden');
