@@ -439,18 +439,20 @@ $(function() {
     var topTextStyle = $('#top-font-style-select option:selected').val();
     var bottomTextSize = document.getElementById('bottom-font-size-select').value;
     var bottomTextStyle = $('#bottom-font-style-select option:selected').val();
-    canvas.clear();
-    if (reader.result != null) {
-      url = reader.result;
-    } else {
-      url = $('#remote-meme-url').val();
-    }
-    drawImage(url);    
-    createTopTextBox(topText);
+    // canvas.clear();
+    // if (reader.result != null) {
+    //   url = reader.result;
+    // } else {
+    //   url = $('#remote-meme-url').val();
+    // }
+    // drawImage(url);
+    textBoxTop.setText(topText)
+    // createTopTextBox(topText);
     textBoxTop.setColor(topTextColor);
     textBoxTop.setFontSize(Number(topTextSize));
     textBoxTop.setFontFamily(topTextStyle);
-    createBottomTextBox(bottomText);
+     textBoxBottom.setText(bottomText)
+    // createBottomTextBox(bottomText);
     textBoxBottom.setColor(bottomTextColor);
     textBoxBottom.setFontSize(Number(bottomTextSize));
     textBoxBottom.setFontFamily(bottomTextStyle);
