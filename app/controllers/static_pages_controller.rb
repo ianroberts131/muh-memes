@@ -3,7 +3,6 @@ class StaticPagesController < ApplicationController
     if params[:tag]
       @tag = params[:tag]
       @memes = Meme.order(created_at: :desc).tagged_with(@tag)
-      @most_used_tags = Meme.tag_counts_on(:tags).order('count desc').limit(50)
     else
       @memes = Meme.all.order(created_at: :desc)
     end
@@ -16,4 +15,5 @@ class StaticPagesController < ApplicationController
   
   def about
   end
+  
 end

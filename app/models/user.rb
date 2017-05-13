@@ -71,7 +71,7 @@ class User < ApplicationRecord
   
   # Helper method to get tag counts for specified user
   def user_tag_counts_collection
-    collection = self.memes.tag_counts
+    collection = self.memes.tag_counts.most_used(75).shuffle
     collection.each_with_index do |item, index|
       collection[index].taggings_count = self.memes.tagged_with(item.name).count
     end

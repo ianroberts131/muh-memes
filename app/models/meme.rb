@@ -11,6 +11,10 @@ class Meme < ApplicationRecord
     private == false
   end
   
+  def self.limited_tag_counts
+    self.tag_counts.most_used(100).shuffle
+  end
+  
   private
   
     # Validates the size of an uploaded image

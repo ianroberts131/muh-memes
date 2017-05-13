@@ -16,7 +16,7 @@
         <%= link_to "Show All", root_path, class: "btn btn-primary" %>
       <% else %>
       <div id="tag-cloud">
-        <% tag_cloud @memes.tag_counts, %w[s m l] do |tag, css_class| %>
+        <% tag_cloud @memes.limited_tag_counts, %w[s m l] do |tag, css_class| %>
           <%= link_to tag.name, tag_path(tag.name), class: css_class %>
         <% end %>
       </div>
