@@ -12,7 +12,7 @@ class Meme < ApplicationRecord
   end
   
   def self.limited_tag_counts
-    self.tag_counts.most_used(100).shuffle
+    self.tag_counts.most_used(100).sort_by{ |item| item.name.downcase }
   end
   
   private
