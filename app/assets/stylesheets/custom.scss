@@ -71,8 +71,16 @@ p {
   border-bottom: 2px solid rgb(191, 191, 191);
 }
 
+.navbar-nav {
+  margin: 0 !important;
+}
+
+.navbar-toggle {
+  margin-right: 0;
+}
+
 .navbar-nav li a {
-  line-height: 50px;
+  line-height: 50px !important;
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -84,6 +92,37 @@ p {
 
 .navbar-custom {
   background-color: white;
+}
+
+@media only screen and (max-width: 768px) {
+  #logo { display: none; }
+}
+
+#nav-button {
+  clear: both;
+  display: inline-block;
+  position: relative;
+}
+
+#nav-button button {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 50px;
+}
+
+#nav-button button.navbar-toggle {
+  line-height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  float: none;
+}
+
+@media only screen and (min-width: 768px) {
+  #site-links { display: inline-block !important; }
+}
+
+#profile-dropdown {
+  display: inline-block;
 }
 
 /* mixins, variables, etc. */
@@ -233,6 +272,10 @@ input, textarea, select, .uneditable-input {
   margin-bottom: 10px;
 }
 
+.meme-form-wrapper {
+  height: 100%;
+}
+
 .meme-preview {
   position: relative;
   top: 50%;
@@ -244,6 +287,7 @@ input, textarea, select, .uneditable-input {
   position: relative;
   height: 100%;
   text-align: center;
+  overflow: auto;
 }
 
 .meme-alteration-section {
@@ -251,6 +295,15 @@ input, textarea, select, .uneditable-input {
   margin-top: 7.5%;
   padding-left: 5%;
   border-left: 1px solid rgb(191, 191, 191);
+}
+
+@media only screen and (max-width: 992px) {
+ .meme-alteration-section { 
+   border-left: none; 
+ }
+ .meme-alteration {
+   border-bottom: 1px solid rgb(191, 191, 191);
+ }
 }
 
 .meme-creation {
@@ -307,6 +360,11 @@ input, textarea, select, .uneditable-input {
   position: relative;
   display: inline-block;
   width: 12.5%;
+}
+
+#top-font-size-select, #bottom-font-size-select {
+  padding-right: 0.5em !important;
+  padding-left: 0.5em !important;
 }
 
 #top-font-style-div, #bottom-font-style-div {
@@ -398,6 +456,33 @@ input, textarea, select, .uneditable-input {
 
 #meme_private {
   width: auto;
+}
+
+/* Glyphicons */
+
+.glyphicon {
+  font-size: 1em;
+}
+
+@media only screen and (max-width: 550px) {
+  #top-left-align, #top-center-align, #top-right-align, #bottom-left-align, #bottom-center-align, #bottom-right-align { 
+   display: none; 
+  }
+  #top-font-style-div, #bottom-font-style-div {
+   width: 35%;
+  }
+  #top-font-size-div, #bottom-font-size-div {
+   width: 20%;
+  }
+  #top-text-buttons, #bottom-text-buttons {
+   width: 25%;
+  }
+  #top-color-wrapper, #bottom-color-wrapper {
+   width: 20%;
+  }
+  #top-text-buttons button, #bottom-text-buttons button {
+  width: 50%
+  }
 }
 
 /* Edit Page */

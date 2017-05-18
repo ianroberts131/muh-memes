@@ -6,7 +6,7 @@
   <%= form_for(@meme, url: { controller: "memes", action: "create" }, :html => {:class => "form-group meme-group"}) do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   
-  <div class="col-md-4 col-md-offset-2 meme-preview">
+  <div class="col-xs-offset-2 col-xs-8 col-md-4 meme-preview">
     <div id="upload-area" class="show">
       <div id="upload-area-header">Upload Image</div>
       <div id="upload-area-description">Drag and drop image here<br>
@@ -25,83 +25,87 @@
       <canvas id="canvas" ></canvas>
     </div>
   </div>
-  <div class="col-md-4 meme-alteration disable-div">
+  <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-4 meme-alteration disable-div">
     <div class="meme-alteration-section">
       <div class="text-input">
         <label>Top Text:</label><br/>
         <div id="top-text-options">
-          <div id="top-font-style-div" class="pull-left">
-            <select class='form-control' id="top-font-style-select">
-              <%= render 'shared/font_styles' %>
-            </select>
+          <div class="form-group form-group-sm">
+            <div id="top-font-style-div" class="pull-left">
+              <select class='form-control form-control-sm' id="top-font-style-select">
+                <%= render 'shared/font_styles' %>
+              </select>
+            </div>
+            <div id='top-font-size-div' class="pull-left">
+              <select class='form-control form-control-sm' id="top-font-size-select">
+                <%= render 'shared/font_sizes' %>
+              </select>
+            </div>
+            <div class="btn-group pull-left" data-toggle="buttons" id="top-text-buttons">
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Bold" id="top-bold">
+                <span class="glyphicon glyphicon-bold"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="top-italic">
+                <span class="glyphicon glyphicon-italic"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Left-Align" id="top-left-align">
+                <span class="glyphicon glyphicon-align-left"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Center-Align" id="top-center-align">
+                <span class="glyphicon glyphicon-align-center"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Right-Align" id="top-right-align">
+                <span class="glyphicon glyphicon-align-right"></span>
+              </button>
+            </div>
+            <div class="pull-left" id="top-color-wrapper">
+              <input type="color" id="top-color"/>
+            </div>
+            <input type="text" id="top-text" class="form-control">
           </div>
-          <div id='top-font-size-div' class="pull-left">
-            <select class='form-control' id="top-font-size-select">
-              <%= render 'shared/font_sizes' %>
-            </select>
-          </div>
-          <div class="btn-group pull-left" data-toggle="buttons" id="top-text-buttons">
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Bold" id="top-bold">
-              <span class="glyphicon glyphicon-bold"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="top-italic">
-              <span class="glyphicon glyphicon-italic"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Left-Align" id="top-left-align">
-              <span class="glyphicon glyphicon-align-left"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Center-Align" id="top-center-align">
-              <span class="glyphicon glyphicon-align-center"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Right-Align" id="top-right-align">
-              <span class="glyphicon glyphicon-align-right"></span>
-            </button>
-          </div>
-          <div class="pull-left" id="top-color-wrapper">
-            <input type="color" id="top-color"/>
-          </div>
-          <input type="text" id="top-text" class="form-control"><br/>
         </div>
         
         <label>Bottom Text:</label>
         <div id="bottom-text-options">
-          <div id="bottom-font-style-div" class="pull-left">
-            <select class='form-control' id="bottom-font-style-select">
-              <%= render 'shared/font_styles' %>
-            </select>
+          <div class="form-group form-group-sm">
+            <div id="bottom-font-style-div" class="pull-left">
+              <select class='form-control' id="bottom-font-style-select">
+                <%= render 'shared/font_styles' %>
+              </select>
+            </div>
+            <div id='bottom-font-size-div' class="pull-left">
+              <select class='form-control' id="bottom-font-size-select">
+                <%= render 'shared/font_sizes' %>
+              </select>
+            </div>
+            <div class="btn-group pull-left" data-toggle="buttons" id="bottom-text-buttons">
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Bold" id="bottom-bold">
+                <span class="glyphicon glyphicon-bold"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="bottom-italic">
+                <span class="glyphicon glyphicon-italic"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Left-Align" id="bottom-left-align">
+                <span class="glyphicon glyphicon-align-left"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Center-Align" id="bottom-center-align">
+                <span class="glyphicon glyphicon-align-center"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Right-Align" id="bottom-right-align">
+                <span class="glyphicon glyphicon-align-right"></span>
+              </button>
+            </div>
+            <div class="pull-left" id="bottom-color-wrapper">
+              <input type="color" id="bottom-color">
+            </div>
+            <input type="text" id="bottom-text" class="form-control">
           </div>
-          <div id='bottom-font-size-div' class="pull-left">
-            <select class='form-control' id="bottom-font-size-select">
-              <%= render 'shared/font_sizes' %>
-            </select>
-          </div>
-          <div class="btn-group pull-left" data-toggle="buttons" id="bottom-text-buttons">
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Bold" id="bottom-bold">
-              <span class="glyphicon glyphicon-bold"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="bottom-italic">
-              <span class="glyphicon glyphicon-italic"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Left-Align" id="bottom-left-align">
-              <span class="glyphicon glyphicon-align-left"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Center-Align" id="bottom-center-align">
-              <span class="glyphicon glyphicon-align-center"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Right-Align" id="bottom-right-align">
-              <span class="glyphicon glyphicon-align-right"></span>
-            </button>
-          </div>
-          <div class="pull-left" id="bottom-color-wrapper">
-            <input type="color" id="bottom-color">
-          </div>
-          <input type="text" id="bottom-text" class="form-control">
         </div>
         <div class="private-checkbox">
           <%= f.check_box :private %>
           <%= f.label "private" %>
         </div>
-        <div id="tag-input">
+        <div id="tag-input" class="form-group form-group-sm">
           <%= f.label :tag_list, "Tags (separated by commas)" %>
           <%= f.text_field :tag_list, class: "form-control" %>
         </div>
