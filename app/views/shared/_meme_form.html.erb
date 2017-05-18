@@ -6,7 +6,7 @@
   <%= form_for(@meme, url: { controller: "memes", action: "create" }, :html => {:class => "form-group meme-group"}) do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   
-  <div class="col-xs-offset-2 col-xs-8 col-md-4 meme-preview">
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-4 meme-preview">
     <div id="upload-area" class="show">
       <div id="upload-area-header">Upload Image</div>
       <div id="upload-area-description">Drag and drop image here<br>
@@ -25,7 +25,7 @@
       <canvas id="canvas" ></canvas>
     </div>
   </div>
-  <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-4 meme-alteration disable-div">
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-4 meme-alteration disable-div">
     <div class="meme-alteration-section">
       <div class="text-input">
         <label>Top Text:</label><br/>

@@ -13,12 +13,12 @@
     <h1>Muh Memes</h1>
   </div>
   <div class="row meme-index">
-    <div class="col-xs-8 col-xs-offset-2 meme-thumbnails">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 meme-thumbnails">
       <% if @tag %>
         <p>Memes with tag: <%= @tag %></p>
         <%= link_to "Show All", root_path, class: "btn btn-primary" %>
       <% else %>
-      <div id="tag-cloud">
+      <div class="tag-cloud">
         <% tag_cloud @memes.limited_tag_counts, %w[s m l] do |tag, css_class| %>
           <%= link_to tag.name, tag_path(tag.name), class: css_class %>
         <% end %>
