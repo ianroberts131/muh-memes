@@ -30,7 +30,7 @@ $(function() {
 });
 </script>
 
-<div class="col-md-6 col-md-offset-3 center">  
+<div class="col-xs-12 col-sm-6 col-sm-offset-3 center">  
   <div class="image">
     <p>
       Tags: <%= raw @meme.tag_list.map { |tag| link_to tag, tag_path(tag) }.join(", ") %>
