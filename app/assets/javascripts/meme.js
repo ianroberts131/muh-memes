@@ -9,8 +9,6 @@ $(function() {
   canvas.setHeight(MAX_HEIGHT);
   canvas.setWidth(MAX_WIDTH);
   
-  
-  
   // Drag and Drop File Upload
   document.getElementById('upload-area').addEventListener('dragover', function(e) {
     // prevent browser from trying to open file directly
@@ -46,23 +44,6 @@ $(function() {
       }
       files = e.dataTransfer.files[0];
       reader.readAsDataURL(files);
-      setTimeout(function() { 
-        createTopTextBox("Enter Top Text...");
-        createBottomTextBox("Enter Bottom Text...");
-        
-        document.getElementById("top-text").placeholder = "Enter Top Text..."
-        document.getElementById('top-color').value = '#ffffff';
-        document.getElementById('top-color').value = '#ffffff';
-        document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
-        document.getElementById('bottom-color').value = '#ffffff';
-        document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
-        document.getElementById('top-font-style-select').value = textBoxTop.fontFamily;
-        document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
-        document.getElementById('bottom-font-style-select').value = textBoxBottom.fontFamily;
-        $('#top-center-align').addClass('active');
-        $('#bottom-center-align').addClass('active');
-        canvas.setActiveObject(textBoxTop);
-      }, 200);
   })
   
   // Click File Upload
@@ -75,24 +56,6 @@ $(function() {
       canvas.renderAll();
     }
     reader.readAsDataURL(e.target.files[0]);
-    setTimeout(function() { 
-      createTopTextBox("Enter Top Text...");
-      createBottomTextBox("Enter Bottom Text...");
-      
-      document.getElementById("top-text").placeholder = "Enter Top Text..."
-      document.getElementById('top-color').value = '#ffffff';
-      document.getElementById('top-color').value = '#ffffff';
-      document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
-      document.getElementById('bottom-color').value = '#ffffff';
-      document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
-      document.getElementById('top-font-style-select').value = textBoxTop.fontFamily;
-      document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
-      document.getElementById('bottom-font-style-select').value = textBoxBottom.fontFamily;
-      $('#top-center-align').addClass('active');
-      $('#bottom-center-align').addClass('active');
-      canvas.setActiveObject(textBoxTop);
-    }, 200);
-    
   }
   
   $('#remote-meme-url').on('input', function() {
@@ -102,20 +65,6 @@ $(function() {
     $('.meme-alteration').removeClass('disable-div');
     drawImage(input);
     canvas.renderAll();
-    setTimeout(function() { 
-      createTopTextBox("Enter Top Text...");
-      createBottomTextBox("Enter Bottom Text...");
-      
-      document.getElementById("top-text").value = "Enter Top Text..."
-      document.getElementById('top-color').value = '#ffffff';
-      document.getElementById("bottom-text").value = "Enter Bottom Text..."
-      document.getElementById('bottom-color').value = '#ffffff';
-      document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
-      document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
-      $('#top-center-align').addClass('active');
-      $('#bottom-center-align').addClass('active');
-      canvas.setActiveObject(textBoxTop);
-    }, 200);
   });
   
   // On submit, change the meme/remote-URL value to the dataURL of the canvas
@@ -520,6 +469,21 @@ $(function() {
       
       canvas.add(image);
       canvas.sendToBack(image);
+      createTopTextBox("Enter Top Text...");
+      createBottomTextBox("Enter Bottom Text...");
+      
+      document.getElementById("top-text").placeholder = "Enter Top Text..."
+      document.getElementById('top-color').value = '#ffffff';
+      document.getElementById('top-color').value = '#ffffff';
+      document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
+      document.getElementById('bottom-color').value = '#ffffff';
+      document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
+      document.getElementById('top-font-style-select').value = textBoxTop.fontFamily;
+      document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
+      document.getElementById('bottom-font-style-select').value = textBoxBottom.fontFamily;
+      $('#top-center-align').addClass('active');
+      $('#bottom-center-align').addClass('active');
+      canvas.setActiveObject(textBoxTop);
     }
   }
   

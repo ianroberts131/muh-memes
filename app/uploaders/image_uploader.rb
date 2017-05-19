@@ -16,6 +16,15 @@ class ImageUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
+  
+  # Fix 90 degree rotation on Android
+  def fix_exif_rotation
+    manipulate! do |img|
+      img.tap(&:auto_orient)
+    end
+  end
+  
+  process :fix_exif_rotation
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
