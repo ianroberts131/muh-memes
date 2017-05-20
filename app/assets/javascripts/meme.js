@@ -455,6 +455,7 @@ $(function() {
     var imgObject = new Image();
     imgObject.src = input;
     imgObject.onload = function() {
+      resizeImage(imgObject);
       var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(reader.result));
       alert("The orientation is " + exif.Orientation);
       var left = 0;
@@ -501,7 +502,9 @@ $(function() {
           break;
         case 6:
           // 90° rotate right
-          left = imgObject.width;
+          canvas.setWidth(image.height);
+          canvas.setHeight(image.width);
+          left = imgObject.height;
           top = 0;
           angle = 90;
           // ctx.rotate(0.5 * Math.PI);
@@ -527,7 +530,7 @@ $(function() {
           // ctx.translate(-canvas.width, 0);
           break;
       }
-      resizeImage(imgObject);
+      
       var image = new fabric.Image(imgObject);
       image.set({
         left: left,
