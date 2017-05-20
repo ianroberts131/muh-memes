@@ -455,15 +455,20 @@ $(function() {
     var imgObject = new Image();
     imgObject.src = input;
     imgObject.onload = function() {
-      resizeImage(imgObject);
-      var image = new fabric.Image(imgObject);
       var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(reader.result));
+      if(exif === 5 || exif === 6 || exif === 7 || exif === 8) {
+        resizeFlippedImage(imgObject);
+      } else {
+        resizeImage(imgObject)
+      }
+      var image = new fabric.Image(imgObject);
       alert("The orientation is " + exif.Orientation);
       var left = 0;
       var top = 0;
       var angle = 0;
       var scaleX = 1;
       var scaleY = 1;
+      // If there is exif data, set the transformations
       switch(exif.Orientation){
         case 2:
         // horizontal flip
@@ -577,6 +582,23 @@ $(function() {
     } else {
       if (image.height > MAX_HEIGHT) {
         image.width *= MAX_HEIGHT / image.height;
+        image.height = MAX_HEIGHT;
+      }
+    }
+    canvas.setWidth(image.width);
+    canvas.setHeight(image.height);
+  }
+  
+  function resizeFlippedImage(image) {
+    if (image.height > image.width) {
+      if (image.height > MAX_WIDTH) {
+          image.width *= MAX_WIDTH / image.height;
+          image.height = MAX_WIDTH;
+        }
+        
+    } else {
+      if (image.width > MAX_HEIGHT) {
+        image.height *= MAX_HEIGHT / image.width;
         image.height = MAX_HEIGHT;
       }
     }
