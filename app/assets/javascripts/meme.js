@@ -600,7 +600,7 @@ $(function() {
     } else {
       if (image.width > MAX_HEIGHT) {
         image.height *= MAX_HEIGHT / image.width;
-        image.height = MAX_HEIGHT;
+        image.width = MAX_HEIGHT;
       }
     }
     canvas.setWidth(image.width);
