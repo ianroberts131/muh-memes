@@ -59,7 +59,7 @@ $(function() {
     reader.onloadend = function() {
       var ctx = canvas.getContext('2d');
       var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(reader.result));
-      console.log("The orientation is: ", exif.Orientation);
+      alert("The orientation is " + exif.Orientation);
       switch(exif.Orientation){
         case 2:
         // horizontal flip
