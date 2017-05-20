@@ -4,7 +4,7 @@ $(function() {
   var remoteURL = $('#remote-meme-url');
   var canvas = new fabric.Canvas('canvas');
   var reader = new FileReader();
-  var MAX_WIDTH = 500;
+  var MAX_WIDTH = 400;
   var MAX_HEIGHT = 400;
   canvas.setHeight(MAX_HEIGHT);
   canvas.setWidth(MAX_WIDTH);
