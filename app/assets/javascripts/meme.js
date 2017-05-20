@@ -501,8 +501,8 @@ $(function() {
           break;
         case 6:
           // 90° rotate right
-          left = 0;
-          top = -imgObject.height;
+          left = imgObject.width;
+          top = 0;
           angle = 90;
           // ctx.rotate(0.5 * Math.PI);
           // ctx.translate(0, -canvas.height);
