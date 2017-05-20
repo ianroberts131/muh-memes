@@ -456,20 +456,21 @@ $(function() {
     imgObject.src = input;
     imgObject.onload = function() {
       var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(reader.result));
-      if(exif === 5 || exif === 6 || exif === 7 || exif === 8) {
+      var orientation = exif.Orientation
+      if(orientation === 5 || orientation === 6 || orientation === 7 || orientation === 8) {
         resizeFlippedImage(imgObject);
       } else {
         resizeImage(imgObject)
       }
       var image = new fabric.Image(imgObject);
-      alert("The orientation is " + exif.Orientation);
+      alert("The orientation is " + orientation);
       var left = 0;
       var top = 0;
       var angle = 0;
       var scaleX = 1;
       var scaleY = 1;
       // If there is exif data, set the transformations
-      switch(exif.Orientation){
+      switch(orientation){
         case 2:
         // horizontal flip
           left = image.width;
