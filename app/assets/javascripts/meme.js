@@ -455,7 +455,6 @@ $(function() {
     var imgObject = new Image();
     imgObject.src = input;
     imgObject.onload = function() {
-      resizeImage(imgObject);
       var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(reader.result));
       alert("The orientation is " + exif.Orientation);
       var left = 0;
@@ -466,69 +465,69 @@ $(function() {
       switch(exif.Orientation){
         case 2:
         // horizontal flip
-          left = canvas.width;
+          left = imgObject.width;
           top = 0;
-          ctx.translate(canvas.width, 0);
           scaleX = -1;
-          scaleY = 1
-          ctx.scale(-1, 1);
+          scaleY = 1;
+          // ctx.translate(canvas.width, 0);
+          // ctx.scale(-1, 1);
           break;
         case 3:
           // 180° rotate left
-          left = canvas.width;
-          top = canvas.height;
+          left = imgObject.width;
+          top = imgObject.height;
           angle = 180;
-          ctx.translate(canvas.width, canvas.height);
-          ctx.rotate(Math.PI);
+          // ctx.translate(canvas.width, canvas.height);
+          // ctx.rotate(Math.PI);
           break;
         case 4:
           // vertical flip
           left = 0;
-          top = canvas.height;
+          top = imgObject.height;
           scaleX = 1;
           scaleY = -1;
-          ctx.translate(0, canvas.height);
-          ctx.scale(1, -1);
+          // ctx.translate(0, canvas.height);
+          // ctx.scale(1, -1);
           break;
         case 5:
+          // vertical flip + 90 rotate right
           left = 0;
           top = 0;
           angle = 90;
           scaleX = 1;
           scaleY = -1;
-          // vertical flip + 90 rotate right
           // ctx.rotate(0.5 * Math.PI);
           // ctx.scale(1, -1);
           break;
         case 6:
           // 90° rotate right
           left = 0;
-          // top = -canvas.height;
+          top = -imgObject.height;
           angle = 90;
           // ctx.rotate(0.5 * Math.PI);
           // ctx.translate(0, -canvas.height);
           break;
         case 7:
           // horizontal flip + 90 rotate right
-          left = canvas.width;
-          top = -canvas.height;
+          left = imgObject.width;
+          top = -imgObject.height;
           angle = 90;
           scaleX = -1;
           scaleY = 1;
-          ctx.rotate(0.5 * Math.PI);
-          ctx.translate(canvas.width, -canvas.height);
-          ctx.scale(-1, 1);
+          // ctx.rotate(0.5 * Math.PI);
+          // ctx.translate(canvas.width, -canvas.height);
+          // ctx.scale(-1, 1);
           break;
         case 8:
           // 90° rotate left
-          left = -canvas.width;
+          left = -imgObject.width;
           top = 0;
           angle = -90;
-          ctx.rotate(-0.5 * Math.PI);
-          ctx.translate(-canvas.width, 0);
+          // ctx.rotate(-0.5 * Math.PI);
+          // ctx.translate(-canvas.width, 0);
           break;
       }
-      
+      resizeImage(imgObject);
       var image = new fabric.Image(imgObject);
       image.set({
         left: left,
