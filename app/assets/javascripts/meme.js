@@ -497,16 +497,16 @@ $(function() {
           scaleX = 1;
           scaleY = -1;
           // vertical flip + 90 rotate right
-          ctx.rotate(0.5 * Math.PI);
-          ctx.scale(1, -1);
+          // ctx.rotate(0.5 * Math.PI);
+          // ctx.scale(1, -1);
           break;
         case 6:
           // 90° rotate right
           left = 0;
-          top = -canvas.height;
+          // top = -canvas.height;
           angle = 90;
-          ctx.rotate(0.5 * Math.PI);
-          ctx.translate(0, -canvas.height);
+          // ctx.rotate(0.5 * Math.PI);
+          // ctx.translate(0, -canvas.height);
           break;
         case 7:
           // horizontal flip + 90 rotate right
