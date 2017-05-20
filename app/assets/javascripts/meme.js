@@ -532,6 +532,7 @@ $(function() {
       var image = new fabric.Image(imgObject);
       image.set({
         left: left,
+        top: top,
         angle: angle,
         scaleX: scaleX,
         scaleY: scaleY,
