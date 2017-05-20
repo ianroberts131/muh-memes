@@ -56,6 +56,50 @@ $(function() {
       canvas.renderAll();
     }
     reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend = function() {
+      var ctx = canvas.getContext('2d');
+      var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(reader.result));
+      console.log("The orientation is: ", exif.Orientation);
+      switch(exif.Orientation){
+        case 2:
+        // horizontal flip
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+        break;
+        case 3:
+            // 180° rotate left
+            ctx.translate(canvas.width, canvas.height);
+            ctx.rotate(Math.PI);
+            break;
+        case 4:
+            // vertical flip
+            ctx.translate(0, canvas.height);
+            ctx.scale(1, -1);
+            break;
+        case 5:
+            // vertical flip + 90 rotate right
+            ctx.rotate(0.5 * Math.PI);
+            ctx.scale(1, -1);
+            break;
+        case 6:
+            // 90° rotate right
+            ctx.rotate(0.5 * Math.PI);
+            ctx.translate(0, -canvas.height);
+            break;
+        case 7:
+            // horizontal flip + 90 rotate right
+            ctx.rotate(0.5 * Math.PI);
+            ctx.translate(canvas.width, -canvas.height);
+            ctx.scale(-1, 1);
+            break;
+        case 8:
+            // 90° rotate left
+            ctx.rotate(-0.5 * Math.PI);
+            ctx.translate(-canvas.width, 0);
+            break;
+      }
+    }
+    
   }
   
   $('#remote-meme-url').on('input', function() {
@@ -97,14 +141,14 @@ $(function() {
   });
   
   // clear the canvas and draw the image + text on each key stroke
-  document.getElementById("top-text").onkeyup = function() {
+  $("#top-text").on("change keyup blur input", function() {
     drawMeme();
-  }
+  });
     
   // clear the canvas and draw the image + text on each key stroke
-  document.getElementById("bottom-text").onkeyup = function() {
+  $("#bottom-text").on("change keyup blur input", function() {
     drawMeme();
-  }
+  });
   
   // Make the top font size selection both a dropdown and an input field
   var topFontSizeSelect = $('#top-font-size-select')
@@ -503,6 +547,17 @@ $(function() {
     }
     canvas.setWidth(image.width);
     canvas.setHeight(image.height);
+  }
+  
+  function base64ToArrayBuffer (base64) {
+    base64 = base64.replace(/^data\:([^\;]+)\;base64,/gmi, '');
+    var binaryString = atob(base64);
+    var len = binaryString.length;
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
   }
   
 });
