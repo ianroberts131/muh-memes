@@ -463,7 +463,6 @@ $(function() {
         resizeImage(imgObject)
       }
       var image = new fabric.Image(imgObject);
-      alert("The orientation is " + orientation);
       var left = 0;
       var top = 0;
       var angle = 0;
@@ -473,39 +472,33 @@ $(function() {
       switch(orientation){
         case 2:
         // horizontal flip
-          left = image.width;
+          left = 0;
           top = 0;
           scaleX = -1;
           scaleY = 1;
-          // ctx.translate(canvas.width, 0);
-          // ctx.scale(-1, 1);
           break;
         case 3:
           // 180° rotate left
           left = image.width;
           top = image.height;
           angle = 180;
-          // ctx.translate(canvas.width, canvas.height);
-          // ctx.rotate(Math.PI);
           break;
         case 4:
           // vertical flip
           left = 0;
-          top = image.height;
+          top = 0;
           scaleX = 1;
           scaleY = -1;
-          // ctx.translate(0, canvas.height);
-          // ctx.scale(1, -1);
           break;
         case 5:
           // vertical flip + 90 rotate right
-          left = 0;
+          canvas.setWidth(image.height);
+          canvas.setHeight(image.width);
+          left = image.height;
           top = 0;
           angle = 90;
           scaleX = 1;
           scaleY = -1;
-          // ctx.rotate(0.5 * Math.PI);
-          // ctx.scale(1, -1);
           break;
         case 6:
           // 90° rotate right
@@ -514,28 +507,24 @@ $(function() {
           left = image.height;
           top = 0;
           angle = 90;
-          alert("the width is: " + image.height + ", the height is: " + image.width + ", left is: " + left + ", top is: " + top + ", the angle is: " + angle);
-          // ctx.rotate(0.5 * Math.PI);
-          // ctx.translate(0, -canvas.height);
           break;
         case 7:
           // horizontal flip + 90 rotate right
-          left = image.width;
-          top = -image.height;
+          canvas.setWidth(image.height);
+          canvas.setHeight(image.width);
+          left = image.height;
+          top = 0;
           angle = 90;
           scaleX = -1;
           scaleY = 1;
-          // ctx.rotate(0.5 * Math.PI);
-          // ctx.translate(canvas.width, -canvas.height);
-          // ctx.scale(-1, 1);
           break;
         case 8:
           // 90° rotate left
-          left = -image.width;
-          top = 0;
+          canvas.setWidth(image.height);
+          canvas.setHeight(image.width);
+          left = 0;
+          top = image.width;
           angle = -90;
-          // ctx.rotate(-0.5 * Math.PI);
-          // ctx.translate(-canvas.width, 0);
           break;
       }
       image.set({
