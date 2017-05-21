@@ -1,5 +1,5 @@
 $(function() {
-
+  
   var imageUpload = $("#image-upload");
   var remoteURL = $('#remote-meme-url');
   var canvas = new fabric.Canvas('canvas');
@@ -225,13 +225,13 @@ $(function() {
       top: 20,
       left: 0,
       width: canvas.width,
-      // stroke: 'black',
-      // strokeWidth: 1,
+      stroke: "black",
+      strokeWidth: 1,
       textAlign: 'center',
     }
     textBoxTop = new fabric.Textbox(text, textBoxConfig);
     textBoxTop.setColor('white');
-    // textBoxTop.setFontFamily('Impact');
+    document.getElementById('top-font-style-select').value = "Impact-Outline";
     textBoxTop.lockMovementX = true;
     canvas.add(textBoxTop);
   }
@@ -245,11 +245,12 @@ $(function() {
       top: canvas.height - 60,
       left: 0,
       width: canvas.width,
-      // stroke: 'black',
-      // strokeWidth: 1,
+      stroke: 'black',
+      strokeWidth: 1,
       textAlign: 'center',
     }
     textBoxBottom = new fabric.Textbox(text, textBoxConfig);
+    document.getElementById('bottom-font-style-select').value = "Impact-Outline";
     textBoxBottom.setColor('white');
     textBoxBottom.lockMovementX = true;
     canvas.add(textBoxBottom);
@@ -401,15 +402,28 @@ $(function() {
     // }
     // drawImage(url);
     textBoxTop.setText(topText)
-    // createTopTextBox(topText);
     textBoxTop.setColor(topTextColor);
     textBoxTop.setFontSize(Number(topTextSize));
-    textBoxTop.setFontFamily(topTextStyle);
-     textBoxBottom.setText(bottomText)
-    // createBottomTextBox(bottomText);
+    if ($('#top-font-style-select option:selected').val() === "Impact-Outline") {
+      textBoxTop.setFontFamily("Impact");
+      textBoxTop.stroke = "black";
+      textBoxTop.strokeWidth = 1;
+    } else {
+      textBoxTop.setFontFamily(topTextStyle);
+      textBoxTop.stroke = null;
+    }
+    textBoxBottom.setText(bottomText)
     textBoxBottom.setColor(bottomTextColor);
     textBoxBottom.setFontSize(Number(bottomTextSize));
-    textBoxBottom.setFontFamily(bottomTextStyle);
+    
+    if ($('#bottom-font-style-select option:selected').val() === "Impact-Outline") {
+      textBoxBottom.setFontFamily("Impact");
+      textBoxBottom.stroke = "black";
+      textBoxBottom.strokeWidth = 1;
+    } else {
+      textBoxBottom.setFontFamily(bottomTextStyle);
+      textBoxBottom.stroke = null;
+    }
     
     if(topBold.hasClass('active')) {
       textBoxTop.fontWeight = 'bold';
@@ -557,9 +571,7 @@ $(function() {
       document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
       document.getElementById('bottom-color').value = '#ffffff';
       document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
-      document.getElementById('top-font-style-select').value = textBoxTop.fontFamily;
       document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
-      document.getElementById('bottom-font-style-select').value = textBoxBottom.fontFamily;
       $('#top-center-align').addClass('active');
       $('#bottom-center-align').addClass('active');
       canvas.setActiveObject(textBoxTop);

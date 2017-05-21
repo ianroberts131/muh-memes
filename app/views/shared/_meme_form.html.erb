@@ -2,6 +2,7 @@
   <meta name="turbolinks-cache-control" content="no-cache">
   <%= javascript_include_tag('meme') %>
   <%= javascript_include_tag('exif') %>
+  <link href="https://fonts.googleapis.com/css?family=Butcherman|Faster+One|Nosifer" rel="stylesheet">
 <% end %>
   
   <%= form_for(@meme, url: { controller: "memes", action: "create" }, :html => {:class => "form-group meme-group"}) do |f| %>

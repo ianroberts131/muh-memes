@@ -1,7 +1,15 @@
 /* fonts */
-@media only screen and (max-width: 768px) {
-  @font-face {
-    font-family: 'Impact';
-      src: asset-url('impact.ttf')  format('truetype'), /* Safari, Android, iOS */
-  }
+@font-face {
+  font-family: 'Impact';
+  src: asset-url('impact.ttf')  format('truetype'), /* Safari, Android, iOS */
+}
+
+@font-face {
+  font-family: 'BadMofo';
+  src: asset-url('BadMofo.ttf')  format('truetype'), /* Safari, Android, iOS */
+}
+
+@font-face {
+  font-family: 'Push';
+  src: asset-url('push.ttf')  format('truetype'), /* Safari, Android, iOS */
 }
