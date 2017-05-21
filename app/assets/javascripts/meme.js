@@ -225,12 +225,13 @@ $(function() {
       top: 20,
       left: 0,
       width: canvas.width,
-      stroke: 'black',
-      strokeWidth: 1,
+      // stroke: 'black',
+      // strokeWidth: 1,
       textAlign: 'center',
     }
     textBoxTop = new fabric.Textbox(text, textBoxConfig);
     textBoxTop.setColor('white');
+    // textBoxTop.setFontFamily('Impact');
     textBoxTop.lockMovementX = true;
     canvas.add(textBoxTop);
   }
@@ -241,11 +242,11 @@ $(function() {
       fontSize: 28,
       fontFamily: 'Impact',
       height: 60,
-      top: canvas.height - 40,
+      top: canvas.height - 60,
       left: 0,
       width: canvas.width,
-      stroke: 'black',
-      strokeWidth: 1,
+      // stroke: 'black',
+      // strokeWidth: 1,
       textAlign: 'center',
     }
     textBoxBottom = new fabric.Textbox(text, textBoxConfig);
