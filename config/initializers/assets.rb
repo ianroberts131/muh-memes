@@ -10,4 +10,4 @@ config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile += %w( meme.js userEdit.js exif.js impact.ttf)
+Rails.application.config.assets.precompile += %w( meme.js userEdit.js exif.js .ttf)
