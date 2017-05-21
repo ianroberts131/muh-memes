@@ -79,6 +79,11 @@ p {
   margin-right: 0;
 }
 
+.navbar-flexbox-center {
+  display: flex;
+  align-items: center;
+}
+
 .navbar-nav li a {
   line-height: 50px !important;
   padding-top: 10px;
@@ -357,7 +362,6 @@ input, textarea, select, .uneditable-input {
   top: 50%;
   width: 90%;
   transform: translateY(-50%);
-  
 }
 
 #top-color-wrapper, #bottom-color-wrapper {
@@ -387,12 +391,29 @@ input, textarea, select, .uneditable-input {
   padding: 0;
 }
 
-#top-text-buttons button {
+#top-text-buttons button, #bottom-text-buttons button {
   width: 20%
 }
 
-#bottom-text-buttons button {
-  width: 20%;
+@media only screen and (max-width: 550px) {
+  #top-left-align, #top-center-align, #top-right-align, #bottom-left-align, #bottom-center-align, #bottom-right-align { 
+   display: none; 
+  }
+  #top-font-style-div, #bottom-font-style-div {
+   width: 35%;
+  }
+  #top-font-size-div, #bottom-font-size-div {
+   width: 20%;
+  }
+  #top-text-buttons, #bottom-text-buttons {
+   width: 25%;
+  }
+  #top-color-wrapper, #bottom-color-wrapper {
+   width: 20%;
+  }
+  #top-text-buttons button, #bottom-text-buttons button {
+  width: 50%
+  }
 }
 
 .submit-buttons {
@@ -473,26 +494,7 @@ input, textarea, select, .uneditable-input {
   font-size: 1em;
 }
 
-@media only screen and (max-width: 550px) {
-  #top-left-align, #top-center-align, #top-right-align, #bottom-left-align, #bottom-center-align, #bottom-right-align { 
-   display: none; 
-  }
-  #top-font-style-div, #bottom-font-style-div {
-   width: 35%;
-  }
-  #top-font-size-div, #bottom-font-size-div {
-   width: 20%;
-  }
-  #top-text-buttons, #bottom-text-buttons {
-   width: 25%;
-  }
-  #top-color-wrapper, #bottom-color-wrapper {
-   width: 20%;
-  }
-  #top-text-buttons button, #bottom-text-buttons button {
-  width: 50%
-  }
-}
+
 
 /* Edit Page */
 

@@ -1,0 +1,7 @@
+/* fonts */
+@media only screen and (max-width: 768px) {
+  @font-face {
+    font-family: 'Impact';
+      src: asset-url('impact.ttf')  format('truetype'), /* Safari, Android, iOS */
+  }
+}

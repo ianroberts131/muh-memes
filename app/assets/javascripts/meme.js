@@ -219,12 +219,14 @@ $(function() {
   // Function that creates the top text box
   function createTopTextBox(text) {
     var textBoxConfig = {
-      fontSize: 24,
+      fontSize: 28,
       fontFamily: 'Impact',
       height: 60,
       top: 20,
       left: 0,
       width: canvas.width,
+      stroke: 'black',
+      strokeWidth: 1,
       textAlign: 'center',
     }
     textBoxTop = new fabric.Textbox(text, textBoxConfig);
@@ -236,12 +238,14 @@ $(function() {
   // Function that creates the bottom text box
   function createBottomTextBox(text) {
     var textBoxConfig = {
-      fontSize: 24,
+      fontSize: 28,
       fontFamily: 'Impact',
       height: 60,
       top: canvas.height - 40,
       left: 0,
       width: canvas.width,
+      stroke: 'black',
+      strokeWidth: 1,
       textAlign: 'center',
     }
     textBoxBottom = new fabric.Textbox(text, textBoxConfig);
