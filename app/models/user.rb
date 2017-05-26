@@ -5,7 +5,6 @@ class User < ApplicationRecord
   has_many :favorites
   has_many :favorite_memes, through: :favorites, source: :favorited, source_type: 'Meme'
   attr_accessor :remember_token, :activation_token, :reset_token
-  # acts_as_tagger
   before_save   :downcase_email
   before_create :create_activation_digest
   mount_uploader :avatar, AvatarUploader
@@ -16,6 +15,10 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  
+  searchable do
+    text :name
+  end
   
   # Returns the hash digest of the given string
   def User.digest(string)

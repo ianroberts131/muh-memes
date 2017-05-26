@@ -4,7 +4,17 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
   
   def index
-    @users = User.where(activated: true).paginate(page: params[:page])
+    if params[:all]
+      redirect_to users_path
+    elsif params[:search]
+      @search = Sunspot.search(User) do
+        fulltext params[:search]
+        paginate(:page => params[:page] || 1, :per_page => 30)
+      end
+      @users = @search.results
+    else
+      @users = User.all.paginate(page: params[:page]).order("name asc")
+    end
   end
   
   def show
@@ -12,15 +22,35 @@ class UsersController < ApplicationController
       @tag = params[:tag]
       @user = User.friendly.find(params[:user_id])
       redirect_to root_url and return unless @user.activated
-      @memes = @user.memes.order(created_at: :desc).tagged_with(@tag).paginate(page: params[:page])
+      @memes = @user.memes.paginate(page: params[:page]).order(created_at: :desc).tagged_with(@tag).paginate(page: params[:page])
       @meme = @user.memes.new
+    elsif params[:all]
+      @user = User.friendly.find(params[:id])
+      redirect_to root_url and return unless @user.activated
+      redirect_to user_path(@user)
     else
       @user = User.friendly.find(params[:id])
       redirect_to root_url and return unless @user.activated
-      @memes = @user.memes.order(created_at: :desc).paginate(page: params[:page])
+      @search = Sunspot.search(Meme) do
+        fulltext params[:search]
+        with :user_id, User.friendly.find(params[:id]).id
+        order_by :created_at, :desc
+        paginate(:page => params[:page] || 1, :per_page => 30)
+      end
+      
+      @public_search = Sunspot.search(Meme) do
+        fulltext params[:search]
+        with :user_id, User.friendly.find(params[:id]).id
+        order_by :created_at, :desc
+        with :private, false
+        paginate(:page => params[:page] || 1, :per_page => 30)
+      end
+      @query = params[:search]
+      @memes = @search.results
       @meme = @user.memes.new
+      @tag_cloud_memes = @user.memes.order(created_at: :desc).paginate(page: params[:page])
+      @public_memes = params[:search] ? @public_search.results : @user.memes.paginate(:page => params[:page] || 1, :per_page => 5).where(private: false)
     end
-    @public_memes = @memes.where(private: false)
   end
   
   def new

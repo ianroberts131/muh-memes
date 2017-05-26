@@ -7,6 +7,14 @@ class Meme < ApplicationRecord
   validates :image, presence: true
   validate :image_size
   
+  searchable do
+    text    :tag_list
+    integer :user_id
+    boolean :private
+    time    :created_at
+    time    :updated_at
+  end
+  
   def is_public?
     private == false
   end

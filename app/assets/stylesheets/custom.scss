@@ -219,11 +219,10 @@ input, textarea, select, .uneditable-input {
 
 /* Users index */
 
-.users {
+#users {
   list-style: none;
   margin: 0;
   li {
-    overflow: auto;
     padding: 10px 0;
     border-bottom: 1px solid gray;
   }
@@ -533,7 +532,26 @@ input, textarea, select, .uneditable-input {
 }
 
 /* Home Page */
+
+.header {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  background-color: white;
+}
+
 #home-page-panda {
+  margin-top: 2.5%;
   width: 100%;
   max-width: 500px;
+}
+
+.search-area {
+  margin-bottom: 2%;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.search-bar {
+  display: inline-table;
+  vertical-align: middle;
 }

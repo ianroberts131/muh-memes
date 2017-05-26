@@ -1,5 +1,5 @@
 <% if !current_user %>  
-  <div class="center jumbotron black-background">
+  <div class="center jumbotron header">
     <h1>Muh Memes</h1>
     <p>A community for creating, saving, and sharing memes!</p>
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
@@ -9,7 +9,7 @@
   </div>
 <% else %>
 
-  <div class="center jumbotron">
+  <div class="center jumbotron header">
     <h1>Muh Memes</h1>
   </div>
   <div class="row meme-index">
@@ -18,12 +18,28 @@
         <p>Memes with tag: <%= @tag %></p>
         <%= link_to "Show All", root_path, class: "btn btn-primary" %>
       <% else %>
+      <div class="col-xs-12 center search-area">
+        <%= form_tag root_path, :method => :get, class: "form-inline", :autocomplete => :off do %>
+          <div class="input-group col-xs-8 col-md-6 col-lg-4 search-bar">
+            <%= text_field_tag :search, params[:search], placeholder: "Search All Memes", class: "form-control col-xs-12" %>
+          </div>
+            <%= button_tag type: "submit", class: "btn btn-secondary" do %>
+              <span class="glyphicon glyphicon-search"></span>
+            <% end %>
+            <%= button_tag type: "submit", class: "btn btn-primary", name: "all" do %>
+              <span class="glyphicon glyphicon-refresh"></span>
+            <% end %>
+        <% end %>
+      </div>
       <div class="tag-cloud">
-        <% tag_cloud @memes.limited_tag_counts, %w[s m l] do |tag, css_class| %>
+        <% tag_cloud @tag_cloud_memes.limited_tag_counts, %w[s m l] do |tag, css_class| %>
           <%= link_to tag.name, tag_path(tag.name), class: css_class %>
         <% end %>
       </div>
       <% end %>
+      
+      <%= will_paginate @memes %>
+      
       <ul class="memes">
         <% @memes.each do |meme| %>
           <li id="meme-<%= meme.id %>">  
@@ -31,6 +47,8 @@
           </li>
         <% end %>
       </ul>
+      
+     <%= will_paginate @memes %>
     </div>
   </div>
 

@@ -29,12 +29,26 @@
       <% else %>
         <h3><%= @user.name %>'<%= @user.name.last == "s" ? "" : "s" %> Saved Memes (<%= @user.memes.count %>)</h3>
       <% end %>
+      <div class="col-xs-12 center search-area">
+        <%= form_tag user_path(@user), :method => :get, class: "form-inline", :autocomplete => :off do %>
+          <div class="input-group col-xs-8 col-md-6 col-lg-4 search-bar">
+            <%= text_field_tag :search, params[:search], placeholder: "Search Your Memes", class: "form-control col-xs-12" %>
+          </div>
+            <%= button_tag type: "submit", class: "btn btn-secondary" do %>
+              <span class="glyphicon glyphicon-search"></span>
+            <% end %>
+            <%= button_tag type: "submit", class: "btn btn-primary", name: "all" do %>
+              <span class="glyphicon glyphicon-refresh"></span>
+            <% end %>
+        <% end %>
+      </div>
         <div class="tag-cloud">
           <% tag_cloud @user.user_tag_counts_collection, %w[s m l] do |tag, css_class| %>
             <%= link_to tag.name, user_tag_path(@user, tag.name), class: css_class %>
           <% end %>
         </div>
       <% end %>
+      
       <ul class="memes">
         <% if current_user?(@user) %>
           <%= render @memes %>
