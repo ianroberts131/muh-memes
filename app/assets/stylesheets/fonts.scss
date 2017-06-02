@@ -1,15 +1,15 @@
 /* fonts */
 @font-face {
   font-family: 'Impact';
-  src: font_path('impact.ttf') format('ttf')
+  src: asset-url('impact.ttf') format('ttf')
 }
 
 @font-face {
   font-family: 'BadMofo';
-  src: font_path('BadMofo.ttf') format('ttf')
+  src: asset-url('BadMofo.ttf') format('ttf')
 }
 
 @font-face {
   font-family: 'Push';
-  src: font_path('push.ttf') format('ttf')
+  src: asset-url('push.ttf') format('ttf')
 }
