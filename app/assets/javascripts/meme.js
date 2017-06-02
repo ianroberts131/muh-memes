@@ -1,4 +1,8 @@
-$(function() {
+$(document).on("turbolinks:load", function() {
+  // Make sure this javascript file only loads on the users show page
+  if($(".users.show").length === 0) {
+    return;
+  }
   
   var imageUpload = $("#image-upload");
   var remoteURL = $('#remote-meme-url');

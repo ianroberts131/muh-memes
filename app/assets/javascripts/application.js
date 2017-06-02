@@ -16,6 +16,10 @@
 //= require bootstrap-sprockets
 //= require bootstrap-filestyle
 //= require vendor
+//= require meme
+//= require exif
+//= require jquery-editable-select.min
+//= require userEdit
 //= require turbolinks
 //= require turbolinks-compatibility
 

@@ -1,4 +1,8 @@
-$(function() {
+$(document).on("turbolinks:load", function() {
+  // Make sure this javascript file only loads on the users edit page
+  if($(".users.edit").length === 0) {
+    return;
+  }
   var MAX_WIDTH = 150;
   var MAX_HEIGHT = 150;
   var canvas = new fabric.Canvas('avatar-canvas');

@@ -18,7 +18,6 @@
 <script>
 $(function() {
   $(".check-box").change(function() {
-    console.log("Is it checked? ", this.checked)
     $.ajax({
       type: "PUT",
       url: "/users/<%=@user.id%>/memes/<%=@meme.id%>.json",
