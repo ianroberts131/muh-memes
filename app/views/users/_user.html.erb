@@ -1,4 +1,10 @@
-<%= gravatar_for user, size: 50 %>
+<%= link_to user, class: 'default-avatar-color' do %>  
+  <% if user.avatar_url %>
+    <img src="<%= user.avatar_url(:icon) %>">
+  <% else %>
+    <i class="glyphicon glyphicon-user" id="default-avatar-image-small"></i>
+  <% end %>
+<% end %>
 <%= link_to user.name, user %>
 <% if current_user.admin? && !current_user?(user) %>
   | <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %>
