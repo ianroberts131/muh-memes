@@ -225,6 +225,7 @@ $(document).on("turbolinks:load", function() {
     var textBoxConfig = {
       fontSize: 28,
       height: 60,
+      fontFamily: 'Impact',
       top: 20,
       left: 0,
       width: canvas.width,
@@ -232,12 +233,14 @@ $(document).on("turbolinks:load", function() {
       strokeWidth: 1,
       textAlign: 'center',
     }
+      
       textBoxTop = new fabric.Textbox(text, textBoxConfig);
-      textBoxTop.setFontFamily('Impact');
-      textBoxTop.setColor('white');
-      document.getElementById('top-font-style-select').value = "Impact-Outline";
-      textBoxTop.lockMovementX = true;
-      canvas.add(textBoxTop);
+      setTimeout(function(){
+        textBoxTop.setColor('white');
+        document.getElementById('top-font-style-select').value = "Impact-Outline";
+        textBoxTop.lockMovementX = true;
+        canvas.add(textBoxTop);
+      }, 100);
       
   }
   
@@ -246,6 +249,7 @@ $(document).on("turbolinks:load", function() {
     var textBoxConfig = {
       fontSize: 28,
       height: 60,
+      fontFamily: 'Impact',
       top: canvas.height - 60,
       left: 0,
       width: canvas.width,
@@ -253,12 +257,14 @@ $(document).on("turbolinks:load", function() {
       strokeWidth: 1,
       textAlign: 'center',
     }
+    
     textBoxBottom = new fabric.Textbox(text, textBoxConfig);
-    textBoxBottom.setFontFamily('Impact');
-    textBoxBottom.setColor('white');
-    document.getElementById('bottom-font-style-select').value = "Impact-Outline";
-    textBoxBottom.lockMovementX = true;
-    canvas.add(textBoxBottom);
+    setTimeout(function(){
+      textBoxBottom.setColor('white');
+      document.getElementById('bottom-font-style-select').value = "Impact-Outline";
+      textBoxBottom.lockMovementX = true;
+      canvas.add(textBoxBottom);
+    }, 100);
   }
 
   // Toggle top bold option
@@ -567,10 +573,8 @@ $(document).on("turbolinks:load", function() {
       
       canvas.add(image);
       canvas.sendToBack(image);
-      setTimeout(function(){
-        createTopTextBox("Enter Top Text...");
-        createBottomTextBox("Enter Bottom Text...");
-      }, 500);
+      createTopTextBox("Enter Top Text...");
+      createBottomTextBox("Enter Bottom Text...");
       
       document.getElementById("top-text").placeholder = "Enter Top Text..."
       document.getElementById('top-color').value = '#ffffff';
