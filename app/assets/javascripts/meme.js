@@ -239,7 +239,7 @@ $(document).on("turbolinks:load", function() {
         document.getElementById('top-font-style-select').value = "Impact-Outline";
         textBoxTop.lockMovementX = true;
         canvas.add(textBoxTop);
-      }, 25);
+      }, 50);
       
   }
   
@@ -247,7 +247,6 @@ $(document).on("turbolinks:load", function() {
   function createBottomTextBox(text) {
     var textBoxConfig = {
       fontSize: 28,
-      fontFamily: 'Impact',
       height: 60,
       top: canvas.height - 60,
       left: 0,
@@ -257,12 +256,13 @@ $(document).on("turbolinks:load", function() {
       textAlign: 'center',
     }
     textBoxBottom = new fabric.Textbox(text, textBoxConfig);
-    setTimeout(function(){ 
-      document.getElementById('bottom-font-style-select').value = "Impact-Outline";
+    setTimeout(function(){
+      textBoxBottom.setFontFamily('Impact');
       textBoxBottom.setColor('white');
+      document.getElementById('bottom-font-style-select').value = "Impact-Outline";
       textBoxBottom.lockMovementX = true;
       canvas.add(textBoxBottom);
-    }, 25);
+    }, 50);
   }
 
   // Toggle top bold option
