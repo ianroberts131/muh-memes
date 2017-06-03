@@ -224,7 +224,6 @@ $(document).on("turbolinks:load", function() {
   function createTopTextBox(text) {
     var textBoxConfig = {
       fontSize: 28,
-      fontFamily: 'Impact',
       height: 60,
       top: 20,
       left: 0,
@@ -233,11 +232,15 @@ $(document).on("turbolinks:load", function() {
       strokeWidth: 1,
       textAlign: 'center',
     }
-    textBoxTop = new fabric.Textbox(text, textBoxConfig);
-    textBoxTop.setColor('white');
-    document.getElementById('top-font-style-select').value = "Impact-Outline";
-    textBoxTop.lockMovementX = true;
-    canvas.add(textBoxTop);
+      textBoxTop = new fabric.Textbox(text, textBoxConfig);
+      setTimeout(function(){ 
+        textBoxTop.setFontFamily('Impact');
+        textBoxTop.setColor('white');
+        document.getElementById('top-font-style-select').value = "Impact-Outline";
+        textBoxTop.lockMovementX = true;
+        canvas.add(textBoxTop);
+      }, 25);
+      
   }
   
   // Function that creates the bottom text box
@@ -254,10 +257,12 @@ $(document).on("turbolinks:load", function() {
       textAlign: 'center',
     }
     textBoxBottom = new fabric.Textbox(text, textBoxConfig);
-    document.getElementById('bottom-font-style-select').value = "Impact-Outline";
-    textBoxBottom.setColor('white');
-    textBoxBottom.lockMovementX = true;
-    canvas.add(textBoxBottom);
+    setTimeout(function(){ 
+      document.getElementById('bottom-font-style-select').value = "Impact-Outline";
+      textBoxBottom.setColor('white');
+      textBoxBottom.lockMovementX = true;
+      canvas.add(textBoxBottom);
+    }, 25);
   }
 
   // Toggle top bold option
@@ -379,9 +384,9 @@ $(document).on("turbolinks:load", function() {
     document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
     document.getElementById('bottom-color').value = '#ffffff';
     document.getElementById('top-font-size-select').value = 26;
-    document.getElementById('top-font-style-select').value = "Impact";
+    document.getElementById('top-font-style-select').value = "Impact-Outline";
     document.getElementById('bottom-font-size-select').value = 26;
-    document.getElementById('bottom-font-style-select').value = "Impact";
+    document.getElementById('bottom-font-style-select').value = "Impact-Outline";
     $('#image-upload').filestyle('clear');
     $('#upload-area').removeClass('hidden');
     $('#canvas-area').addClass('hidden');
