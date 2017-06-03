@@ -239,7 +239,7 @@ $(document).on("turbolinks:load", function() {
         document.getElementById('top-font-style-select').value = "Impact-Outline";
         textBoxTop.lockMovementX = true;
         canvas.add(textBoxTop);
-      }, 50);
+      }, 100);
       
   }
   
@@ -262,7 +262,7 @@ $(document).on("turbolinks:load", function() {
       document.getElementById('bottom-font-style-select').value = "Impact-Outline";
       textBoxBottom.lockMovementX = true;
       canvas.add(textBoxBottom);
-    }, 50);
+    }, 100);
   }
 
   // Toggle top bold option
