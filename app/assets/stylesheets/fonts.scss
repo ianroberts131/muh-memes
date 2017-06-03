@@ -1,7 +1,7 @@
 /* fonts */
 @font-face {
   font-family: 'Impact';
-  src: asset-url('impact.ttf')
+  src: asset-url('impact.ttf') format('truetype'),
 }
 
 @font-face {
