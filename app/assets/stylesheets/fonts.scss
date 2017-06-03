@@ -1,15 +1,16 @@
 /* fonts */
+
 @font-face {
   font-family: 'Impact';
-  src: asset-url('impact.ttf') format('truetype'),
+  src: asset_url('impact.ttf') format('truetype'),
 }
 
 @font-face {
   font-family: 'BadMofo';
-  src: asset-url('BadMofo.ttf') format('truetype'),
+  src: asset_url('BadMofo.ttf') format('truetype'),
 }
 
 @font-face {
   font-family: 'Push';
-  src: asset-url('push.ttf') format('truetype'),
+  src: asset_url('push.ttf') format('truetype'),
 }
