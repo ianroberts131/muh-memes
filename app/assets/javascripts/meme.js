@@ -233,13 +233,11 @@ $(document).on("turbolinks:load", function() {
       textAlign: 'center',
     }
       textBoxTop = new fabric.Textbox(text, textBoxConfig);
-      setTimeout(function(){ 
-        textBoxTop.setFontFamily('Impact');
-        textBoxTop.setColor('white');
-        document.getElementById('top-font-style-select').value = "Impact-Outline";
-        textBoxTop.lockMovementX = true;
-        canvas.add(textBoxTop);
-      }, 300);
+      textBoxTop.setFontFamily('Impact');
+      textBoxTop.setColor('white');
+      document.getElementById('top-font-style-select').value = "Impact-Outline";
+      textBoxTop.lockMovementX = true;
+      canvas.add(textBoxTop);
       
   }
   
@@ -256,13 +254,11 @@ $(document).on("turbolinks:load", function() {
       textAlign: 'center',
     }
     textBoxBottom = new fabric.Textbox(text, textBoxConfig);
-    setTimeout(function(){
-      textBoxBottom.setFontFamily('Impact');
-      textBoxBottom.setColor('white');
-      document.getElementById('bottom-font-style-select').value = "Impact-Outline";
-      textBoxBottom.lockMovementX = true;
-      canvas.add(textBoxBottom);
-    }, 300);
+    textBoxBottom.setFontFamily('Impact');
+    textBoxBottom.setColor('white');
+    document.getElementById('bottom-font-style-select').value = "Impact-Outline";
+    textBoxBottom.lockMovementX = true;
+    canvas.add(textBoxBottom);
   }
 
   // Toggle top bold option
@@ -571,8 +567,10 @@ $(document).on("turbolinks:load", function() {
       
       canvas.add(image);
       canvas.sendToBack(image);
-      createTopTextBox("Enter Top Text...");
-      createBottomTextBox("Enter Bottom Text...");
+      setTimeout(function(){
+        createTopTextBox("Enter Top Text...");
+        createBottomTextBox("Enter Bottom Text...");
+      }, 500);
       
       document.getElementById("top-text").placeholder = "Enter Top Text..."
       document.getElementById('top-color').value = '#ffffff';

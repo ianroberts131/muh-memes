@@ -1,6 +1,6 @@
 <% content_for(:head) do %>
-  <link href="https://fonts.googleapis.com/css?family=Butcherman|Nosifer|Diplomata|Freckle+Face|Gloria+Hallelujah|Lora|Orbitron:500|Permanent+Marker|Rock+Salt" rel="stylesheet">
   <meta name="turbolinks-cache-control" content="no-cache">
+  <link href="https://fonts.googleapis.com/css?family=Butcherman|Nosifer|Freckle+Face|Gloria+Hallelujah|Lora|Orbitron:500|Permanent+Marker|Rock+Salt" rel="stylesheet">
 <% end %>
   
   <%= form_for(@meme, url: { controller: "memes", action: "create" }, :html => {:class => "form-group meme-group"}) do |f| %>
