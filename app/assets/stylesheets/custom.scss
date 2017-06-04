@@ -255,7 +255,7 @@ input, textarea, select, .uneditable-input {
  .tag-cloud { 
    width: 100%; 
  }
- .memes {
+ .memes-list {
    text-align: center;
  }
 }
@@ -266,7 +266,7 @@ input, textarea, select, .uneditable-input {
 
 /* memes */
 
-.memes {
+.memes-list {
   list-style: none;
   padding: 0;
   li {
