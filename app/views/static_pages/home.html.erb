@@ -31,6 +31,12 @@
             <% end %>
         <% end %>
       </div>
+      <div id="filters" class="col-md-12 center">
+        <%= link_to "Day", { :filter => "day", :search => params[:search] }, :class => "btn btn-primary filter-button" %>
+        <%= link_to "Week", { :filter => "week", :search => params[:search] }, :class => "btn btn-primary filter-button" %>
+        <%= link_to "Month", { :filter => "month", :search => params[:search] }, :class => "btn btn-primary filter-button" %>
+        <%= link_to "All Time", { :filter => "all-time", :search => params[:search] }, :class => "btn btn-primary filter-button" %>
+      </div>
       <div class="tag-cloud">
         <% tag_cloud @tag_cloud_memes.limited_tag_counts, %w[s m l] do |tag, css_class| %>
           <%= link_to tag.name, tag_path(tag.name), class: css_class %>

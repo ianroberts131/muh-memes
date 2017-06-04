@@ -13,6 +13,9 @@ class Meme < ApplicationRecord
     boolean :private
     time    :created_at
     time    :updated_at
+    integer :favorites_count do
+      self.favorites.count
+    end
   end
   
   def is_public?
