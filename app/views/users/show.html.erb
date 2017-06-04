@@ -42,14 +42,16 @@
             <% end %>
         <% end %>
       </div>
-        <div class="tag-cloud">
+      <div class="row center">
+        <div class="tag-cloud col-xs-12 col-md-offset-3 col-md-6">
           <% tag_cloud @user.user_tag_counts_collection, %w[s m l] do |tag, css_class| %>
-            <%= link_to tag.name, user_tag_path(@user, tag.name), class: css_class %>
+            <%= link_to tag.name, { :search => tag.name }, class: css_class %>
           <% end %>
         </div>
+      </div>
       <% end %>
       
-      <ul class="memes">
+      <ul class="memes center">
         <% if current_user?(@user) %>
           <%= render @memes %>
         <% else %>

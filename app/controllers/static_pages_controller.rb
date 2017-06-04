@@ -1,9 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    if params[:tag]
-      @tag = params[:tag]
-      @memes = Meme.paginate(page: params[:page]).order(updated_at: :desc).tagged_with(@tag).where(private: false)
-    elsif params[:all]
+    if params[:all]
       redirect_to root_path
     else
       filter = params[:filter]
@@ -20,20 +17,22 @@ class StaticPagesController < ApplicationController
         @search = Sunspot.search(Meme) do
           fulltext params[:search]
           with(:updated_at).greater_than updated_at_statement
+          with :private, false
           order_by :favorites_count, :desc
           paginate(:page => params[:page] || 1, :per_page => 50)
         end
       else
         @search = Sunspot.search(Meme) do
           fulltext params[:search]
+          with :private, false
           order_by :favorites_count, :desc
           paginate(:page => params[:page] || 1, :per_page => 50)
         end
       end
-      @tag_cloud_memes = Meme.all.order(updated_at: :desc).where(private: false)
       @query = params[:search]
       @memes = @search.results
     end
+    @tag_cloud_memes = Meme.all.order(updated_at: :desc).where(private: false)
   end
 
   def contact

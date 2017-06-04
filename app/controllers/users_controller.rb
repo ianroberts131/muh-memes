@@ -18,13 +18,7 @@ class UsersController < ApplicationController
   end
   
   def show
-    if params[:tag]
-      @tag = params[:tag]
-      @user = User.friendly.find(params[:user_id])
-      redirect_to root_url and return unless @user.activated
-      @memes = @user.memes.paginate(page: params[:page]).order(created_at: :desc).tagged_with(@tag).paginate(page: params[:page])
-      @meme = @user.memes.new
-    elsif params[:all]
+    if params[:all]
       @user = User.friendly.find(params[:id])
       redirect_to root_url and return unless @user.activated
       redirect_to user_path(@user)

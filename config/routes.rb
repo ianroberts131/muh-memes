@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   root    'static_pages#home'
   get     'static_pages/home'
-  get     'tags/:tag', to: 'static_pages#home', as: :tag
   get     '/contact', to: 'static_pages#contact'
   get     '/about',   to: 'static_pages#about'
   get     '/signup',  to: 'users#new'
@@ -17,7 +16,6 @@ Rails.application.routes.draw do
     resources :memes,             only: [:show, :destroy, :update] do
       resources :favorite_memes,      only: [:create, :destroy]
     end
-    get       'tags/:tag',        to: "users#show", as: :tag
   end
   resources :memes,               only: [:create]
   resources :account_activations, only: [:edit]
