@@ -502,8 +502,13 @@ input, textarea, select, .uneditable-input {
   font-size: 1em;
 }
 
+.glyphicon-heart {
+  font-size: 1.3em;
+}
 
-
+.fa-trash-o {
+  font-size: 1.3em !important;
+}
 /* Edit Page */
 
 #current-avatar {
@@ -517,13 +522,22 @@ input, textarea, select, .uneditable-input {
 
 /* Meme Show Page */
 
+#share-button-container {
+  border-top: 1px solid rgb(191, 191, 191);
+  border-bottom: 1px solid rgb(191, 191, 191);
+  margin-top: 2%;
+}
+
 #share-button-container ul li{
   display: inline;
 }
 
 #share-buttons {
   list-style-type: none;
-  padding: 0;
+  padding-right: 0;
+  padding-left: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin: 0;
 }
 
@@ -536,8 +550,27 @@ input, textarea, select, .uneditable-input {
   opacity: 1;
 }
 
+.favorites-count {
+  font-size: 1.1em;
+}
+
 #meme-delete-button i {
   margin-right: 5px;
+}
+
+.meme-option-buttons {
+  list-style-type: none;
+  margin-top: 3%;
+  padding-left: 1px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+.meme-option-buttons li {
+  display: inline-block;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* Home Page */

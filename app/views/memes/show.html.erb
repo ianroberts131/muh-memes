@@ -35,54 +35,45 @@ $(function() {
         Tags: <%= raw @meme.tag_list.map { |tag| link_to tag, root_path(:search => tag) }.join(", ") %>
       </p>
       <div><%= image_tag @meme.image.url if @meme.image? %></div>
-      <% if current_user?(@user) %>
-        <span id='meme-delete-button'>
-          <%= link_to user_meme_path(@user, @meme), method: :delete do %>
-          <div class='pull-left'>
-            <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
-          </div>
-          <% end %>
-        </span>
-        <span class="private-checkbox pull-left">
-          <%= form_for(@meme, url: { controller: "memes", action: "update" }) do |f| %>
-            <%= f.check_box :private, class: "check-box" %>
-            <%= f.label "private" %>
-          <% end %>
-        </span>
-      <% end %>
-      <% if logged_in? %>
-        <span>
-          
-          <% if current_user.favorite_memes.exists?(id: @meme.id) %>
-            <% favorited = true %>
-          <% else %>
-            <% favorited = false %>
-          <% end %>
+      <ul class="meme-option-buttons">
+        <% if current_user?(@user) %>
+          <li id='meme-delete-button' class="col-xs-4 meme-option">
+            <%= link_to user_meme_path(@user, @meme), method: :delete do %>
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            <% end %>
+          </li>
+        <% end %>
+        <% if logged_in? %>
+          <li class="center meme-option">
+            <% if current_user.favorite_memes.exists?(id: @meme.id) %>
+              <% favorited = true %>
+            <% else %>
+              <% favorited = false %>
+            <% end %>
             <span class="toggle-favorite" <% if favorited %> style="display: none" <% end %> >
               <%= link_to user_meme_favorite_memes_path(current_user, @meme), method: :post, remote: true  do %>
                 <i class="glyphicon glyphicon-heart add-to-favorites-heart"></i>
               <% end %>
             </span>
-            <span class="toggle-favorite" <% unless favorited %> style="display: none" <% end %> >
+            <span class="toggle-favorite center" <% unless favorited %> style="display: none" <% end %> >
               <%= link_to user_meme_favorite_meme_path(current_user, @meme), method: :delete, remote: true  do %>
                 <i class="glyphicon glyphicon-heart remove-from-favorites-heart"></i>
               <% end %>
+              <span class="favorites-count"><%= @meme.favorites.count %></span>
             </span>
-          
-        </span>
-        <span class="favorites-count">
-          <%= @meme.favorites.count %>
-        </span>
-          <div class="pull-right" id="share-button-container">
-            <ul id="share-buttons">
-              <li><a href="https://www.facebook.com/sharer/sharer.php?u=
-              <%= request.original_url %>" target="_blank" class="meme-show-button"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a></li>
-              <li><a href="http://twitter.com/home?status=
-              <%= request.original_url %>" title="Share on Twitter" target="_blank" class="meme-show-button"><i class="fa fa-twitter fa-lg"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      <% end %>
+          </li>
+        <% end %>
+        <% if current_user?(@user) %>
+          <li class="private-checkbox col-xs-4 meme-option">
+            <%= form_for(@meme, url: { controller: "memes", action: "update" }) do |f| %>
+              <%= f.check_box :private, class: "check-box" %>
+              <%= f.label "private" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+      </div>
+      
     <% if current_user?(@user) %>
       <%= form_for(@meme, url: { controller: "memes", action: "update"}, :html => {:class => "form-group"}) do |f| %>
       <%= render "shared/error_messages", object: f.object %>
@@ -92,11 +83,22 @@ $(function() {
           <%= f.text_field :tag_list, value: @meme.tag_list.to_s, class: "form-control" %>
         </div>
         <div class="col-md-12">
-          <p><%= f.submit "Update tags", class: "btn btn-primary" %></p>
+          <p><%= f.submit "Update tags", class: "btn btn-success" %></p>
         </div>
       </div>
       <% end %>
     <% end %>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 center" id="share-button-container">
+        <ul id="share-buttons">
+          <li>Share via: </li>
+          <li><a href="https://www.facebook.com/sharer/sharer.php?u=
+          <%= request.original_url %>" target="_blank" class="meme-show-button"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a></li>
+          <li><a href="http://twitter.com/home?status=
+          <%= request.original_url %>" title="Share on Twitter" target="_blank" class="meme-show-button"><i class="fa fa-twitter fa-lg"></i></a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
