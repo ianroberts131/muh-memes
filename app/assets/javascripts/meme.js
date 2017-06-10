@@ -361,7 +361,7 @@ $(document).on("turbolinks:load", function() {
   var drawColor = $("#drawing-color");
   var drawLineWidth = $("#drawing-line-width");
   
-  drawModeButton.on('click touchstart', function() {
+  $("#drawing-mode-button-wrapper").on("click touchstart", function() {
     $("#drawing-mode-selector").val("Pencil");
     $("#drawing-line-width").val("2");
     $("#line-width-value").html("2");
@@ -391,7 +391,7 @@ $(document).on("turbolinks:load", function() {
     }
   });
   
-  drawModeButtonOff.on('click touchstart', function() {
+   $("#drawing-mode-button-off").on("click touchstart", function() {
     $("#select-objects").removeClass("selection-mode-color");
     $("#select-objects").html("Select Objects");
     canvas.isDrawingMode = false;
