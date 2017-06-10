@@ -359,7 +359,7 @@ $(document).on("turbolinks:load", function() {
   var drawColor = $("#drawing-color");
   var drawLineWidth = $("#drawing-line-width");
   
-  $("#drawing-mode-button").on("click", function() {
+  $("#draw-mode-button").on("click", function() {
     $("#drawing-mode-selector").val("Pencil");
     $("#drawing-line-width").val("2");
     $("#line-width-value").html("2");
@@ -389,7 +389,7 @@ $(document).on("turbolinks:load", function() {
     }
   });
   
-   $("#drawing-mode-button-off").on("click", function() {
+   $("#draw-mode-button-off").on("click", function() {
     $("#select-objects").removeClass("selection-mode-color");
     $("#select-objects").html("Select Objects");
     canvas.isDrawingMode = false;

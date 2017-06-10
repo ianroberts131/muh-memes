@@ -494,7 +494,7 @@ input, textarea, select, .uneditable-input {
   #draw-mode-wrapper {
     height: 100%;
   }
-  #drawing-mode-button {
+  #draw-mode-button {
     top: 50%;
     transform: translateY(-50%);
   }
@@ -508,7 +508,7 @@ input, textarea, select, .uneditable-input {
   margin-bottom: 1%;
 }
 
-#drawing-mode-button {
+#draw-mode-button {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
@@ -518,7 +518,7 @@ input, textarea, select, .uneditable-input {
   cursor: pointer;
 }
 
-#drawing-mode-button-off {
+#draw-mode-button-off {
   position: relative;
   font-size: 1.1em;
   cursor: pointer;
