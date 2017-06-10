@@ -6,6 +6,7 @@ class MemesController < ApplicationController
   def show
     @user = User.friendly.find(params[:user_id])
     @meme = @user.memes.find(params[:id])
+    puts "The favorites are #{@meme.favorites.count}"
     if !current_user?(@user) && @meme.private
       flash[:danger] = "You are not allowed to view private memes!"
       redirect_to root_url

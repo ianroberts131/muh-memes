@@ -31,6 +31,11 @@ $(function() {
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-sm-offset-3 center">  
     <div class="image">
+      <% unless current_user?(@user) %>
+      <p>
+        Created by: <%= link_to @user.name, user_path(@user) %>
+      </p>
+      <% end %>
       <p>
         Tags: <%= raw @meme.tag_list.map { |tag| link_to tag, root_path(:search => tag) }.join(", ") %>
       </p>
@@ -59,8 +64,8 @@ $(function() {
               <%= link_to user_meme_favorite_meme_path(current_user, @meme), method: :delete, remote: true  do %>
                 <i class="glyphicon glyphicon-heart remove-from-favorites-heart"></i>
               <% end %>
-              <span class="favorites-count"><%= @meme.favorites.count %></span>
             </span>
+            <span class="favorites-count"><%= @meme.favorites.count %></span>
           </li>
         <% end %>
         <% if current_user?(@user) %>

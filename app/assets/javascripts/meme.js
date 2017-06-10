@@ -6,7 +6,9 @@ $(document).on("turbolinks:load", function() {
   
   var imageUpload = $("#image-upload");
   var remoteURL = $('#remote-meme-url');
-  var canvas = new fabric.Canvas('canvas');
+  var canvas = new fabric.Canvas('canvas', {
+    isDrawingMode: false
+  });
   var reader = new FileReader();
   var MAX_WIDTH = 400;
   var MAX_HEIGHT = 400;
@@ -310,72 +312,19 @@ $(document).on("turbolinks:load", function() {
     }
     drawMeme();
   });
-    
-  // Toggle top align options
-  var topLeftAlign = $('#top-left-align');
-  var topCenterAlign = $('#top-center-align');
-  var topRightAlign = $('#top-right-align');
-  topLeftAlign.on('click', function() {
-    if(!topLeftAlign.hasClass('active')) {
-      topLeftAlign.addClass('active');
-      topCenterAlign.removeClass('active');
-      topRightAlign.removeClass('active');
-    }
-    drawMeme();
-  });
-  
-  topCenterAlign.on('click', function() {
-    if(!topCenterAlign.hasClass('active')) {
-      topCenterAlign.addClass('active');
-      topLeftAlign.removeClass('active');
-      topRightAlign.removeClass('active');
-    }
-    drawMeme();
-  });
-  
-  topRightAlign.on('click', function() {
-    if(!topRightAlign.hasClass('active')) {
-      topRightAlign.addClass('active');
-      topLeftAlign.removeClass('active');
-      topCenterAlign.removeClass('active');
-    }
-    drawMeme();
-  });
-  
-  // Toggle bottom align options
-  var bottomLeftAlign = $('#bottom-left-align');
-  var bottomCenterAlign = $('#bottom-center-align');
-  var bottomRightAlign = $('#bottom-right-align');
-  bottomLeftAlign.on('click', function() {
-    if(!bottomLeftAlign.hasClass('active')) {
-      bottomLeftAlign.addClass('active');
-      bottomCenterAlign.removeClass('active');
-      bottomRightAlign.removeClass('active');
-    }
-    drawMeme();
-  });
-  
-  bottomCenterAlign.on('click', function() {
-    if(!bottomCenterAlign.hasClass('active')) {
-      bottomCenterAlign.addClass('active');
-      bottomLeftAlign.removeClass('active');
-      bottomRightAlign.removeClass('active');
-    }
-    drawMeme();
-  });
-  
-  bottomRightAlign.on('click', function() {
-    if(!bottomRightAlign.hasClass('active')) {
-      bottomRightAlign.addClass('active');
-      bottomLeftAlign.removeClass('active');
-      bottomCenterAlign.removeClass('active');
-    }
-    drawMeme();
-  });
   
   var startOverButton = $('#start-over-button');
   startOverButton.on('click', function() {
     canvas.clear();
+    canvas.isDrawingMode = false;
+    $("#text-input").removeClass("hidden");
+    $("#free-draw-options").addClass("hidden");
+    $("#drawing-mode-button-wrapper").removeClass("hidden");
+    $("#drawing-mode-label").removeClass("hidden");
+    $("#drawing-mode-button-off-wrapper").addClass("hidden");
+    $("#drawing-line-width").val("2");
+    $("#line-width-value").html("2");
+    $("#drawing-color").val("#FFFFFF");
     var urlInput = document.getElementById('remote-meme-url');
     urlInput.value = null;
     document.getElementById("top-text").value = ""
@@ -393,9 +342,251 @@ $(document).on("turbolinks:load", function() {
     $('#upload-area').removeClass('hidden');
     $('#canvas-area').addClass('hidden');
     $('.meme-alteration').addClass('disable-div');
+  });
+  
+  var drawModeButton = $("#drawing-mode-button-wrapper");
+  var drawModeButtonOff = $("#drawing-mode-button-off");
+  var drawMode = $("#drawing-mode-selector");
+  var drawColor = $("#drawing-color");
+  var drawLineWidth = $("#drawing-line-width");
+  
+  drawModeButton.on('click', function() {
+    $("#drawing-mode-selector").val("Pencil");
+    $("#drawing-line-width").val("2");
+    $("#line-width-value").html("2");
+    $("#drawing-color").val("#FFFFFF");
+    if (textBoxTop.getText() === "Enter Top Text...") {
+      textBoxTop.setText("");
+    }
+    if (textBoxBottom.getText() === "Enter Bottom Text...") {
+      textBoxBottom.setText("");
+    }
+    canvas.isDrawingMode = !canvas.isDrawingMode;
+    if(canvas.isDrawingMode) {
+      $("#text-input").addClass("hidden");
+      $("#free-draw-options").removeClass("hidden");
+      canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+      canvas.freeDrawingBrush.color = drawColor.val();
+      canvas.freeDrawingBrush.width = parseInt(drawLineWidth.val(), 10) || 2;
+      $("#drawing-mode-button-wrapper").addClass("hidden");
+      $("#drawing-mode-label").addClass("hidden");
+      $("#drawing-mode-button-off-wrapper").removeClass("hidden");
+    } else {
+      $("#text-input").removeClass("hidden");
+      $("#free-draw-options").addClass("hidden");
+      $("#drawing-mode-button-wrapper").removeClass("hidden");
+      $("#drawing-mode-label").removeClass("hidden");
+      $("#drawing-mode-button-off-wrapper").addClass("hidden");
+    }
+  });
+  
+  drawModeButtonOff.on('click', function() {
+    $("#select-objects").removeClass("selection-mode-color");
+    $("#select-objects").html("Select Objects");
+    canvas.isDrawingMode = false;
+    $("#text-input").removeClass("hidden");
+    $("#free-draw-options").addClass("hidden");
+    $("#drawing-mode-button-wrapper").removeClass("hidden");
+    $("#drawing-mode-label").removeClass("hidden");
+    $("#drawing-mode-button-off-wrapper").addClass("hidden");
+  });
+  
+  var vLinePatternBrush = new fabric.PatternBrush(canvas);
+    vLinePatternBrush.getPatternSrc = function() {
+
+      var patternCanvas = fabric.document.createElement('canvas');
+      patternCanvas.width = patternCanvas.height = 10;
+      var ctx = patternCanvas.getContext('2d');
+
+      ctx.strokeStyle = this.color;
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(0, 5);
+      ctx.lineTo(10, 5);
+      ctx.closePath();
+      ctx.stroke();
+
+      return patternCanvas;
+    };
+
+    var hLinePatternBrush = new fabric.PatternBrush(canvas);
+    hLinePatternBrush.getPatternSrc = function() {
+
+      var patternCanvas = fabric.document.createElement('canvas');
+      patternCanvas.width = patternCanvas.height = 10;
+      var ctx = patternCanvas.getContext('2d');
+
+      ctx.strokeStyle = this.color;
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(5, 0);
+      ctx.lineTo(5, 10);
+      ctx.closePath();
+      ctx.stroke();
+
+      return patternCanvas;
+    };
+
+    var squarePatternBrush = new fabric.PatternBrush(canvas);
+    squarePatternBrush.getPatternSrc = function() {
+
+      var squareWidth = 10, squareDistance = 2;
+
+      var patternCanvas = fabric.document.createElement('canvas');
+      patternCanvas.width = patternCanvas.height = squareWidth + squareDistance;
+      var ctx = patternCanvas.getContext('2d');
+
+      ctx.fillStyle = this.color;
+      ctx.fillRect(0, 0, squareWidth, squareWidth);
+
+      return patternCanvas;
+    };
+
+    var diamondPatternBrush = new fabric.PatternBrush(canvas);
+    diamondPatternBrush.getPatternSrc = function() {
+
+      var squareWidth = 10, squareDistance = 5;
+      var patternCanvas = fabric.document.createElement('canvas');
+      var rect = new fabric.Rect({
+        width: squareWidth,
+        height: squareWidth,
+        angle: 45,
+        fill: this.color
+      });
+
+      var canvasWidth = rect.getBoundingRectWidth();
+
+      patternCanvas.width = patternCanvas.height = canvasWidth + squareDistance;
+      rect.set({ left: canvasWidth / 2, top: canvasWidth / 2 });
+
+      var ctx = patternCanvas.getContext('2d');
+      rect.render(ctx);
+
+      return patternCanvas;
+    };
+  
+  $("#drawing-mode-selector").on('change', function() {
+    if (this.value === 'Hline') {
+      canvas.freeDrawingBrush = vLinePatternBrush;
+    }
+    else if (this.value === 'Vline') {
+      canvas.freeDrawingBrush = hLinePatternBrush;
+    }
+    else if (this.value === 'Square') {
+      canvas.freeDrawingBrush = squarePatternBrush;
+    }
+    else if (this.value === 'Diamond') {
+      canvas.freeDrawingBrush = diamondPatternBrush;
+    }
+    else if (this.value === 'Texture') {
+      canvas.freeDrawingBrush = texturePatternBrush;
+    }
+    else {
+      canvas.freeDrawingBrush = new fabric[this.value + 'Brush'](canvas);
+    }
+    
+    if (canvas.freeDrawingBrush) {
+      canvas.freeDrawingBrush.color = $("#drawing-color").val();
+      canvas.freeDrawingBrush.width = parseInt($("#drawing-line-width").val(), 10) || 2;
+    }
   })
   
-    
+  $("#drawing-color").on("change", function() {
+    if(canvas.isDrawingMode) {
+      canvas.freeDrawingBrush.color = this.value;
+    }
+  });
+  
+  $("#drawing-line-width").on("change", function() {
+    if(canvas.isDrawingMode) {
+      canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 2;
+      $("#line-width-value").html(this.value);
+    }
+  });
+  
+  $("#drawing-mode-filter").on("change", function() {
+    var filter;
+    if (this.value === "Grayscale") {
+      filter = new fabric.Image.filters.Grayscale();
+    } else if (this.value === "Invert") {
+        filter = new fabric.Image.filters.Invert();
+    } else if (this.value === "Sepia") {
+        filter = new fabric.Image.filters.Sepia();
+    } else if (this.value === "Sepia2") {
+        filter = new fabric.Image.filters.Sepia2();
+    } else if (this.value === "Blur") {
+        filter = new fabric.Image.filters.Convolute({
+          matrix: [1/9, 1/9, 1/9,
+                   1/9, 1/9, 1/9,
+                   1/9, 1/9, 1/9]
+        });
+    } else if (this.value === "Sharpen") {
+        filter = new fabric.Image.filters.Convolute({
+          matrix: [0, -1, 0,
+                   -1, 5, -1,
+                   0, -1, 0]
+        });
+    } else if (this.value === "Emboss") {
+        filter = new fabric.Image.filters.Convolute({
+          matrix: [ 1,   1,  1,
+                    1, 0.7, -1,
+                   -1,  -1, -1]
+        });
+    }
+    canvas.forEachObject(function(obj) {
+      if(obj.type === "image") {
+        obj.filters = [];
+        if (this.value === "None") { return }
+        obj.filters.push(filter);
+        obj.applyFilters(function() {
+          obj.canvas.renderAll();
+        });
+      }
+    });
+  })
+  
+  $("#select-objects").on("click", function() {
+    canvas.isDrawingMode = !canvas.isDrawingMode;
+    if(canvas.isDrawingMode) {
+      $("#select-objects").removeClass("selection-mode-color");
+      $("#select-objects").html("Select Objects");
+    } else {
+      $("#select-objects").addClass("selection-mode-color");
+      $("#select-objects").html("Exit Selection Mode");
+    }
+  });
+  
+  $("#delete-objects").on("click", function() {
+    if(!canvas.isDrawingMode) {
+      deleteObjects();
+    }
+  });
+  
+  $(document).keydown(function(e) {
+    if(e.keyCode === 46 && !canvas.isDrawingMode) {
+      deleteObjects();
+    }   
+  });
+  
+  function deleteObjects() {
+    var activeObject = canvas.getActiveObject();
+    var activeGroup = canvas.getActiveGroup();
+    if(activeObject && activeObject != textBoxTop && activeObject != textBoxBottom) {
+      if (confirm("Are you sure you want to delete this object?")) {
+        canvas.remove(activeObject);
+      }
+    } else if (activeGroup) {
+      if (confirm("Are you sure you want to delete these objects?")) {
+        var objectsInGroup = activeGroup.getObjects();
+        canvas.discardActiveGroup();
+        objectsInGroup.forEach(function(object) {
+          if(object != textBoxTop && object != textBoxBottom)
+          canvas.remove(object);
+        });
+      }
+    }
+  }
+  
   function drawMeme() {
     var topText = document.getElementById("top-text").value;
     var topTextColor = document.getElementById('top-color').value;
@@ -459,22 +650,6 @@ $(document).on("turbolinks:load", function() {
     } else {
       textBoxBottom.fontStyle = 'normal';
     };
-    
-    if(topLeftAlign.hasClass('active')) {
-      textBoxTop.textAlign = "left"
-    } else if(topCenterAlign.hasClass('active')) {
-      textBoxTop.textAlign = "center"
-    } else {
-      textBoxTop.textAlign = "right"
-    }
-    
-    if(bottomLeftAlign.hasClass('active')) {
-      textBoxBottom.textAlign = "left"
-    } else if(bottomCenterAlign.hasClass('active')) {
-      textBoxBottom.textAlign = "center"
-    } else {
-      textBoxBottom.textAlign = "right"
-    }
     
     canvas.renderAll();
   }
@@ -583,8 +758,6 @@ $(document).on("turbolinks:load", function() {
       document.getElementById('bottom-color').value = '#ffffff';
       document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
       document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
-      $('#top-center-align').addClass('active');
-      $('#bottom-center-align').addClass('active');
       canvas.setActiveObject(textBoxTop);
     }
   }

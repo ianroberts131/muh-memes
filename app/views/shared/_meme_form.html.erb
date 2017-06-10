@@ -16,8 +16,6 @@
           <%= f.text_field :image, id: "meme-image", class: "hidden" %>
           <%= f.file_field :dummy, accept: 'image/jpeg,image/gif,image/png', id: "image-upload", class: "filestyle", 'data-buttonName' => "btn btn-default",
                                                                                                 'data-input' => false, 'data-buttonText' => "Upload image" %>
-          <br />
-          <%= f.text_field :remote_image_url, id: "remote-meme-url", :class => "form-control", :placeholder => "Or enter URL here..." %>
         </div>
       </div>
     </div>
@@ -27,7 +25,7 @@
   </div>
   <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-4 meme-alteration disable-div">
     <div class="meme-alteration-section">
-      <div class="text-input">
+      <div id="text-input">
         <label>Top Text:</label><br/>
         <div id="top-text-options">
           <div class="form-group form-group-sm">
@@ -47,15 +45,6 @@
               </button>
               <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="top-italic">
                 <span class="glyphicon glyphicon-italic"></span>
-              </button>
-              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Left-Align" id="top-left-align">
-                <span class="glyphicon glyphicon-align-left"></span>
-              </button>
-              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Center-Align" id="top-center-align">
-                <span class="glyphicon glyphicon-align-center"></span>
-              </button>
-              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Right-Align" id="top-right-align">
-                <span class="glyphicon glyphicon-align-right"></span>
               </button>
             </div>
             <div class="pull-left" id="top-color-wrapper">
@@ -85,15 +74,6 @@
               <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="bottom-italic">
                 <span class="glyphicon glyphicon-italic"></span>
               </button>
-              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Left-Align" id="bottom-left-align">
-                <span class="glyphicon glyphicon-align-left"></span>
-              </button>
-              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Center-Align" id="bottom-center-align">
-                <span class="glyphicon glyphicon-align-center"></span>
-              </button>
-              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Right-Align" id="bottom-right-align">
-                <span class="glyphicon glyphicon-align-right"></span>
-              </button>
             </div>
             <div class="pull-left" id="bottom-color-wrapper">
               <input type="color" id="bottom-color">
@@ -101,7 +81,65 @@
             <input type="text" id="bottom-text" class="form-control">
           </div>
         </div>
-        <div class="private-checkbox">
+      </div>
+      <div class="hidden" id="free-draw-options">
+        <div class="row">
+          <div class="col-xs-6">
+            <label>Line width:</label>
+            <span id="line-width-value">2</span>
+            <input type="range" value="2" min="0" max="30" id="drawing-line-width">
+          </div>
+          <div class="col-xs-6">
+            <label>Line color:</label>
+            <span><input type="color" value="#FFFFFF" id="drawing-color"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <label>Mode: </label>
+            <select id="drawing-mode-selector" class="form-control input-sm" val="Pencil">
+              <option>Pencil</option>
+              <option>Circle</option>
+              <option>Spray</option>
+              <option>Pattern</option>
+              <option>Hline</option>
+              <option>Vline</option>
+              <option>Square</option>
+              <option>Diamond</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <label>Filter: </label>
+            <select id="drawing-mode-filter" class="form-control input-sm" val="None">
+              <option>None</option>
+              <option>Grayscale</option>
+              <option>Sharpen</option>
+              <option>Emboss</option>
+              <option>Invert</option>
+              <option>Sepia</option>
+              <option>Sepia2</option>
+              <option>Blur</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" id="object-select-buttons">
+          <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-sm col-xs-12" id="select-objects">Select Objects</button>
+          </div>
+          <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-sm col-xs-12" id="delete-objects">Delete Selected Objects</button>
+          </div>
+        </div>
+      </div>
+      <label id="drawing-mode-label">Drawing Mode!</label>
+      <div class="col-xs-12" id="drawing-mode-button-wrapper">
+        <button type="button" id="drawing-mode-button"><img src="/assets/pencil-horizontal" id="pencil"/></button>
+      </div>
+      <div class="hidden col-xs-12" id="drawing-mode-button-off-wrapper">
+        <button type="button" class="btn btn-info btn-sm" id="drawing-mode-button-off">Exit drawing mode</button>
+      </div>
+      <div class="col-md-12" id="tags-and-private">
+        <div id="private-checkbox">
           <%= f.check_box :private %>
           <%= f.label "private" %>
         </div>
@@ -110,17 +148,16 @@
           <%= f.text_field :tag_list, class: "form-control" %>
         </div>
       </div>
-      <div class="col-md-12 submit-buttons">
-        <div class="col-md-4 col-md-offset-2">
+      <div class="col-md-12" id="submit-buttons">
+        <div class="col-md-6">
           <%= submit_tag "Start over", type: "button", class: "btn btn-danger", id: "start-over-button" %>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <p><%= f.submit "Meme it!", class: "btn btn-primary"%></p>
         </div>
       </div>
       
     </div>
   </div>
-
 <% end %>
 
