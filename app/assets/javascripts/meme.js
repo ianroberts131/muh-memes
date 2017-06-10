@@ -326,7 +326,6 @@ $(document).on("turbolinks:load", function() {
     $("#line-width-value").html("2");
     $("#drawing-color").val("#FFFFFF");
     var urlInput = document.getElementById('remote-meme-url');
-    urlInput.value = null;
     document.getElementById("top-text").value = ""
     document.getElementById("top-text").placeholder = "Enter Top Text..."
     document.getElementById('top-color').value = '#ffffff';
