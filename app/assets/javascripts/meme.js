@@ -355,13 +355,11 @@ $(document).on("turbolinks:load", function() {
     $('.meme-alteration').addClass('disable-div');
   });
   
-  var drawModeButton = $("#drawing-mode-button-wrapper");
-  var drawModeButtonOff = $("#drawing-mode-button-off");
   var drawMode = $("#drawing-mode-selector");
   var drawColor = $("#drawing-color");
   var drawLineWidth = $("#drawing-line-width");
   
-  $("#drawing-mode-button-wrapper").on("click touchstart", function() {
+  $("#drawing-mode-button").on("click", function() {
     $("#drawing-mode-selector").val("Pencil");
     $("#drawing-line-width").val("2");
     $("#line-width-value").html("2");
@@ -391,7 +389,7 @@ $(document).on("turbolinks:load", function() {
     }
   });
   
-   $("#drawing-mode-button-off").on("click touchstart", function() {
+   $("#drawing-mode-button-off").on("click", function() {
     $("#select-objects").removeClass("selection-mode-color");
     $("#select-objects").html("Select Objects");
     canvas.isDrawingMode = false;
