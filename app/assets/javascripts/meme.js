@@ -4,6 +4,17 @@ $(document).on("turbolinks:load", function() {
     return;
   }
   
+  // This is supposed to help with image/object blurring
+  fabric.Image.prototype.strokeWidth = 0;
+  fabric.Object.prototype.objectCaching = false;
+  
+  // Fixes the renderText function to draw outline OUTSIDE of text, rather than inside
+  fabric.Text.prototype._renderText = function(ctx) {
+    this._renderTextFill(ctx);
+    this._renderTextStroke(ctx);
+    this._renderTextFill(ctx);
+  };
+  
   var imageUpload = $("#image-upload");
   var remoteURL = $('#remote-meme-url');
   var canvas = new fabric.Canvas('canvas', {
@@ -103,12 +114,12 @@ $(document).on("turbolinks:load", function() {
   });
   
   // clear the canvas and draw the image + text on each key stroke
-  $("#top-text").on("change keyup blur input", function() {
+  $("#top-text").on("change keyup select input", function() {
     drawMeme();
   });
     
   // clear the canvas and draw the image + text on each key stroke
-  $("#bottom-text").on("change keyup blur input", function() {
+  $("#bottom-text").on("change keyup select input", function() {
     drawMeme();
   });
   
@@ -225,38 +236,39 @@ $(document).on("turbolinks:load", function() {
   // Function that creates the top text box
   function createTopTextBox(text) {
     var textBoxConfig = {
-      fontSize: 28,
+      fontSize: 36,
       height: 60,
       fontFamily: 'Impact',
+      stroke: "black",
+      strokeWidth: 5,
       top: 20,
       left: 0,
       width: canvas.width,
-      stroke: "black",
-      strokeWidth: 1,
       textAlign: 'center',
     }
       
       textBoxTop = new fabric.Textbox(text, textBoxConfig);
       setTimeout(function(){
-        textBoxTop.setColor('white');
         document.getElementById('top-font-style-select').value = "Impact-Outline";
         textBoxTop.lockMovementX = true;
         canvas.add(textBoxTop);
-      }, 100);
+        textBoxTop.setFontFamily("Impact");
+        textBoxTop.setColor('white');
+      }, 300);
       
   }
   
   // Function that creates the bottom text box
   function createBottomTextBox(text) {
     var textBoxConfig = {
-      fontSize: 28,
+      fontSize: 36,
       height: 60,
       fontFamily: 'Impact',
       top: canvas.height - 60,
       left: 0,
       width: canvas.width,
       stroke: 'black',
-      strokeWidth: 1,
+      strokeWidth: 5,
       textAlign: 'center',
     }
     
@@ -266,7 +278,7 @@ $(document).on("turbolinks:load", function() {
       document.getElementById('bottom-font-style-select').value = "Impact-Outline";
       textBoxBottom.lockMovementX = true;
       canvas.add(textBoxBottom);
-    }, 100);
+    }, 300);
   }
 
   // Toggle top bold option
@@ -608,7 +620,7 @@ $(document).on("turbolinks:load", function() {
     if ($('#top-font-style-select option:selected').val() === "Impact-Outline") {
       textBoxTop.setFontFamily("Impact");
       textBoxTop.stroke = "black";
-      textBoxTop.strokeWidth = 1;
+      textBoxTop.strokeWidth = 5;
     } else {
       textBoxTop.setFontFamily(topTextStyle);
       textBoxTop.stroke = null;
@@ -620,7 +632,7 @@ $(document).on("turbolinks:load", function() {
     if ($('#bottom-font-style-select option:selected').val() === "Impact-Outline") {
       textBoxBottom.setFontFamily("Impact");
       textBoxBottom.stroke = "black";
-      textBoxBottom.strokeWidth = 1;
+      textBoxBottom.strokeWidth = 5;
     } else {
       textBoxBottom.setFontFamily(bottomTextStyle);
       textBoxBottom.stroke = null;

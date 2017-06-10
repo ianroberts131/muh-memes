@@ -2,7 +2,10 @@
 
 @font-face {
   font-family: 'Impact';
-  src: asset_url('impact.ttf') format('truetype'),
+  src: asset_url('impact.eot');
+  src: asset_url('impact.woff2') format('woff2'),
+      asset_url('impact.woff') format('woff'),
+      asset_url('impact.ttf') format('truetype');
 }
 
 @font-face {
