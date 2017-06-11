@@ -27,11 +27,11 @@
             <% end %>
         <% end %>
       </div>
-      <div id="filters" class="col-md-12">
-        <%= link_to "Day", { :filter => "day", :search => params[:search] }, :class => "btn btn-primary filter-button" %>
-        <%= link_to "Week", { :filter => "week", :search => params[:search] }, :class => "btn btn-primary filter-button" %>
-        <%= link_to "Month", { :filter => "month", :search => params[:search] }, :class => "btn btn-primary filter-button" %>
-        <%= link_to "All Time", { :filter => "all-time", :search => params[:search] }, :class => "btn btn-primary filter-button" %>
+      <div id="filters" class="col-md-12" data-filter=<%= params[:filter] ? params[:filter] : "all-time" %>>
+        <%= link_to "Day", { :filter => "day", :search => params[:search] }, :class => "btn btn-primary filter-button", :id => "day-filter" %>
+        <%= link_to "Week", { :filter => "week", :search => params[:search] }, :class => "btn btn-primary filter-button", :id => "week-filter" %>
+        <%= link_to "Month", { :filter => "month", :search => params[:search] }, :class => "btn btn-primary filter-button", :id => "month-filter" %>
+        <%= link_to "All Time", { :filter => "all-time", :search => params[:search] }, :class => "btn btn-primary filter-button", :id => "all-time-filter" %>
       </div>
       <div class="row">
         <div class="tag-cloud col-xs-12 col-md-offset-3 col-md-6">
@@ -56,5 +56,18 @@
   </div>
 
 <% end %>
+
+<script>
+  var filter = $("#filters").data('filter');
+  if (filter === "day") {
+    $("#day-filter").addClass("filter-selected");
+  } else if (filter === "week") {
+    $("#week-filter").addClass("filter-selected");
+  } else if (filter === "month") {
+    $("#month-filter").addClass("filter-selected");
+  } else {
+    $("#all-time-filter").addClass("filter-selected");
+  }
+</script>
 
 
