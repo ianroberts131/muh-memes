@@ -22,7 +22,8 @@ class MemesController < ApplicationController
       # puts "The tag_list is: #{params[:meme][:tag_list]}"
       flash[:success] = "Meme created!"
     else
-      flash[:danger] = "Meme failed to be created."
+      # flash[:danger] = "Meme failed to be created."
+      flash[:danger] = @meme.errors.full_messages.to_sentence
     end
     redirect_to user_url(current_user)
   end
