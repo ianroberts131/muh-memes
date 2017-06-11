@@ -242,6 +242,10 @@ input, textarea, select, .uneditable-input {
   margin-top: 2.5%;
 }
 
+.saved-memes-header {
+  margin-bottom: 2%;
+}
+
 .tag-cloud {
   line-height: 1.6em;
   .s { font-size: 0.8em; }
@@ -262,12 +266,12 @@ input, textarea, select, .uneditable-input {
   padding: 0 0 0 4px;
 }
 
-.meme-type-selection {
-  margin-top: 2%;
-  margin-bottom: 2%;
-  display: inline-block;
-  float: none;
-}
+// .meme-type-selection {
+//   margin-top: 2%;
+//   margin-bottom: 2%;
+//   display: inline-block;
+//   float: none;
+// }
 
 /* memes */
 

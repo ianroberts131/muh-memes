@@ -18,16 +18,16 @@
     <% if @user.memes.any? %>
       <% if @tag %>
         <% if current_user?(@user) %>
-          <h3>Muh Saved Memes with tag <%= @tag %>: <%= @user.memes.tagged_with(@tag).count %></h3>
+          <h3 class="saved-memes-header">Muh Saved Memes with tag <%= @tag %>: <%= @user.memes.tagged_with(@tag).count %></h3>
         <% else %>
-          <h3><%= @user.name %>'<%= @user.name.last == "s" ? "" : "s" %> Saved Memes with tag <%= @tag %>: <%= @user.memes.tagged_with(@tag).count %></h3>
+          <h3 class="saved-memes-header"><%= @user.name %>'<%= @user.name.last == "s" ? "" : "s" %> Saved Memes with tag <%= @tag %>: <%= @user.memes.tagged_with(@tag).count %></h3>
         <% end %>
         <%= link_to "Show All", user_path(@user), class: "btn btn-primary" %>
       <% else %>
       <% if current_user?(@user) %>
-        <h3>Muh Saved Memes (<%= @user.memes.count %>)</h3>
+        <h3 class="saved-memes-header">Muh Saved Memes (<%= @user.memes.count %>)</h3>
       <% else %>
-        <h3><%= @user.name %>'<%= @user.name.last == "s" ? "" : "s" %> Saved Memes (<%= @user.memes.count %>)</h3>
+        <h3 class="saved-memes-header"><%= @user.name %>'<%= @user.name.last == "s" ? "" : "s" %> Saved Memes (<%= @user.memes.count %>)</h3>
       <% end %>
       <div class="col-xs-12 center search-area">
         <%= form_tag user_path(@user), :method => :get, class: "form-inline" do %>
