@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       @user = User.friendly.find(params[:id])
       redirect_to root_url and return unless @user.activated
       
-      if params[:type] && (params[:type].include? "Creations")
+      if params[:type] && (params[:type].include? "Creat")
         @search = Sunspot.search Meme do
           fulltext params[:search]
           with :user_id, User.friendly.find(params[:id]).id
