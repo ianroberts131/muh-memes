@@ -4,9 +4,8 @@ class MemesController < ApplicationController
   # before_action :define_user_tags, only: [:create, :update]
   
   def show
-    @user = User.friendly.find(params[:user_id])
-    @meme = @user.memes.find(params[:id])
-    puts "The favorites are #{@meme.favorites.count}"
+    @meme = Meme.find(params[:id])
+    @user = User.find(@meme.user_id)
     if !current_user?(@user) && @meme.private
       flash[:danger] = "You are not allowed to view private memes!"
       redirect_to root_url

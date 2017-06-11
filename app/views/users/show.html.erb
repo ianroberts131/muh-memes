@@ -30,8 +30,21 @@
         <h3><%= @user.name %>'<%= @user.name.last == "s" ? "" : "s" %> Saved Memes (<%= @user.memes.count %>)</h3>
       <% end %>
       <div class="col-xs-12 center search-area">
-        <%= form_tag user_path(@user), :method => :get, class: "form-inline", :autocomplete => :off do %>
-          <div class="input-group col-xs-7 col-md-6 col-lg-4 search-bar">
+        <%= form_tag user_path(@user), :method => :get, class: "form-inline" do %>
+          <% if current_user?(@user) %>
+            <select class='form-control' name="type" id="current-user-meme-type">
+              <option <%= "Selected" if params[:type] == "All" %>>All</option>
+              <option <%= "Selected" if params[:type] == "My Creations" %>>My Creations</option>
+              <option <%= "Selected" if params[:type] == "Favorited Memes" %>>Favorited Memes</option>
+            </select>
+          <% else %>
+            <select class='form-control' name="type" id="other-user-meme-type" value=<%= params[:type] ? params[:type] : "All" %>>
+              <option <%= "Selected" if params[:type] == "All" %>>All</option>
+              <option <%= "Selected" if params[:type] == "Created by #{@user.name}" %>>Created by <%= @user.name %></option>
+              <option <%= "Selected" if params[:type] == "Favorited Memes" %>>Favorited Memes</option>
+            </select>
+          <% end %>
+          <div class="input-group col-xs-6 col-lg-4 search-bar">
             <%= text_field_tag :search, params[:search], placeholder: "Search Memes", class: "form-control col-xs-12" %>
           </div>
             <%= button_tag type: "submit", class: "btn btn-secondary" do %>
@@ -58,7 +71,20 @@
           <%= render @public_memes %>
         <% end %>
       </ul>
-      <%= will_paginate @memes %>
+      <% if current_user?(@user) %>
+        <%= will_paginate @memes %>
+      <% else %>
+        <%= will_paginate @public_memes %>
+      <% end %>
     <% end %>
   </div>
 </div>
+
+<script>
+  $("#current-user-meme-type").on("change", function() {
+    this.form.submit();
+  });
+  $("#other-user-meme-type").on("change", function() {
+    this.form.submit();
+  });
+</script>

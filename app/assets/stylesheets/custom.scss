@@ -262,6 +262,13 @@ input, textarea, select, .uneditable-input {
   padding: 0 0 0 4px;
 }
 
+.meme-type-selection {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  display: inline-block;
+  float: none;
+}
+
 /* memes */
 
 .memes-list {
@@ -271,6 +278,7 @@ input, textarea, select, .uneditable-input {
     display: inline-block;
     padding: 5px;
   }
+  margin-top: 2%;
 }
 
 .image-thumb {
@@ -641,8 +649,30 @@ input, textarea, select, .uneditable-input {
   vertical-align: middle;
 }
 
+#current-user-meme-type, #other-user-meme-type {
+  display: inline-table;
+  vertical-align: middle;
+  margin-bottom: 0;
+  width: 22.5%;
+}
+
+@media only screen and (min-width: 768px) {
+  #current-user-meme-type, #other-user-meme-type { width: 15% !important; }
+}
+
+@media only screen and (min-width: 350px) {
+  #current-user-meme-type, #other-user-meme-type { width: 20%; }
+}
+
+@media only screen and (max-width: 350px) {
+  #current-user-meme-type, #other-user-meme-type { 
+    width: 80%; 
+    margin-bottom: 2%;
+  }
+}
+
 #filters {
-  margin-bottom: 1%;
+  margin-bottom: 2%;
 }
 
 .filter-button {

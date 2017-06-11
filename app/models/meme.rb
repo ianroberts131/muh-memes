@@ -8,6 +8,7 @@ class Meme < ApplicationRecord
   validate :image_size
   
   searchable do
+    integer :id
     text    :tag_list
     integer :user_id
     boolean :private

@@ -25,19 +25,55 @@ class UsersController < ApplicationController
     else
       @user = User.friendly.find(params[:id])
       redirect_to root_url and return unless @user.activated
-      @search = Sunspot.search(Meme) do
-        fulltext params[:search]
-        with :user_id, User.friendly.find(params[:id]).id
-        order_by :created_at, :desc
-        paginate(:page => params[:page] || 1, :per_page => 30)
-      end
       
-      @public_search = Sunspot.search(Meme) do
-        fulltext params[:search]
-        with :user_id, User.friendly.find(params[:id]).id
-        order_by :created_at, :desc
-        with :private, false
-        paginate(:page => params[:page] || 1, :per_page => 30)
+      if params[:type] && (params[:type].include? "Creations")
+        @search = Sunspot.search Meme do
+          fulltext params[:search]
+          with :user_id, User.friendly.find(params[:id]).id
+          order_by :created_at, :desc
+          paginate(:page => params[:page] || 1, :per_page => 30)
+        end
+        @public_search = Sunspot.search(Meme) do
+          fulltext params[:search]
+          with :user_id, User.friendly.find(params[:id]).id
+          order_by :created_at, :desc
+          with :private, false
+          paginate(:page => params[:page] || 1, :per_page => 30)
+        end
+      elsif params[:type] && (params[:type].include? "Favorited")
+        @search = Sunspot.search Meme do
+          fulltext params[:search]
+          with(:id, User.friendly.find(params[:id]).favorite_memes.where(private: false).map{ |meme| meme.id })
+          order_by :created_at, :desc
+          paginate(:page => params[:page] || 1, :per_page => 30)
+        end
+        @public_search = Sunspot.search(Meme) do
+          fulltext params[:search]
+          with(:id, User.friendly.find(params[:id]).favorite_memes.where(private: false).map{ |meme| meme.id })
+          order_by :created_at, :desc
+          with :private, false
+          paginate(:page => params[:page] || 1, :per_page => 30)
+        end
+      else
+        @search = Sunspot.search Meme do
+          fulltext params[:search]
+          any_of do
+            with :user_id, User.friendly.find(params[:id]).id
+            with(:id, User.friendly.find(params[:id]).favorite_memes.where(private: false).map{ |meme| meme.id })
+          end
+          order_by :created_at, :desc
+          paginate(:page => params[:page] || 1, :per_page => 30)
+        end
+        @public_search = Sunspot.search(Meme) do
+          fulltext params[:search]
+          any_of do
+            with :user_id, User.friendly.find(params[:id]).id
+            with(:id, User.friendly.find(params[:id]).favorite_memes.where(private: false).map{ |meme| meme.id })
+          end
+          order_by :created_at, :desc
+          with :private, false
+          paginate(:page => params[:page] || 1, :per_page => 30)
+        end
       end
       @query = params[:search]
       @memes = @search.results
