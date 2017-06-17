@@ -1,10 +1,12 @@
 class MemesController < ApplicationController
   require 'mini_magick'
   before_action :logged_in_user, only: [:show, :create, :update, :destroy]
-  # before_action :define_user_tags, only: [:create, :update]
   
   def show
     @meme = Meme.find(params[:id])
+    if OriginalImage.exists?(id: @meme.original_image_id)
+      @original_image = OriginalImage.find(@meme.original_image_id)
+    end
     @user = User.find(@meme.user_id)
     if !current_user?(@user) && @meme.private
       flash[:danger] = "You are not allowed to view private memes!"
@@ -15,11 +17,11 @@ class MemesController < ApplicationController
   def create
     @user = current_user
     @meme = @user.memes.build(meme_params)
-    
+    if !@meme.original_image_id.nil?
+      @original_image = OriginalImage.find(@meme.original_image_id)
+      params[:meme][:original_image_id] = @original_image.id
+    end
     if @meme.save
-      # @user.tag(@meme, :with => params[:meme][:tag_list], :on => :tags)
-      # puts "The params keys in create are #{params.keys}"
-      # puts "The tag_list is: #{params[:meme][:tag_list]}"
       flash[:success] = "Meme created!"
     else
       # flash[:danger] = "Meme failed to be created."
@@ -53,6 +55,10 @@ class MemesController < ApplicationController
   def destroy
     @user = User.friendly.find(params[:user_id])
     @meme = @user.memes.find(params[:id])
+    if current_user != @user
+      flash[:danger] = "You are not allowed to delete other users' memes!"
+      redirect_to user_url(current_user)
+    end
     
     if @meme.destroy
       @meme.remove_image!
@@ -71,7 +77,7 @@ class MemesController < ApplicationController
   private
   
     def meme_params
-      params.require(:meme).permit(:image, :remote_image_url, :tag_list, :private)
+      params.require(:meme).permit(:image, :remote_image_url, :tag_list, :private, :original_image_id)
     end
     
     def correct_user

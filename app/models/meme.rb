@@ -1,5 +1,6 @@
 class Meme < ApplicationRecord
   belongs_to :user
+  has_one :original_image
   has_many :favorites, as: :favorited
   acts_as_taggable
   mount_base64_uploader :image, ImageUploader

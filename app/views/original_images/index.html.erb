@@ -1,0 +1,20 @@
+<div class="center jumbotron header">
+  <h1>Original Images</h1>
+  <p>The most popular images used to create memes!</p>
+</div>
+  
+<div class="row original-image-index">
+  <div class="col-xs-12 col-sm-8 col-sm-offset-2 original-image-thumbnails center">
+    <%= will_paginate @original_images %>
+    <ul class="original-image-list">
+      <% @original_images.each do |original_image| %>
+        <li>
+          <span class="original-image-thumb">
+            <%= link_to image_tag(original_image.original_image_url(:thumb)), original_image_path(original_image) if original_image.original_image? %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+    <%= will_paginate @original_images %>
+  </div>
+</div>

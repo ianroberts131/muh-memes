@@ -1,0 +1,57 @@
+<script>
+$(function() {
+  $("#image-private-checkbox").change(function() {
+    $.ajax({
+      type: "PUT",
+      url: "/original_images/<%=@original_image.id%>.json",
+      contentType: 'application/json',
+      data: JSON.stringify({private: this.checked, _method:"PUT"}),
+      dataType: 'json'
+      });
+  });
+});
+</script>
+
+<div class="row meme-creation hidden">
+    <%= render 'shared/meme_form' %>
+</div>
+
+<div class="row" id="image-area">
+  <div class="col-xs-12 col-sm-6 col-sm-offset-3 center">
+    <div class="image">
+      <p>
+        Uploaded by: <%= link_to @user.name, user_path(@user) %>
+      </p>
+      <div><%= image_tag @original_image.original_image.url, :id => "original-image" %></div>
+      <% if current_user == @user %>
+        <ul id="original-image-options">
+          <li id="original-image-delete-button" class="col-xs-6">
+            <%= link_to original_image_path(@original_image), method: :delete do %>
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            <% end %>
+          </li>
+          <li class="col-xs-6" id="image-private">
+            <%= form_for(@original_image, url: { controller: "original_images", action: "update"}) do |f| %>
+              <%= f.check_box :private, id: "image-private-checkbox" %>
+              <%= f.label "private image" %>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+      <button type="button" class="btn btn-success meme-image-button" id="meme-this">Meme this image!</button>
+    </div>
+  </div>
+</div>
+<div class="row meme-thumbnails">
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+    <h3>Related Memes (<%= @original_image.memes.count %>)</h3>
+    <%= will_paginate @memes %>
+    <% if @memes.any? %>
+      <ul class="memes-list">
+        <%= render @memes %>
+      </ul>
+    <% end %>
+    <%= will_paginate @memes %>
+  </div>
+</div>
+    

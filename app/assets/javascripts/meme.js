@@ -1,6 +1,6 @@
 $(document).on("turbolinks:load", function() {
-  // Make sure this javascript file only loads on the users show page
-  if($(".users.show").length === 0) {
+  // Make sure this javascript file only loads on the users show, original image show, or memes show pages
+  if(($(".users.show").length === 0) && ($(".original_images.show").length === 0) && ($(".memes.show").length === 0)) {
     return;
   }
   
@@ -84,8 +84,42 @@ $(document).on("turbolinks:load", function() {
     canvas.renderAll();
   });
   
+  // Code specific to re-memeing an image
+  $("#meme-this").click(function() {
+    console.log("I am here!")
+    $(".meme-creation").removeClass("hidden");
+    $("#image-area").addClass("hidden");
+    $('#upload-area').addClass('hidden');
+    $('#canvas-area').removeClass('hidden');
+    $("#meme_tag_list").val("");
+    $('.meme-alteration').removeClass('disable-div');
+    if ($(".original_images.show").length != 0) {
+      url = document.getElementById("original-image").src;
+    } else if ($(".memes.show").length != 0) {
+      url = $("#meme-this").data('original-image');
+    }
+    var image = fabric.Image.fromURL(url, function(oImg) {
+      canvas.setWidth(oImg.width);
+      canvas.setHeight(oImg.height);
+      oImg.selectable = false;
+      canvas.add(oImg);
+      canvas.sendToBack(image);
+      createTopTextBox("Enter Top Text...");
+      createBottomTextBox("Enter Bottom Text...");
+      document.getElementById("top-text").placeholder = "Enter Top Text..."
+      document.getElementById('top-color').value = '#ffffff';
+      document.getElementById('top-color').value = '#ffffff';
+      document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
+      document.getElementById('bottom-color').value = '#ffffff';
+      document.getElementById('top-font-size-select').value = "" + textBoxTop.fontSize;
+      document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
+      canvas.setActiveObject(textBoxTop);
+      canvas.renderAll();
+    });
+  });
+  
   // On submit, change the meme/remote-URL value to the dataURL of the canvas
-  $('form').submit(function(e) {
+  $('#meme-form').submit(function(e) {
     var dataURL = canvas.toDataURL("image/png;base64;");
     if (remoteURL.val() === "" ) {
       $('#meme-image').val(dataURL);
@@ -93,6 +127,7 @@ $(document).on("turbolinks:load", function() {
       remoteURL.val("");
       remoteURL.prop('disabled', true);
       $('#meme-image').val(dataURL);
+      console.log("The meme image val is: ", $("#meme-image").val());
     }
   });
   

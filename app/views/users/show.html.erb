@@ -1,7 +1,7 @@
 <%= provide(:title, @user.name) %>
 <% if current_user == @user %>
   <div class="row meme-creation">
-      <%= render 'shared/meme_form' %>
+      <%= render 'shared/meme_form_nested' %>
   </div>
 <% else %>
   <div class="col-xs-12 col-sm-offset-2 col-sm-4 avatar">
@@ -66,13 +66,13 @@
       
       <ul class="memes-list center">
         <% if current_user?(@user) %>
-          <%= render @memes %>
+          <%= render @search_memes %>
         <% else %>
           <%= render @public_memes %>
         <% end %>
       </ul>
       <% if current_user?(@user) %>
-        <%= will_paginate @memes %>
+        <%= will_paginate @search_memes %>
       <% else %>
         <%= will_paginate @public_memes %>
       <% end %>

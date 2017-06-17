@@ -1,0 +1,171 @@
+<% content_for(:head) do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+  <link href="https://fonts.googleapis.com/css?family=Butcherman|Nosifer|Freckle+Face|Gloria+Hallelujah|Lora|Orbitron:500|Permanent+Marker|Rock+Salt" rel="stylesheet">
+<% end %>
+  
+  <%= form_for(@original_image, url: { controller: "original_images", action: "create" }, :html => {:class => "form-group meme-group", :id => "meme-form"}) do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+  
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-4 meme-preview">
+    <div id="upload-area" class="show">
+      <div id="upload-area-header">Upload Image</div>
+      <div id="upload-area-description">Drag and drop image here<br>
+                                        or upload below</div>
+      <div id="upload-area-select-file">
+        <div id="upload-file-button">
+            <%= f.file_field :original_image, accept: 'image/jpeg,image/gif,image/png,image/jpg', id: "image-upload", class: "filestyle", 'data-buttonName' => "btn btn-default",
+                                                                                                'data-input' => false, 'data-buttonText' => "Upload image" %>
+        </div>
+      </div>
+    </div>
+    <div id='canvas-area' class="hidden">
+      <canvas id="canvas" ></canvas>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-4 meme-alteration disable-div">
+    <div class="meme-alteration-section">
+      <div id="text-input">
+        <label>Top Text:</label><br/>
+        <div id="top-text-options">
+          <div class="form-group form-group-sm">
+            <div id="top-font-style-div" class="pull-left">
+              <select class='form-control form-control-sm' id="top-font-style-select">
+                <%= render 'shared/font_styles' %>
+              </select>
+            </div>
+            <div id='top-font-size-div' class="pull-left">
+              <select class='form-control form-control-sm' id="top-font-size-select">
+                <%= render 'shared/font_sizes' %>
+              </select>
+            </div>
+            <div class="btn-group pull-left" data-toggle="buttons" id="top-text-buttons">
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Bold" id="top-bold">
+                <span class="glyphicon glyphicon-bold"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="top-italic">
+                <span class="glyphicon glyphicon-italic"></span>
+              </button>
+            </div>
+            <div class="pull-left" id="top-color-wrapper">
+              <input type="color" id="top-color"/>
+            </div>
+            <input type="text" id="top-text" class="form-control">
+          </div>
+        </div>
+        
+        <label>Bottom Text:</label>
+        <div id="bottom-text-options">
+          <div class="form-group form-group-sm">
+            <div id="bottom-font-style-div" class="pull-left">
+              <select class='form-control' id="bottom-font-style-select">
+                <%= render 'shared/font_styles' %>
+              </select>
+            </div>
+            <div id='bottom-font-size-div' class="pull-left">
+              <select class='form-control' id="bottom-font-size-select">
+                <%= render 'shared/font_sizes' %>
+              </select>
+            </div>
+            <div class="btn-group pull-left" data-toggle="buttons" id="bottom-text-buttons">
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Bold" id="bottom-bold">
+                <span class="glyphicon glyphicon-bold"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" aria-label="Italic" id="bottom-italic">
+                <span class="glyphicon glyphicon-italic"></span>
+              </button>
+            </div>
+            <div class="pull-left" id="bottom-color-wrapper">
+              <input type="color" id="bottom-color">
+            </div>
+            <input type="text" id="bottom-text" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="hidden" id="free-draw-options">
+        <div class="row">
+          <div class="col-xs-6">
+            <label>Line width:</label>
+            <span id="line-width-value">2</span>
+            <input type="range" value="2" min="0" max="30" id="drawing-line-width">
+          </div>
+          <div class="col-xs-6">
+            <label>Line color:</label>
+            <span><input type="color" value="#FFFFFF" id="drawing-color"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <label>Mode: </label>
+            <select id="drawing-mode-selector" class="form-control input-sm" val="Pencil">
+              <option>Pencil</option>
+              <option>Circle</option>
+              <option>Spray</option>
+              <option>Pattern</option>
+              <option>Hline</option>
+              <option>Vline</option>
+              <option>Square</option>
+              <option>Diamond</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <label>Filter: </label>
+            <select id="drawing-mode-filter" class="form-control input-sm" val="None">
+              <option>None</option>
+              <option>Grayscale</option>
+              <option>Sharpen</option>
+              <option>Emboss</option>
+              <option>Invert</option>
+              <option>Sepia</option>
+              <option>Sepia2</option>
+              <option>Blur</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" id="object-select-buttons">
+          <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-sm col-xs-12" id="select-objects">Select Objects</button>
+          </div>
+          <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-sm col-xs-12" id="delete-objects">Delete Selected Objects</button>
+          </div>
+        </div>
+      </div>
+      <label id="drawing-mode-label">Drawing Mode!</label>
+      <div class="col-xs-12" id="drawing-mode-button-wrapper">
+        <button type="button" id="draw-mode-button"><img src="/assets/pencil-horizontal" id="pencil"/></button>
+      </div>
+      <div class="hidden col-xs-12" id="drawing-mode-button-off-wrapper">
+        <button type="button" class="btn btn-info btn-sm col-xs-6" id="draw-mode-button-off">Exit drawing mode</button>
+      </div>
+      <%= f.fields_for :meme, @original_image.memes.build do |meme| %>
+        <div class="col-md-12" id="tags-and-private">
+          <div id="meme-private-checkbox-wrapper">
+            <%= meme.check_box :private, id: "private-checkbox"%>
+            <%= meme.label "private meme?" %>
+          </div>
+          <div id="image-private-checkbox-wrapper">
+            <%= f.check_box :private, id: "image-private-checkbox"%>
+            <%= f.label "private image?"%>
+          </div>
+          <div id="tag-input" class="form-group form-group-sm">
+            <%= meme.label :tag_list, "Tags (separated by commas)" %>
+            <%= meme.text_field :tag_list, class: "form-control" %>
+          </div>
+          <%= meme.text_field :image, id: "meme-image", class: "hidden" %>
+        </div>
+      <% end %>
+      
+      
+      <div class="col-md-12" id="submit-buttons">
+        <div class="col-md-6">
+          <%= submit_tag "Start over", type: "button", class: "btn btn-danger", id: "start-over-button" %>
+        </div>
+        <div class="col-md-6">
+          <p><%= f.submit "Meme it!", class: "btn btn-primary", id: "meme-it" %></p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<% end %>
+

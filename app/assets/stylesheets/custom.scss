@@ -61,6 +61,15 @@ p {
   }
 }
 
+#logo-area {
+  &:hover {
+    #logo {
+      color: rgb(51, 122, 183);
+      text-decoration: none;
+    }
+  }
+}
+
 /* navbar */
 
 .navbar {
@@ -99,6 +108,9 @@ p {
 
 @media only screen and (max-width: 768px) {
   #logo { display: none; }
+  .navbar-nav li a {
+    line-height: 35px !important;
+  }
 }
 
 #nav-button {
@@ -210,6 +222,16 @@ input, textarea, select, .uneditable-input {
   }
 }
 
+#private-checkbox, #image-private-checkbox {
+  display: inline-block;
+  width: auto;
+}
+
+#image-private-checkbox-wrapper, #meme-private-checkbox-wrapper {
+  width: auto;
+  display: inline-block;
+}
+
 #session_remember_me {
   width: auto;
   margin-left: 0;
@@ -272,6 +294,26 @@ input, textarea, select, .uneditable-input {
 //   display: inline-block;
 //   float: none;
 // }
+
+/* Original Images */
+
+.original-image-list {
+  list-style: none;
+  padding: 0;
+  li {
+    display: inline-block;
+    padding: 5px;
+  }
+  margin-top: 2%;
+}
+
+.meme-image-button {
+  margin-top: 3%;
+}
+
+#image-private {
+  width: auto;
+}
 
 /* memes */
 
@@ -498,9 +540,7 @@ input, textarea, select, .uneditable-input {
   opacity: 0.4;
 }
 
-#meme_private {
-  width: auto;
-}
+
 
 @media only screen and (min-width: 768px) {
   #draw-mode-wrapper {
@@ -613,7 +653,7 @@ input, textarea, select, .uneditable-input {
   margin-right: 5px;
 }
 
-.meme-option-buttons {
+.meme-option-buttons, #original-image-options {
   list-style-type: none;
   margin-top: 3%;
   padding-left: 1px;
@@ -623,6 +663,12 @@ input, textarea, select, .uneditable-input {
 }
 
 .meme-option-buttons li {
+  display: inline-block;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#original-image-options li {
   display: inline-block;
   padding-left: 0;
   padding-right: 0;

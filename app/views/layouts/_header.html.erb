@@ -2,13 +2,13 @@
   <div class="container-fluid">
     <nav>
       <div class="pull-left">
-        <ul class="nav navbar-nav navbar-left">
-          <li><%= link_to "Muh Memes", root_path, id: "logo"%></li>
+        <ul class="nav navbar-nav navbar-left" id="logo-area">
           <li>
             <%= link_to root_path do %>
               <%= image_tag('panda_icon', :alt => "panda", :size => '50x50') %>
             <% end %>
           </li>
+          <li><%= link_to "Muh Memes", root_path, id: "logo"%></li>
         </ul>
       </div>
       <div class="pull-right navbar-flexbox-center">
@@ -22,6 +22,7 @@
         <div class="collapse navbar-collapse" id="site-links">
           <ul class="nav navbar-nav">
             <li class="header-item"><%= link_to "Home", root_path %></li>
+            <li class="header-item"><%= link_to "Image Database", original_images_path %></li>
             <li class="header-item"><%= link_to "Contact", contact_path %></li>
             <% if logged_in? %>
               <li><%= link_to "Users", users_path %></li>

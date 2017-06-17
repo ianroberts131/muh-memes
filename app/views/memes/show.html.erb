@@ -17,7 +17,7 @@
 
 <script>
 $(function() {
-  $(".check-box").change(function() {
+  $("#meme-private-checkbox").change(function() {
     $.ajax({
       type: "PUT",
       url: "/users/<%=@user.id%>/memes/<%=@meme.id%>.json",
@@ -28,6 +28,9 @@ $(function() {
   });
 });
 </script>
+<div class="row meme-creation hidden">
+  <%= render 'shared/meme_form' %>
+</div>
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-sm-offset-3 center">  
     <div class="image">
@@ -71,12 +74,16 @@ $(function() {
         <% if current_user?(@user) %>
           <li class="private-checkbox col-xs-4 meme-option">
             <%= form_for(@meme, url: { controller: "memes", action: "update" }) do |f| %>
-              <%= f.check_box :private, class: "check-box" %>
-              <%= f.label "private" %>
+              <%= f.check_box :private, class: "check-box", id: "private-checkbox" %>
+              <%= f.label "private meme" %>
             <% end %>
           </li>
         <% end %>
       </ul>
+      <% if @original_image %>
+        <button type="button" class="btn btn-success meme-image-button" id="meme-this" data-original-image=<%= @original_image.original_image.url %>>Meme this image!</button>
+        <%= link_to "View Original Image", original_image_path(@original_image), :class => "btn btn-primary meme-image-button" %>
+      <% end %>
       </div>
       
     <% if current_user?(@user) %>
@@ -105,6 +112,17 @@ $(function() {
       </div>
     </div>
   </div>
+  <div class="row meme-thumbnails">
+  <% if @original_image %>
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+      <h3>Related Memes (<%= @original_image.memes.count %>)</h3>
+      <% if @original_image.memes.any? %>
+        <ul class="memes-list">
+          <%= render @original_image.memes %>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <div id="fb-root"></div>

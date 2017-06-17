@@ -75,8 +75,9 @@ class UsersController < ApplicationController
           paginate(:page => params[:page] || 1, :per_page => 30)
         end
       end
+      @original_image = OriginalImage.new
       @query = params[:search]
-      @memes = @search.results
+      @search_memes = @search.results
       @meme = @user.memes.new
       @tag_cloud_memes = @user.memes.order(created_at: :desc).paginate(page: params[:page])
       @public_memes = @public_search.results

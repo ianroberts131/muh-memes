@@ -13,11 +13,12 @@ Rails.application.routes.draw do
   post    '/login',   to: 'sessions#create'
   delete  '/logout',  to: 'sessions#destroy'
   resources :users do
-    resources :memes,             only: [:show, :destroy, :update] do
+    resources :memes,             only: [:show, :create, :destroy, :update] do
       resources :favorite_memes,      only: [:create, :destroy]
     end
   end
   resources :memes,               only: [:create]
+  resources :original_images,     only: [:index, :create, :show, :destroy, :update]
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   

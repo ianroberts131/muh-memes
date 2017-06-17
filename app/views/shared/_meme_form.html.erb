@@ -3,7 +3,7 @@
   <link href="https://fonts.googleapis.com/css?family=Butcherman|Nosifer|Freckle+Face|Gloria+Hallelujah|Lora|Orbitron:500|Permanent+Marker|Rock+Salt" rel="stylesheet">
 <% end %>
   
-  <%= form_for(@meme, url: { controller: "memes", action: "create" }, :html => {:class => "form-group meme-group"}) do |f| %>
+  <%= form_for(@meme, url: { controller: "memes", action: "create" }, method: :post, :html => {:class => "form-group meme-group", :id => "meme-form"}) do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   
   <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-4 meme-preview">
@@ -140,8 +140,8 @@
       </div>
       <div class="col-md-12" id="tags-and-private">
         <div id="private-checkbox">
-          <%= f.check_box :private %>
-          <%= f.label "private" %>
+          <%= f.check_box :private, class: "check-box", id: "private-checkbox" %>
+          <%= f.label "private meme?" %>
         </div>
         <div id="tag-input" class="form-group form-group-sm">
           <%= f.label :tag_list, "Tags (separated by commas)" %>
@@ -149,12 +149,21 @@
         </div>
       </div>
       <div class="col-md-12" id="submit-buttons">
-        <div class="col-md-6">
-          <%= submit_tag "Start over", type: "button", class: "btn btn-danger", id: "start-over-button" %>
-        </div>
-        <div class="col-md-6">
-          <p><%= f.submit "Meme it!", class: "btn btn-primary"%></p>
-        </div>
+        <% if @original_image %>
+          <div class="col-md-6 col-md-offset-3">
+            <% if !@meme.original_image_id.nil? %>
+              <%= f.hidden_field :original_image_id %>
+            <% end %>
+            <p><%= f.submit "Meme it!", class: "btn btn-primary"%></p>
+          </div>
+        <% else %>
+          <div class="col-md-6">
+            <%= submit_tag "Start over", type: "button", class: "btn btn-danger", id: "start-over-button" %>
+          </div>
+          <div class="col-md-6">
+            <p><%= f.submit "Meme it!", class: "btn btn-primary"%></p>
+          </div>
+        <% end %>
       </div>
       
     </div>
