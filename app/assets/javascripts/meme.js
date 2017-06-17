@@ -115,7 +115,7 @@ $(document).on("turbolinks:load", function() {
       document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
       canvas.setActiveObject(textBoxTop);
       canvas.renderAll();
-    });
+    }, { crossOrigin: "Anonymous" });
   });
   
   // On submit, change the meme/remote-URL value to the dataURL of the canvas
