@@ -79,7 +79,7 @@ class UsersController < ApplicationController
       @query = params[:search]
       @search_memes = @search.results
       @meme = @user.memes.new
-      @tag_cloud_memes = @user.memes.order(created_at: :desc).paginate(page: params[:page])
+      @tag_cloud_memes = @user.memes.order(created_at: :desc)
       @public_memes = @public_search.results
     end
   end
