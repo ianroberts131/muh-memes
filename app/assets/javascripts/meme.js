@@ -145,7 +145,6 @@ $(document).on("turbolinks:load", function() {
       canvas.setWidth(oImg.width);
       canvas.setHeight(oImg.height);
       oImg.selectable = false;
-      oImg.crossOrigin = "anonymous";
       canvas.add(oImg);
       canvas.sendToBack(image);
       createTopTextBox("Enter Top Text...");
@@ -159,7 +158,7 @@ $(document).on("turbolinks:load", function() {
       document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
       canvas.setActiveObject(textBoxTop);
       canvas.renderAll();
-    });
+    }, {crossOrigin: "anonymous"});
   });
   
   // On submit, change the meme/remote-URL value to the dataURL of the canvas
