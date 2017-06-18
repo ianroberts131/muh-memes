@@ -46,7 +46,6 @@ $(document).on("turbolinks:load", function() {
     }
   });
   
-  
   $("#canvas-area").mousedown(function() {
     textBoxTop.lockScalingX = false;
     textBoxBottom.lockScalingX = false;
@@ -146,6 +145,7 @@ $(document).on("turbolinks:load", function() {
       canvas.setWidth(oImg.width);
       canvas.setHeight(oImg.height);
       oImg.selectable = false;
+      oImg.crossOrigin = "anonymous";
       canvas.add(oImg);
       canvas.sendToBack(image);
       createTopTextBox("Enter Top Text...");
@@ -819,10 +819,8 @@ $(document).on("turbolinks:load", function() {
         padding: 0,
         height: imgObject.height,
         width: imgObject.width,
-        crossOrigin: "anonymous"
       });
       image.selectable = false;
-      // image.setCrossOrigin("anonymous")
       
       canvas.add(image);
       canvas.sendToBack(image);
