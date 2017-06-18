@@ -17,7 +17,7 @@
 
 <script>
 $(function() {
-  $("#meme-private-checkbox").change(function() {
+  $("#meme-private-checkbox-update").change(function() {
     $.ajax({
       type: "PUT",
       url: "/users/<%=@user.id%>/memes/<%=@meme.id%>.json",
@@ -74,7 +74,7 @@ $(function() {
         <% if current_user?(@user) %>
           <li class="private-checkbox col-xs-4 meme-option">
             <%= form_for(@meme, url: { controller: "memes", action: "update" }) do |f| %>
-              <%= f.check_box :private, class: "check-box", id: "meme-private-checkbox" %>
+              <%= f.check_box :private, class: "check-box", id: "meme-private-checkbox-update" %>
               <%= f.label "private meme" %>
             <% end %>
           </li>

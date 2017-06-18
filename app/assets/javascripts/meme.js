@@ -26,6 +26,51 @@ $(document).on("turbolinks:load", function() {
   canvas.setHeight(MAX_HEIGHT);
   canvas.setWidth(MAX_WIDTH);
   
+  // Function that limits textbox to within canvas
+  canvas.on('object:moving', function(e) {
+    var obj = e.target;
+     // if object is too big ignore
+    if(obj.currentHeight >= canvas.height || obj.currentWidth >= canvas.width){
+        return;
+    }        
+    obj.setCoords();        
+    // top-left  corner
+    if(obj.top < 0 || obj.left < 0){
+        obj.top = Math.max(obj.top, 0);
+        obj.left = Math.max(obj.left, 0);
+    }
+    // bot-right corner
+    if(obj.top+obj.height  > obj.canvas.height || obj.left+obj.width  > canvas.width){
+        obj.top = Math.min(obj.top, canvas.height-obj.height);
+        obj.left = Math.min(obj.left, canvas.width-obj.width);
+    }
+  });
+  
+  
+  $("#canvas-area").mousedown(function() {
+    textBoxTop.lockScalingX = false;
+    textBoxBottom.lockScalingX = false;
+  })
+  
+  canvas.on('object:scaling', function(e) {
+    var obj = e.target;
+
+    // if object is too big ignore
+    if(obj.currentHeight >= canvas.height || obj.currentWidth >= canvas.width){
+        return;
+    }        
+    obj.setCoords();
+    // top-left corner
+    if(obj.left < 0){
+      obj.left = 0;
+      obj.lockScalingX = true;
+    }
+    // bot-right corner
+    if(obj.left+obj.width >= canvas.width){
+        obj.width = canvas.width - obj.left;
+    }
+  })
+  
   // Drag and Drop File Upload
   document.getElementById('upload-area').addEventListener('dragover', function(e) {
     // prevent browser from trying to open file directly
@@ -126,7 +171,6 @@ $(document).on("turbolinks:load", function() {
       remoteURL.val("");
       remoteURL.prop('disabled', true);
       $('#meme-image').val(dataURL);
-      console.log("The meme image val is: ", $("#meme-image").val());
     }
   });
   
@@ -284,7 +328,6 @@ $(document).on("turbolinks:load", function() {
       textBoxTop = new fabric.Textbox(text, textBoxConfig);
       setTimeout(function(){
         document.getElementById('top-font-style-select').value = "Impact-Outline";
-        textBoxTop.lockMovementX = true;
         canvas.add(textBoxTop);
         textBoxTop.setFontFamily("Impact");
         textBoxTop.setColor('white');
@@ -310,7 +353,6 @@ $(document).on("turbolinks:load", function() {
     setTimeout(function(){
       textBoxBottom.setColor('white');
       document.getElementById('bottom-font-style-select').value = "Impact-Outline";
-      textBoxBottom.lockMovementX = true;
       canvas.add(textBoxBottom);
     }, 300);
   }
@@ -639,13 +681,6 @@ $(document).on("turbolinks:load", function() {
     var topTextStyle = $('#top-font-style-select option:selected').val();
     var bottomTextSize = document.getElementById('bottom-font-size-select').value;
     var bottomTextStyle = $('#bottom-font-style-select option:selected').val();
-    // canvas.clear();
-    // if (reader.result != null) {
-    //   url = reader.result;
-    // } else {
-    //   url = $('#remote-meme-url').val();
-    // }
-    // drawImage(url);
     textBoxTop.setText(topText)
     textBoxTop.setColor(topTextColor);
     textBoxTop.setFontSize(Number(topTextSize));
@@ -850,8 +885,9 @@ $(document).on("turbolinks:load", function() {
     }
     return bytes.buffer;
   }
-  
 });
+
+
 
 //Saving these functions for later:
 // function dataURLtoBlob(dataURL) {

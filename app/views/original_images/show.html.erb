@@ -1,6 +1,6 @@
 <script>
 $(function() {
-  $("#image-private-checkbox").change(function() {
+  $("#image-private-checkbox-update").change(function() {
     $.ajax({
       type: "PUT",
       url: "/original_images/<%=@original_image.id%>.json",
@@ -32,7 +32,7 @@ $(function() {
           </li>
           <li class="col-xs-6" id="image-private">
             <%= form_for(@original_image, url: { controller: "original_images", action: "update"}) do |f| %>
-              <%= f.check_box :private, id: "image-private-checkbox" %>
+              <%= f.check_box :private, id: "image-private-checkbox-update" %>
               <%= f.label "private image" %>
             <% end %>
           </li>
