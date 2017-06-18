@@ -78,9 +78,9 @@ class UsersController < ApplicationController
       @original_image = OriginalImage.new
       @query = params[:search]
       @search_memes = @search.results
+      @public_memes = @public_search.results
       @meme = @user.memes.new
       @tag_cloud_memes = @user.memes.order(created_at: :desc)
-      @public_memes = @public_search.results
     end
   end
   

@@ -6,7 +6,7 @@
   <%= form_for(@original_image, url: { controller: "original_images", action: "create" }, :html => {:class => "form-group meme-group", :id => "meme-form"}) do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   
-  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-4 meme-preview">
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-6 col-lg-offset-2 col-lg-4 meme-preview">
     <div id="upload-area" class="show">
       <div id="upload-area-header">Upload Image</div>
       <div id="upload-area-description">Drag and drop image here<br>
@@ -22,7 +22,7 @@
       <canvas id="canvas" ></canvas>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-4 meme-alteration disable-div">
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-6 col-lg-4 meme-alteration disable-div">
     <div class="meme-alteration-section">
       <div id="text-input">
         <label>Top Text:</label><br/>
@@ -140,7 +140,7 @@
       <%= f.fields_for :meme, @original_image.memes.build do |meme| %>
         <div class="col-md-12" id="tags-and-private">
           <div id="meme-private-checkbox-wrapper">
-            <%= meme.check_box :private, id: "private-checkbox"%>
+            <%= meme.check_box :private, id: "meme-private-checkbox"%>
             <%= meme.label "private meme?" %>
           </div>
           <div id="image-private-checkbox-wrapper">

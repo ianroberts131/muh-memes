@@ -1,7 +1,5 @@
 <%= provide(:title, @user.name) %>
 
-
-
 <% if current_user == @user %>
   <div class="row meme-creation">
       <%= render 'shared/meme_form_nested' %>
