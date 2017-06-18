@@ -19,14 +19,14 @@ class StaticPagesController < ApplicationController
           with(:updated_at).greater_than updated_at_statement
           with :private, false
           order_by :favorites_count, :desc
-          paginate(:page => params[:page] || 1, :per_page => 50)
+          paginate(:page => params[:page] || 1, :per_page => 35)
         end
       else
         @search = Sunspot.search(Meme) do
           fulltext params[:search]
           with :private, false
           order_by :favorites_count, :desc
-          paginate(:page => params[:page] || 1, :per_page => 50)
+          paginate(:page => params[:page] || 1, :per_page => 35)
         end
       end
       @query = params[:search]

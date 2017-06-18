@@ -13,7 +13,7 @@
     <h1>Muh Memes</h1>
   </div>
   <div class="row meme-index">
-    <div class="col-xs-12 col-sm-8 col-sm-offset-2 meme-thumbnails center">
+    <div class="col-xs-12 meme-thumbnails center">
       <div class="col-xs-12 center search-area">
         <%= form_tag root_path, :method => :get, class: "form-inline", :autocomplete => :off do %>
           <div class="input-group col-xs-8 col-md-6 col-lg-4 search-bar">
@@ -27,7 +27,7 @@
             <% end %>
         <% end %>
       </div>
-      <div id="filters" class="col-md-12" data-filter=<%= params[:filter] ? params[:filter] : "all-time" %>>
+      <div id="filters" class="col-sm-12 col-md-offset-2 col-md-8" data-filter=<%= params[:filter] ? params[:filter] : "all-time" %>>
         <%= link_to "Day", { :filter => "day", :search => params[:search] }, :class => "btn btn-primary filter-button", :id => "day-filter" %>
         <%= link_to "Week", { :filter => "week", :search => params[:search] }, :class => "btn btn-primary filter-button", :id => "week-filter" %>
         <%= link_to "Month", { :filter => "month", :search => params[:search] }, :class => "btn btn-primary filter-button", :id => "month-filter" %>

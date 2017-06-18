@@ -86,7 +86,6 @@ $(document).on("turbolinks:load", function() {
   
   // Code specific to re-memeing an image
   $("#meme-this").click(function() {
-    console.log("I am here!")
     $(".meme-creation").removeClass("hidden");
     $("#image-area").addClass("hidden");
     $('#upload-area').addClass('hidden');
@@ -115,7 +114,7 @@ $(document).on("turbolinks:load", function() {
       document.getElementById('bottom-font-size-select').value = "" + textBoxBottom.fontSize;
       canvas.setActiveObject(textBoxTop);
       canvas.renderAll();
-    }, { crossOrigin: "Anonymous" });
+    });
   });
   
   // On submit, change the meme/remote-URL value to the dataURL of the canvas

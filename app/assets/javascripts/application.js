@@ -17,6 +17,7 @@
 //= require bootstrap-filestyle
 //= require vendor
 //= require meme
+//= require flashMessages
 //= require exif
 //= require jquery-editable-select.min
 //= require userEdit
