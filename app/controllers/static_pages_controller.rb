@@ -5,18 +5,18 @@ class StaticPagesController < ApplicationController
     else
       filter = params[:filter]
       if filter == "day" || filter == "week" || filter == "month"
-        updated_at_statement = ""
+        created_at_statement = ""
         case filter
         when "day"
-          updated_at_statement = 1.day.ago
+          created_at_statement = 1.day.ago
         when "week"
-          updated_at_statement = 7.days.ago
+          created_at_statement = 7.days.ago
         when "month"
-          updated_at_statement = 1.month.ago
+          created_at_statement = 1.month.ago
         end
         @search = Sunspot.search(Meme) do
           fulltext params[:search]
-          with(:updated_at).greater_than updated_at_statement
+          with(:created_at).greater_than created_at_statement
           with :private, false
           order_by :favorites_count, :desc
           paginate(:page => params[:page] || 1, :per_page => 35)
@@ -32,7 +32,7 @@ class StaticPagesController < ApplicationController
       @query = params[:search]
       @memes = @search.results
     end
-    @tag_cloud_memes = Meme.all.order(updated_at: :desc).where(private: false)
+    @tag_cloud_memes = Meme.all.order(created_at: :desc).where(private: false)
   end
 
   def contact

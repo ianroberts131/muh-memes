@@ -135,6 +135,7 @@ $(document).on("turbolinks:load", function() {
     $('#upload-area').addClass('hidden');
     $('#canvas-area').removeClass('hidden');
     $("#meme_tag_list").val("");
+    $("#meme-private-checkbox").attr('checked', false);
     $('.meme-alteration').removeClass('disable-div');
     if ($(".original_images.show").length != 0) {
       url = document.getElementById("original-image").src;
