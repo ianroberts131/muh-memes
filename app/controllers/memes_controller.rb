@@ -6,6 +6,7 @@ class MemesController < ApplicationController
     @meme = Meme.find(params[:id])
     if OriginalImage.exists?(id: @meme.original_image_id)
       @original_image = OriginalImage.find(@meme.original_image_id)
+      @memes = @original_image.memes.where(private: false).paginate(:page => params[:page], :per_page => 30)
     end
     @user = User.find(@meme.user_id)
     if !current_user?(@user) && @meme.private

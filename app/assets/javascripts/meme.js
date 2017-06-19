@@ -318,6 +318,7 @@ $(document).on("turbolinks:load", function() {
       fontFamily: 'Impact',
       stroke: "black",
       strokeWidth: 5,
+      strokeLineJoin: 'round',
       top: 20,
       left: 0,
       width: canvas.width,
@@ -345,6 +346,7 @@ $(document).on("turbolinks:load", function() {
       width: canvas.width,
       stroke: 'black',
       strokeWidth: 5,
+      strokeLineJoin: 'round',
       textAlign: 'center',
     }
     

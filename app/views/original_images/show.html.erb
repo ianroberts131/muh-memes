@@ -43,15 +43,16 @@ $(function() {
   </div>
 </div>
 <div class="row meme-thumbnails">
-  <div class="col-xs-12 col-sm-offset-2 col-sm-8">
-    <h3>Related Memes (<%= @original_image.memes.count %>)</h3>
-    <%= will_paginate @memes %>
+  <div class="col-xs-12 center">
+    <h3>Related Memes (<%= @memes.count %>)</h3>
     <% if @memes.any? %>
+      <%= will_paginate @memes %>
       <ul class="memes-list">
         <%= render @memes %>
       </ul>
+      <%= will_paginate @memes %>
     <% end %>
-    <%= will_paginate @memes %>
+    
   </div>
 </div>
     
