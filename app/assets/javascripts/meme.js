@@ -143,6 +143,12 @@ $(document).on("turbolinks:load", function() {
       url = $("#meme-this").data('original-image');
     }
     var image = fabric.Image.fromURL(url, function(oImg) {
+      // var windowWidth = $(window).width();
+      // if (windowWidth < oImg.wdth) {
+      //   oImg.width = windowWidth;
+      //   oImg.height *= windowWidth / oImg.width
+      // }
+      resizeImage(oImg);
       canvas.setWidth(oImg.width);
       canvas.setHeight(oImg.height);
       oImg.selectable = false;
