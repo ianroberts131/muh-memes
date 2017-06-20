@@ -143,11 +143,6 @@ $(document).on("turbolinks:load", function() {
       url = $("#meme-this").data('original-image');
     }
     var image = fabric.Image.fromURL(url, function(oImg) {
-      // var windowWidth = $(window).width();
-      // if (windowWidth < oImg.wdth) {
-      //   oImg.width = windowWidth;
-      //   oImg.height *= windowWidth / oImg.width
-      // }
       resizeImage(oImg);
       canvas.setWidth(oImg.width);
       canvas.setHeight(oImg.height);
@@ -853,7 +848,7 @@ $(document).on("turbolinks:load", function() {
   // Function that resizes the image to fit the canvas
   function resizeImage(image) {
     var windowWidth = $(window).width();
-    if (windowWidth < MAX_WIDTH) { MAX_WIDTH = windowWidth };
+    if (windowWidth < MAX_WIDTH) { MAX_WIDTH = windowWidth - 30 };
     if (image.width > image.height) {
       if (image.width > MAX_WIDTH) {
           image.height *= MAX_WIDTH / image.width;
