@@ -138,7 +138,7 @@ $(document).on("turbolinks:load", function() {
     $("#meme-private-checkbox").attr('checked', false);
     $('.meme-alteration').removeClass('disable-div');
     if ($(".original_images.show").length != 0) {
-      url = document.getElementById("original-image").src;
+      url = document.getElementById("original-image-show-image").src;
     } else if ($(".memes.show").length != 0) {
       url = $("#meme-this").data('original-image');
     }
