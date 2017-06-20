@@ -846,6 +846,8 @@ $(document).on("turbolinks:load", function() {
   
   // Function that resizes the image to fit the canvas
   function resizeImage(image) {
+    var windowWidth = $(window).width();
+    if (windowWidth < MAX_WIDTH) { MAX_WIDTH = windowWidth };
     if (image.width > image.height) {
       if (image.width > MAX_WIDTH) {
           image.height *= MAX_WIDTH / image.width;
