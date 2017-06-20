@@ -412,6 +412,7 @@ $(document).on("turbolinks:load", function() {
     $("#drawing-mode-button-wrapper").removeClass("hidden");
     $("#drawing-mode-label").removeClass("hidden");
     $("#drawing-mode-button-off-wrapper").addClass("hidden");
+    $("#filter-wrapper").removeClass("hidden");
     $("#drawing-line-width").val("2");
     $("#line-width-value").html("2");
     $("#drawing-color").val("#FFFFFF");
@@ -457,12 +458,14 @@ $(document).on("turbolinks:load", function() {
       canvas.freeDrawingBrush.width = parseInt(drawLineWidth.val(), 10) || 2;
       $("#drawing-mode-button-wrapper").addClass("hidden");
       $("#drawing-mode-label").addClass("hidden");
+      $("#filter-wrapper").addClass("hidden");
       $("#drawing-mode-button-off-wrapper").removeClass("hidden");
     } else {
       $("#text-input").removeClass("hidden");
       $("#free-draw-options").addClass("hidden");
       $("#drawing-mode-button-wrapper").removeClass("hidden");
       $("#drawing-mode-label").removeClass("hidden");
+      $("#filter-wrapper").removeClass("hidden");
       $("#drawing-mode-button-off-wrapper").addClass("hidden");
     }
   });
@@ -475,6 +478,7 @@ $(document).on("turbolinks:load", function() {
     $("#free-draw-options").addClass("hidden");
     $("#drawing-mode-button-wrapper").removeClass("hidden");
     $("#drawing-mode-label").removeClass("hidden");
+    $("#filter-wrapper").removeClass("hidden");
     $("#drawing-mode-button-off-wrapper").addClass("hidden");
   });
   

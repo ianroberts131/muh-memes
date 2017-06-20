@@ -42,7 +42,7 @@ $(function() {
       <p>
         Tags: <%= raw @meme.tag_list.map { |tag| link_to tag, root_path(:search => tag) }.join(", ") %>
       </p>
-      <div><%= image_tag @meme.image.url if @meme.image? %></div>
+      <div><%= image_tag(@meme.image.url, :id => "meme-show-image") if @meme.image? %></div>
       <ul class="meme-option-buttons">
         <% if current_user?(@user) %>
           <li id='meme-delete-button' class="col-xs-4 meme-option">

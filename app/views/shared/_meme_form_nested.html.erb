@@ -83,18 +83,7 @@
       </div>
       <div class="hidden" id="free-draw-options">
         <div class="row">
-          <div class="col-xs-6">
-            <label>Line width:</label>
-            <span id="line-width-value">2</span>
-            <input type="range" value="2" min="0" max="30" id="drawing-line-width">
-          </div>
-          <div class="col-xs-6">
-            <label>Line color:</label>
-            <span><input type="color" value="#FFFFFF" id="drawing-color"></span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
+          <div class="col-xs-4">
             <label>Mode: </label>
             <select id="drawing-mode-selector" class="form-control input-sm" val="Pencil">
               <option>Pencil</option>
@@ -107,18 +96,14 @@
               <option>Diamond</option>
             </select>
           </div>
-          <div class="col-xs-6">
-            <label>Filter: </label>
-            <select id="drawing-mode-filter" class="form-control input-sm" val="None">
-              <option>None</option>
-              <option>Grayscale</option>
-              <option>Sharpen</option>
-              <option>Emboss</option>
-              <option>Invert</option>
-              <option>Sepia</option>
-              <option>Sepia2</option>
-              <option>Blur</option>
-            </select>
+          <div class="col-xs-4">
+            <label>Line width:</label>
+            <span id="line-width-value">2</span>
+            <input type="range" value="2" min="0" max="30" id="drawing-line-width">
+          </div>
+          <div class="col-xs-4">
+            <label>Line color:</label>
+            <span><input type="color" value="#FFFFFF" id="drawing-color"></span>
           </div>
         </div>
         <div class="row" id="object-select-buttons">
@@ -130,9 +115,24 @@
           </div>
         </div>
       </div>
-      <label id="drawing-mode-label">Drawing Mode!</label>
-      <div class="col-xs-12" id="drawing-mode-button-wrapper">
-        <button type="button" id="draw-mode-button"><img src="/assets/pencil-horizontal" id="pencil"/></button>
+      <div class="row">
+        <div class="col-xs-6" id="drawing-mode-button-wrapper">
+          <label id="drawing-mode-label">Drawing Mode!</label>
+          <button type="button" id="draw-mode-button"><img src="/assets/pencil-horizontal" id="pencil"/></button>
+        </div>
+        <div class="col-xs-6" id="filter-wrapper">
+          <label>Filter: </label>
+          <select id="drawing-mode-filter" class="form-control input-sm" val="None">
+            <option>None</option>
+            <option>Grayscale</option>
+            <option>Sharpen</option>
+            <option>Emboss</option>
+            <option>Invert</option>
+            <option>Sepia</option>
+            <option>Sepia2</option>
+            <option>Blur</option>
+          </select>
+        </div>
       </div>
       <div class="hidden col-xs-12" id="drawing-mode-button-off-wrapper">
         <button type="button" class="btn btn-info btn-sm col-xs-6" id="draw-mode-button-off">Exit drawing mode</button>

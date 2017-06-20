@@ -554,11 +554,15 @@ input, textarea, select, .uneditable-input {
 
 #drawing-mode-button-wrapper, #drawing-mode-button-off-wrapper {
   margin-top: 1%;
-  float: none;
+  // float: none;
 }
 
 #drawing-mode-button-off-wrapper {
   margin-bottom: 1%;
+}
+
+#drawing-mode-label {
+  padding: 5px;
 }
 
 #draw-mode-button {
@@ -579,7 +583,7 @@ input, textarea, select, .uneditable-input {
 }
 
 #pencil {
-  width: 40%;
+  width: 75%;
 }
 
 #object-select-buttons {
@@ -616,6 +620,10 @@ input, textarea, select, .uneditable-input {
 }
 
 /* Meme Show Page */
+
+#meme-show-image {
+  max-width: 100%;
+}
 
 #share-button-container {
   border-top: 1px solid rgb(191, 191, 191);
