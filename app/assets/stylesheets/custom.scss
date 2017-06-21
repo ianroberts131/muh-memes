@@ -361,10 +361,10 @@ input, textarea, select, .uneditable-input {
   height: 100%;
 }
 
+
+
 .meme-alteration {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  
   text-align: center;
   border-left: 1px solid rgb(191, 191, 191);
 }
@@ -373,6 +373,14 @@ input, textarea, select, .uneditable-input {
   height: 92.5%;
   position: relative;
   padding-left: 5%;
+}
+
+@media only screen and (min-width: 992px) {
+ .meme-alteration {
+   position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+ }
 }
 
 @media only screen and (max-width: 992px) {
