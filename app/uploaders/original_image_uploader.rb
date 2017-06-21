@@ -2,6 +2,7 @@
 
 class OriginalImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
+    process :auto_orient
     resize_to_limit(400,400)
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -62,6 +63,12 @@ class OriginalImageUploader < CarrierWave::Uploader::Base
       @image ||= MiniMagick::Image.open(self.url)
     else
       @image ||= MiniMagick::Image.open(model.send(mounted_as).path)
+    end
+  end
+  
+  def auto_orient
+    manipulate! do |image|
+      image.tap(&:auto_orient)
     end
   end
   
