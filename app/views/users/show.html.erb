@@ -67,15 +67,23 @@
       
       <ul class="memes-list center">
         <% if current_user?(@user) %>
-          <%= render @search_memes %>
+          <% unless @search_memes == nil %>
+            <%= render @search_memes %>
+          <% end %>
         <% else %>
-          <%= render @public_memes %>
+          <% unless @search_memes == nil %>
+            <%= render @public_memes %>
+          <% end %>
         <% end %>
       </ul>
       <% if current_user?(@user) %>
-        <%= will_paginate @search_memes %>
+        <% unless @search_memes == nil %>
+          <%= will_paginate @search_memes %>
+        <% end %>
       <% else %>
-        <%= will_paginate @public_memes %>
+        <% unless @public_memes == nil %>
+          <%= will_paginate @public_memes %>
+        <% end %>
       <% end %>
     <% end %>
   </div>
