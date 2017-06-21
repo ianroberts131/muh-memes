@@ -849,7 +849,7 @@ $(document).on("turbolinks:load", function() {
   function resizeImage(image) {
     var windowWidth = $(window).width();
     if (windowWidth < MAX_WIDTH) { MAX_WIDTH = windowWidth - 30 };
-    if (image.width > image.height) {
+    if (image.width >= image.height) {
       if (image.width > MAX_WIDTH) {
           image.height *= MAX_WIDTH / image.width;
           image.width = MAX_WIDTH;
