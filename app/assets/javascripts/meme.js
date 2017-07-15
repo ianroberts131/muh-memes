@@ -223,13 +223,14 @@ $(document).on("turbolinks:load", function() {
       var optionExists = false;
       // Iterate over each option to determine where to add the input
       for (var i = 0; i < listOptionArray.length; i++) {
-        if (topSelectValue === 1 * listOptionArray[i].innerHTML) {
+        if (topSelectValue === listOptionArray[i].innerHTML) {
+          console.log("The item to be entered is: ", listOptionArray[i].innerHTML)
           optionExists = true;
           break;
         }
-        if (topSelectValue < 1 * listOptionArray[i].innerHTML) {
+        if (Number(topSelectValue) < Number(listOptionArray[i].innerHTML)) {
           index = i;
-          break;
+          break
         }
         index = i + 1;
       }
@@ -269,11 +270,11 @@ $(document).on("turbolinks:load", function() {
       var optionExists = false;
       // Iterate over each option to determine where to add the input
       for (var i = 0; i < listOptionArray.length; i++) {
-        if (bottomSelectValue === 1 * listOptionArray[i].innerHTML) {
+        if (bottomSelectValue === listOptionArray[i].innerHTML) {
           optionExists = true;
           break;
         }
-        if (bottomSelectValue < 1 * listOptionArray[i].innerHTML) {
+        if (Number(bottomSelectValue) < Number(listOptionArray[i].innerHTML)) {
           index = i;
           break;
         }
