@@ -753,6 +753,7 @@ $(document).on("turbolinks:load", function() {
       } else {
         resizeImage(imgObject)
       }
+      imgObject.crossOrigin = 'anonymous';
       var image = new fabric.Image(imgObject);
       var left = 0;
       var top = 0;
