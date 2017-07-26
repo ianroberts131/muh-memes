@@ -22,7 +22,7 @@ $(function() {
       <p>
         Uploaded by: <%= link_to @user.name, user_path(@user) %>
       </p>
-      <div><%= image_tag @original_image.original_image.url, :id => "original-image-show-image" %></div>
+      <div><%= image_tag @original_image.original_image.url, :id => "original-image-show-image", :crossorigin => "anonymous" %></div>
       <% if current_user == @user %>
         <ul id="original-image-options">
           <li id="original-image-delete-button" class="col-xs-6">
