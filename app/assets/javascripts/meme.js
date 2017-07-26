@@ -137,17 +137,22 @@ $(document).on("turbolinks:load", function() {
     $("#meme_tag_list").val("");
     $("#meme-private-checkbox").attr('checked', false);
     $('.meme-alteration').removeClass('disable-div');
-    if ($(".original_images.show").length != 0) {
-      url = document.getElementById("original-image-show-image").src;
-    } else if ($(".memes.show").length != 0) {
-      url = $("#meme-this").data('original-image');
-    }
+    // test using just the data in the original image show & the meme show
+    url = $("#meme-this").data('original-image');
+    // if ($(".original_images.show").length != 0) {
+    //   url = document.getElementById("original-image-show-image").src;
+    //   console.log("I am in the original images section!")
+    //   console.log("The url is: ", url)
+    // } else if ($(".memes.show").length != 0) {
+    //   url = $("#meme-this").data('original-image');
+    //   console.log("I am in the meme show section!")
+    //   console.log("The url is: ", url)
+    // }
     var image = fabric.Image.fromURL(url, function(oImg) {
       resizeImage(oImg);
       canvas.setWidth(oImg.width);
       canvas.setHeight(oImg.height);
       oImg.selectable = false;
-      oImg.crossOrigin = "Anonymous";
       canvas.add(oImg);
       canvas.sendToBack(image);
       createTopTextBox("Enter Top Text...");
@@ -225,7 +230,6 @@ $(document).on("turbolinks:load", function() {
       // Iterate over each option to determine where to add the input
       for (var i = 0; i < listOptionArray.length; i++) {
         if (topSelectValue === listOptionArray[i].innerHTML) {
-          console.log("The item to be entered is: ", listOptionArray[i].innerHTML)
           optionExists = true;
           break;
         }
