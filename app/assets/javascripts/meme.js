@@ -29,20 +29,22 @@ $(document).on("turbolinks:load", function() {
   // Function that limits textbox to within canvas
   canvas.on('object:moving', function(e) {
     var obj = e.target;
-     // if object is too big ignore
-    if(obj.currentHeight >= canvas.height || obj.currentWidth >= canvas.width){
-        return;
-    }        
-    obj.setCoords();        
-    // top-left  corner
-    if(obj.top < 0 || obj.left < 0){
-        obj.top = Math.max(obj.top, 0);
-        obj.left = Math.max(obj.left, 0);
-    }
-    // bot-right corner
-    if(obj.top+obj.height  > obj.canvas.height || obj.left+obj.width  > canvas.width){
-        obj.top = Math.min(obj.top, canvas.height-obj.height);
-        obj.left = Math.min(obj.left, canvas.width-obj.width);
+    if (obj == textBoxTop || obj == textBoxBottom) {
+       // if object is too big ignore
+      if(obj.currentHeight >= canvas.height || obj.currentWidth >= canvas.width){
+          return;
+      }        
+      obj.setCoords();        
+      // top-left  corner
+      if(obj.top < 0 || obj.left < 0){
+          obj.top = Math.max(obj.top, 0);
+          obj.left = Math.max(obj.left, 0);
+      }
+      // bot-right corner
+      if(obj.top+obj.height  > obj.canvas.height || obj.left+obj.width  > canvas.width){
+          obj.top = Math.min(obj.top, canvas.height-obj.height);
+          obj.left = Math.min(obj.left, canvas.width-obj.width);
+      }
     }
   });
   
@@ -53,20 +55,22 @@ $(document).on("turbolinks:load", function() {
   
   canvas.on('object:scaling', function(e) {
     var obj = e.target;
-
-    // if object is too big ignore
-    if(obj.currentHeight >= canvas.height || obj.currentWidth >= canvas.width){
-        return;
-    }        
-    obj.setCoords();
-    // top-left corner
-    if(obj.left < 0){
-      obj.left = 0;
-      obj.lockScalingX = true;
-    }
-    // bot-right corner
-    if(obj.left+obj.width >= canvas.width){
-        obj.width = canvas.width - obj.left;
+    
+    if (obj == textBoxTop || obj == textBoxBottom) {
+      // if object is too big ignore
+      if(obj.currentHeight >= canvas.height || obj.currentWidth >= canvas.width){
+          return;
+      }        
+      obj.setCoords();
+      // top-left corner
+      if(obj.left < 0){
+        obj.left = 0;
+        obj.lockScalingX = true;
+      }
+      // bot-right corner
+      if(obj.left+obj.width >= canvas.width){
+          obj.width = canvas.width - obj.left;
+      }
     }
   })
   
@@ -137,13 +141,7 @@ $(document).on("turbolinks:load", function() {
     $("#meme_tag_list").val("");
     $("#meme-private-checkbox").attr('checked', false);
     $('.meme-alteration').removeClass('disable-div');
-    // test using just the data in the original image show & the meme show
     url = $("#meme-this").data('original-image');
-    // if ($(".original_images.show").length != 0) {
-    //   url = document.getElementById("original-image-show-image").src;
-    // } else if ($(".memes.show").length != 0) {
-    //   url = $("#meme-this").data('original-image');
-    // }
     var image = fabric.Image.fromURL(url, function(oImg) {
       resizeImage(oImg);
       canvas.setWidth(oImg.width);
