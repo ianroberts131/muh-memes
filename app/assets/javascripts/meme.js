@@ -139,15 +139,15 @@ $(document).on("turbolinks:load", function() {
     $('.meme-alteration').removeClass('disable-div');
     // test using just the data in the original image show & the meme show
     url = $("#meme-this").data('original-image');
-    // if ($(".original_images.show").length != 0) {
+    if ($(".original_images.show").length != 0) {
     //   url = document.getElementById("original-image-show-image").src;
-    //   console.log("I am in the original images section!")
-    //   console.log("The url is: ", url)
-    // } else if ($(".memes.show").length != 0) {
+      console.log("I am in the original images section!")
+      console.log("The url is: ", url)
+    } else if ($(".memes.show").length != 0) {
     //   url = $("#meme-this").data('original-image');
-    //   console.log("I am in the meme show section!")
-    //   console.log("The url is: ", url)
-    // }
+      console.log("I am in the meme show section!")
+      console.log("The url is: ", url)
+    }
     var image = fabric.Image.fromURL(url, function(oImg) {
       resizeImage(oImg);
       canvas.setWidth(oImg.width);
