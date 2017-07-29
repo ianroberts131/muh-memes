@@ -138,34 +138,38 @@
       <div class="hidden col-xs-12" id="drawing-mode-button-off-wrapper">
         <button type="button" class="btn btn-info btn-sm col-xs-10 col-sm-8" id="draw-mode-button-off">Exit drawing mode</button>
       </div>
-      <div class="col-xs-12" id="tags-and-private">
-        <div id="private-checkbox">
-          <%= f.check_box :private, class: "check-box", id: "meme-private-checkbox" %>
-          <%= f.label "private meme?" %>
+      <% if logged_in? %>
+        <div class="col-xs-12" id="tags-and-private">
+          <div id="private-checkbox">
+            <%= f.check_box :private, class: "check-box", id: "meme-private-checkbox" %>
+            <%= f.label "private meme?" %>
+          </div>
+          <div id="tag-input" class="form-group form-group-sm">
+            <%= f.label :tag_list, "Tags (separated by commas)" %>
+            <%= f.text_field :tag_list, class: "form-control" %>
+          </div>
         </div>
-        <div id="tag-input" class="form-group form-group-sm">
-          <%= f.label :tag_list, "Tags (separated by commas)" %>
-          <%= f.text_field :tag_list, class: "form-control" %>
+        <div class="col-xs-12" id="submit-buttons">
+          <% if @original_image %>
+            <div class="col-xs-6 col-xs-offset-3">
+              <% if !@meme.original_image_id.nil? %>
+                <%= f.hidden_field :original_image_id %>
+              <% end %>
+              <p><%= f.submit "Meme it!", class: "btn btn-primary"%></p>
+            </div>
+          <% else %>
+            <div class="col-md-6">
+              <%= submit_tag "Start over", type: "button", class: "btn btn-danger", id: "start-over-button" %>
+            </div>
+            <div class="col-md-6">
+              <p><%= f.submit "Meme it!", class: "btn btn-primary"%></p>
+            </div>
+          <% end %>
         </div>
-      </div>
-      <div class="col-xs-12" id="submit-buttons">
-        <% if @original_image %>
-          <div class="col-xs-6 col-xs-offset-3">
-            <% if !@meme.original_image_id.nil? %>
-              <%= f.hidden_field :original_image_id %>
-            <% end %>
-            <p><%= f.submit "Meme it!", class: "btn btn-primary"%></p>
-          </div>
-        <% else %>
-          <div class="col-md-6">
-            <%= submit_tag "Start over", type: "button", class: "btn btn-danger", id: "start-over-button" %>
-          </div>
-          <div class="col-md-6">
-            <p><%= f.submit "Meme it!", class: "btn btn-primary"%></p>
-          </div>
-        <% end %>
-      </div>
-      
+      <% else %>
+      <p>Have an account? <%= link_to "Log in", login_path %> to save a meme!</p>
+      <p>Not a member yet? <%= link_to "Sign up now!", signup_path %></p>
+      <% end %>
     </div>
   </div>
 <% end %>

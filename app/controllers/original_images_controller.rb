@@ -1,6 +1,6 @@
 class OriginalImagesController < ApplicationController
   require 'mini_magick'
-  before_action :logged_in_user, only: [:show, :create, :update, :destroy]
+  before_action :logged_in_user, only: [:create, :update, :destroy]
   
   def index
     @original_images = OriginalImage.left_joins(:memes)
