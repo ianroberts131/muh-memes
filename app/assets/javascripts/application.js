@@ -21,6 +21,7 @@
 //= require exif
 //= require jquery-editable-select.min
 //= require userEdit
+//= require google_analytics
 //= require turbolinks
 //= require turbolinks-compatibility
 
