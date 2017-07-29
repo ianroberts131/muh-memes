@@ -28,6 +28,7 @@ gem 'acts-as-taggable-on',      '~> 4.0'
 gem 'sunspot_rails'
 gem 'rails_12factor'
 gem 'friendly_id'
+gem 'mail_form',                '~> 1.7.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.12'
