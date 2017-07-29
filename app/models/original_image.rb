@@ -3,7 +3,7 @@ class OriginalImage < ApplicationRecord
   has_many :memes
   accepts_nested_attributes_for :memes
   mount_uploader :original_image, OriginalImageUploader
-  # validate :image_size
+  validates :original_image, presence: true
   
   private
   
