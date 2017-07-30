@@ -426,9 +426,9 @@ $(document).on("turbolinks:load", function() {
     document.getElementById("bottom-text").value = ""
     document.getElementById("bottom-text").placeholder = "Enter Bottom Text..."
     document.getElementById('bottom-color').value = '#ffffff';
-    document.getElementById('top-font-size-select').value = 26;
+    document.getElementById('top-font-size-select').value = 36;
     document.getElementById('top-font-style-select').value = "Impact-Outline";
-    document.getElementById('bottom-font-size-select').value = 26;
+    document.getElementById('bottom-font-size-select').value = 36;
     document.getElementById('bottom-font-style-select').value = "Impact-Outline";
     $('#image-upload').filestyle('clear');
     $('#upload-area').removeClass('hidden');
