@@ -3,8 +3,13 @@
 <p>Hi <%= @user.name %></p>
 
 <p>
-  Welcom to Muh Memes! Click on the link below to activate your account:
+  Welcome to Muh Memes! Click on the link below to activate your account:
 </p>
 
-<%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
+<h3><%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %></h3>
+
+<br>
+<div> 
+  <%= image_tag("captain-picard-excited.png", :alt => "captain picard excited", :id => "email-meme") %>
+</div>
 

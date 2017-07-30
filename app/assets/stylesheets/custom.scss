@@ -44,6 +44,7 @@ p {
   line-height: 1.7em;
 }
 
+
 /* header */
 
 #logo {
@@ -703,7 +704,26 @@ input, textarea, select, .uneditable-input {
 }
 
 #sign-up-header {
+  padding-top: 16px;
+  padding-left: 0px;
+  padding-right: 0px;
   margin-bottom: 2.5%;
+}
+
+#home-page-demo {
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  max-height: 50vh;
+}
+
+#demo-wrapper {
+  background: #d3d3d3;
+  // border-top: 2px solid rgb(191, 191, 191);
+  // border-bottom: 2px solid rgb(191, 191, 191);
+  margin-top: 2.5%;
 }
 
 #home-page-panda {
