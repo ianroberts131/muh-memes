@@ -1,6 +1,6 @@
 $(document).on("turbolinks:load", function() {
   // Make sure this javascript file only loads on the users show, original image show, or memes show pages
-  if(($(".users.show").length === 0) && ($(".original_images.show").length === 0) && ($(".memes.show").length === 0)) {
+  if(($(".users.show").length === 0) && ($(".original_images.show").length === 0) && ($(".memes.show").length === 0) && ($(".static_pages.quick_meme").length === 0)) {
     return;
   }
   

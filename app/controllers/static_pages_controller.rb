@@ -41,4 +41,7 @@ class StaticPagesController < ApplicationController
   def about
   end
   
+  def quick_meme
+  end
+  
 end

@@ -3,6 +3,8 @@
     <h1>Muh Memes</h1>
     <p>A community for creating, saving, and sharing memes!</p>
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+    <br>
+    <p id="quick-meme-stmt">Not ready to sign up? Try a <%= link_to "quick meme", quick_meme_path %>!</p>
     <div class="center" id="demo-wrapper">
       <%= image_tag("muh-memes-demo.gif", :alt => "demo", :id => "home-page-demo") %>
     </div>
