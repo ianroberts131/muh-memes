@@ -26,7 +26,7 @@ class OriginalImagesController < ApplicationController
     if @original_image.save
       flash[:success] = "Meme created!"
     else
-      flash[:danger] = "Meme failed to be created"
+      flash[:danger] = "Meme failed to be created. Safari less than 10.1, Internet Explorer less than 11, and Firefox less than 52 are not supported for meme creation."
     end
     redirect_to user_url(current_user)
   end

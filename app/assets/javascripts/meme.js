@@ -100,15 +100,16 @@ $(document).on("turbolinks:load", function() {
     e.stopPropagation();
     // remove effect from dragover event
     $("#upload-area").removeClass('dragover');
-      reader.onload = function(event) {
-        $('#upload-area').addClass('hidden');
-        $('#canvas-area').removeClass('hidden');
-        $('.meme-alteration').removeClass('disable-div');
-        drawImage(reader.result);
-        canvas.renderAll();
-      }
-      files = e.dataTransfer.files[0];
-      reader.readAsDataURL(files);
+    reader.onload = function(event) {
+      $('#upload-area').addClass('hidden');
+      $('#canvas-area').removeClass('hidden');
+      $('.meme-alteration').removeClass('disable-div');
+      drawImage(reader.result);
+      canvas.renderAll();
+    }
+      $("#image-upload")[0].files = e.dataTransfer.files
+      // reader.readAsDataURL(e.dataTransfer.files[0]);
+      
   })
   
   // Click File Upload
